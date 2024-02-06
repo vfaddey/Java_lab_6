@@ -16,7 +16,8 @@ public class Main {
             ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager, new Validator());
             LinkedList<Organization> collection = FileManager.readCollectionFromCSV(filename);
             CollectionManager collectionManager = new CollectionManager(collection, filename, consoleHandler);
-            commandManager.addCommands(new Add("add", collectionManager),
+            commandManager.addCommands(
+                    new Add("add", collectionManager),
                     new Clear("clear", collectionManager),
                     new Save("save", collectionManager),
                     new Show("show", collectionManager),

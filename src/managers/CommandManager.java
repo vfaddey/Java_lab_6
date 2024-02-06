@@ -2,6 +2,8 @@ package managers;
 
 import commands.Command;
 import exceptions.CommandNotExistsException;
+import exceptions.ElementNotFoundException;
+import exceptions.IncorrectFilenameException;
 import exceptions.WrongParameterException;
 import interfaces.CommandWithParameters;
 
@@ -25,11 +27,12 @@ public class CommandManager {
             }
         }
     }
-    public void exec(String commandName, String[] parameters) throws WrongParameterException {
+    public void exec(String commandName, String[] parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException {
         for (Command command : commands) {
             if (command instanceof CommandWithParameters) {
                 if (command.getNameInConsole().equals(commandName)) {
-                    ((CommandWithParameters) command).execute(parameters);
+                        ((CommandWithParameters) command).execute(parameters);
+
                 }
             }
         }

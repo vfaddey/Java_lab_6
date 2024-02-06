@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.ElementNotFoundException;
 import exceptions.WrongParameterException;
 import interfaces.CommandWithParameters;
 import managers.CollectionManager;
@@ -10,12 +11,14 @@ public class RemoveById extends Command implements CommandWithParameters {
     }
 
     @Override
-    public void execute(String... parameters) throws WrongParameterException {
-        if (parameters[0].isEmpty()) throw new WrongParameterException("Параметр пуст");
+    public void execute(String... parameters) throws WrongParameterException, ElementNotFoundException {
+        if (parameters[0].isEmpty()) throw new WrongParameterException("Параметр пуст.");
         try {
             collectionManager.getCollection().remove(collectionManager.getElementById(Long.parseLong(parameters[0])));
         } catch (NumberFormatException e) {
-            throw new WrongParameterException("Параметр введен неверно");
+            throw new WrongParameterException("Параметр введен неверно.");
+        } catch (ElementNotFoundException e) {
+            collectionManager.getConsoleHandler().printError(e.toString());
         }
 
     }

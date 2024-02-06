@@ -14,9 +14,9 @@ public class Help extends Command implements CommandWithoutParameters {
     @Override
     public void execute() {
         HashSet<Command> commands = collectionManager.getConsoleHandler().getCommandManager().getCommands();
-        System.out.println("Все доступные команды:");
+        collectionManager.getConsoleHandler().print("Все доступные команды:");
         for (Command command : commands) {
-            System.out.println(command.getNameInConsole() + " | " + command.getDescription());
+            collectionManager.getConsoleHandler().print(command.getNameInConsole() + " | " + command.getDescription());
         }
     }
 }

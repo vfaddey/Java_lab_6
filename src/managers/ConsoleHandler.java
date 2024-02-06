@@ -4,9 +4,12 @@ import commands.Add;
 import commands.Command;
 import commands.Help;
 import exceptions.CommandNotExistsException;
+import exceptions.ElementNotFoundException;
+import exceptions.IncorrectFilenameException;
 import exceptions.WrongParameterException;
 import model.*;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -36,12 +39,11 @@ public class ConsoleHandler {
                 } else commandManager.exec(commandName);
 
             }
-        } catch (CommandNotExistsException e) {
-            System.out.println("Ошибка: " + e.toString());
+        } catch (CommandNotExistsException | ElementNotFoundException | WrongParameterException |
+                 IncorrectFilenameException e) {
+            printError(e.toString());
             commandManager.exec("help");
             listen();
-        } catch (WrongParameterException e) {
-            System.out.println("Ошибка: " + e.toString());
         }
     }
 
@@ -104,6 +106,27 @@ public class ConsoleHandler {
         long z = Long.parseLong(loc.split(" ")[2]);
         response = new Address(zipCode, new Location(x,y,z));
         return response;
+    }
+
+    public String askWhatToChange() {
+        System.out.println("Выберите, что Вы хотите поменять и укажите соответствующие номера характеристик через пробел: ");
+        Field[] fields = Organization.class.getDeclaredFields();
+        for (int i = 1; i <= fields.length; i++) {
+            System.out.println(i + ") " + fields[i-1].getName());
+        }
+        return scanner.nextLine();
+    }
+
+    public void print(String str) {
+        System.out.println(str);
+    }
+
+    public void printAdvice(String advice) {
+        System.out.println("Совет: " + advice);
+    }
+
+    public void printError(String message) {
+        System.out.println("Ошибка: " + message);
     }
 
     public Scanner getScanner() {

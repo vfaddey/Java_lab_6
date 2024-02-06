@@ -31,8 +31,7 @@ public class CollectionManager {
                 organizationTypeRequest(),
                 officialAddressRequest());
         collection.add(organization);
-        System.out.println("Коллекция создана!");
-        System.out.println(organization);
+        consoleHandler.print("Элемент коллекции создан!");
     }
 
     private String nameRequest() {
@@ -63,12 +62,15 @@ public class CollectionManager {
     public LinkedList<Organization> getCollection() {
         return collection;
     }
+    public void clearCollection() {
+        this.collection.clear();
+    }
 
     public String getCollectionFilename() {
         return collectionFilename;
     }
 
-    public Organization getElementById(long id) {
+    public Organization getElementById(long id) throws ElementNotFoundException {
         for (Organization organization : collection) {
             if (organization.getId() == id) return organization;
         }

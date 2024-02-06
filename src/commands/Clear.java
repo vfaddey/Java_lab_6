@@ -10,6 +10,6 @@ public class Clear extends Command implements CommandWithoutParameters {
 
     @Override
     public void execute() {
-        collectionManager.getCollection().clear();
+        collectionManager.clearCollection();
     }
 }
