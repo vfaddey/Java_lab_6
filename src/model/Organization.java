@@ -13,11 +13,11 @@ public class Organization {
     private OrganizationType type; //Поле не может быть null
     private Address officialAddress; //Поле может быть null
 
-    public Organization(Long id, String name, Coordinates coordinates, Long annualTurnover, Integer employeesCount, OrganizationType type, Address officialAddress) {
+    public Organization(Long id, String name, Coordinates coordinates, LocalDate creationDate, Long annualTurnover, Integer employeesCount, OrganizationType type, Address officialAddress) {
         this.id = id;
         this.name = name;
         this.coordinates = coordinates;
-        this.creationDate = LocalDate.now();
+        this.creationDate = creationDate;
         this.annualTurnover = annualTurnover;
         this.employeesCount = employeesCount;
         this.type = type;
@@ -54,5 +54,19 @@ public class Organization {
 
     public Address getOfficialAddress() {
         return officialAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", coordinates=" + coordinates +
+                ", creationDate=" + creationDate +
+                ", annualTurnover=" + annualTurnover +
+                ", employeesCount=" + employeesCount +
+                ", type=" + type +
+                ", officialAddress=" + officialAddress +
+                '}';
     }
 }

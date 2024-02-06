@@ -1,0 +1,4 @@
+id,name,coordinatesX,coordinatesY,creationDate,annualTurnover,employeesCount,type,zipCode,locationX,locationY,locationZ
+23,google,34,48,2007-12-03,566666,5,1,calif,21.0,12.0,21
+234,yandex,242,54354535,2024-02-06,5637346,23,0,moscowcity,23.0,54.0,23
+1120308163051739136,amazon,34,65,2024-02-06,56348754356,600,0,NY,34.565,45.222,54
