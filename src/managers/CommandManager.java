@@ -2,6 +2,8 @@ package managers;
 
 import commands.Command;
 import exceptions.CommandNotExistsException;
+import exceptions.WrongParameterException;
+import interfaces.CommandWithParameters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +25,14 @@ public class CommandManager {
             }
         }
     }
-    public void exec(String commandName, String[] parameters) {
-
+    public void exec(String commandName, String[] parameters) throws WrongParameterException {
+        for (Command command : commands) {
+            if (command instanceof CommandWithParameters) {
+                if (command.getNameInConsole().equals(commandName)) {
+                    ((CommandWithParameters) command).execute(parameters);
+                }
+            }
+        }
     }
 
     public HashSet<String> getConsoleCommandsNames() {

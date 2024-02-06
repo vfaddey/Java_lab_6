@@ -4,6 +4,7 @@ import commands.Add;
 import commands.Command;
 import commands.Help;
 import exceptions.CommandNotExistsException;
+import exceptions.WrongParameterException;
 import model.*;
 
 import java.util.Arrays;
@@ -27,7 +28,7 @@ public class ConsoleHandler {
                 String commandName = command[0];
                 if (command.length > 1) {
                     String[] parameters = command[1].split(" ");
-                    if (parameters.length >= 1 && parameters[0].equals(" ")) {
+                    if (parameters.length >= 1 && parameters[0].isEmpty()) {
                         commandManager.exec(commandName);
                     } else if (parameters.length >= 1) {
                         commandManager.exec(commandName, parameters);
@@ -39,6 +40,8 @@ public class ConsoleHandler {
             System.out.println("Ошибка: " + e.toString());
             commandManager.exec("help");
             listen();
+        } catch (WrongParameterException e) {
+            System.out.println("Ошибка: " + e.toString());
         }
     }
 

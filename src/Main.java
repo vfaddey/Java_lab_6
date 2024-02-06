@@ -20,7 +20,9 @@ public class Main {
                     new Clear("clear", collectionManager),
                     new Save("save", collectionManager),
                     new Show("show", collectionManager),
-                    new Help("help", collectionManager));
+                    new Help("help", collectionManager),
+                    new Exit("exit"),
+                    new RemoveById("remove_by_id", collectionManager));
             consoleHandler.listen();
 
 
