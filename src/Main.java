@@ -23,7 +23,8 @@ public class Main {
                     new Show("show", collectionManager),
                     new Help("help", collectionManager),
                     new Exit("exit"),
-                    new RemoveById("remove_by_id", collectionManager));
+                    new RemoveById("remove_by_id", collectionManager),
+                    new Update("update", collectionManager));
             consoleHandler.listen();
 
 

@@ -7,7 +7,7 @@ import model.Organization;
 public class Show extends Command implements CommandWithoutParameters {
 
     public Show(String consoleName, CollectionManager collectionManager) {
-        super(consoleName, collectionManager, "Выводит коллекцию");
+        super(consoleName, collectionManager, "Выводит коллекцию", "");
     }
 
     @Override
