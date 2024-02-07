@@ -17,6 +17,7 @@ public abstract class Command {
         this.nameInConsole = nameInConsole;
         this.collectionManager = collectionManager;
         this.description = description;
+        this.successPhrase = successPhrase;
     }
 
     protected void printSuccess() {

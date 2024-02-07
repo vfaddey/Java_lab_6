@@ -31,7 +31,6 @@ public class CollectionManager {
                 organizationTypeRequest(),
                 officialAddressRequest());
         collection.add(organization);
-        consoleHandler.print("Элемент коллекции создан!");
     }
 
     public String nameRequest() {
