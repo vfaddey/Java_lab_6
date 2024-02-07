@@ -70,35 +70,4 @@ public class Organization {
                 '}';
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public void setAnnualTurnover(Long annualTurnover) {
-        this.annualTurnover = annualTurnover;
-    }
-
-    public void setEmployeesCount(Integer employeesCount) {
-        this.employeesCount = employeesCount;
-    }
-
-    public void setType(OrganizationType type) {
-        this.type = type;
-    }
-
-    public void setOfficialAddress(Address officialAddress) {
-        this.officialAddress = officialAddress;
-    }
 }
