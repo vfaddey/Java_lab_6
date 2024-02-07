@@ -34,28 +34,28 @@ public class CollectionManager {
         consoleHandler.print("Элемент коллекции создан!");
     }
 
-    private String nameRequest() {
+    public String nameRequest() {
         return consoleHandler.askName();
     }
 
-    private Coordinates coordinatesRequest() {
+    public Coordinates coordinatesRequest() {
         return consoleHandler.askCoordinates();
     }
 
-    private long annualTurnoverRequest() {
+    public long annualTurnoverRequest() {
         return consoleHandler.askAnnualTurnover();
     }
 
-    private int employeesCountRequest() {
+    public int employeesCountRequest() {
         return consoleHandler.askEmployeesCount();
     }
 
-    private OrganizationType organizationTypeRequest() {
+    public OrganizationType organizationTypeRequest() {
         String response = consoleHandler.askOrganizationType();
         return OrganizationType.values()[Integer.parseInt(response)-1];
     }
 
-    private Address officialAddressRequest() {
+    public Address officialAddressRequest() {
         return consoleHandler.askOfficialAddress();
     }
 
@@ -75,6 +75,15 @@ public class CollectionManager {
             if (organization.getId() == id) return organization;
         }
         throw new ElementNotFoundException("Элемента с таким id не существует");
+    }
+
+    public void setElementById(long id, Organization element) {
+        for (int i = 0; i < collection.size(); i++) {
+            if (collection.get(i).getId() == id) {
+                collection.set(i, element);
+                break;
+            }
+        }
     }
 
     public ConsoleHandler getConsoleHandler() {

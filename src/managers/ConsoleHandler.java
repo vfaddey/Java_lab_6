@@ -10,7 +10,9 @@ import exceptions.WrongParameterException;
 import model.*;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleHandler {
@@ -111,8 +113,16 @@ public class ConsoleHandler {
     public String askWhatToChange() {
         System.out.println("Выберите, что Вы хотите поменять и укажите соответствующие номера характеристик через пробел: ");
         Field[] fields = Organization.class.getDeclaredFields();
-        for (int i = 1; i <= fields.length; i++) {
-            System.out.println(i + ") " + fields[i-1].getName());
+        List<Field> filteredFields = new ArrayList<>();
+
+        for (Field field : fields) {
+            if (!field.getName().equals("id") && !field.getName().equals("creationDate")) {
+                filteredFields.add(field);
+            }
+        }
+        Field[] resultingArray = filteredFields.toArray(new Field[0]);
+        for (int i = 1; i <= resultingArray.length; i++) {
+            System.out.println(i + ") " + resultingArray[i-1].getName());
         }
         return scanner.nextLine();
     }
