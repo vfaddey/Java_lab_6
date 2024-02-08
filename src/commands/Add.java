@@ -4,8 +4,8 @@ import interfaces.CommandWithoutParameters;
 import managers.CollectionManager;
 
 public class Add extends Command implements CommandWithoutParameters {
-    public Add(String consoleName, CollectionManager collectionManager) {
-        super(consoleName, collectionManager, "Добавить новую организацию в коллекцию", "Новый элемент добавлен!");
+    public Add(String consoleName) {
+        super(consoleName, "Добавить новую организацию в коллекцию", "Новый элемент добавлен!");
     }
 
     @Override

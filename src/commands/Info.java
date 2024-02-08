@@ -4,8 +4,8 @@ import interfaces.CommandWithoutParameters;
 import managers.CollectionManager;
 
 public class Info extends Command implements CommandWithoutParameters {
-    public Info(String consoleName, CollectionManager collectionManager) {
-        super(consoleName, collectionManager, "Вывести информацию о коллекции", "");
+    public Info(String consoleName) {
+        super(consoleName, "Вывести информацию о коллекции", "");
     }
 
     @Override

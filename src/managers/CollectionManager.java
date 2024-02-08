@@ -5,7 +5,10 @@ import model.*;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class CollectionManager {
 
@@ -76,6 +79,40 @@ public class CollectionManager {
         throw new ElementNotFoundException("Элемента с таким id не существует");
     }
 
+    public Organization[] getElementsByName(String substring) {
+        List<Organization> elements = new ArrayList<>();
+        for (Organization organization : collection) {
+            if (Validator.isSubstring(substring, organization.getName())) {
+                elements.add(organization);
+            }
+        }
+        return elements.toArray(new Organization[0]);
+    }
+
+    public Organization[] getElementsLessThanAnnualTurnover(long annualTurnover) {
+        List<Organization> elements = new ArrayList<>();
+        for (Organization organization : collection) {
+            if (organization.getAnnualTurnover() < annualTurnover) {
+                elements.add(organization);
+            }
+        }
+        return elements.toArray(new Organization[0]);
+    }
+
+    public void shuffleCollection() {
+        Collections.shuffle(collection);
+    }
+
+    public Organization[] getElementsByAnnualTurnover(long annualTurnover) {
+        List<Organization> elements = new ArrayList<>();
+        for (Organization organization : collection) {
+            if (organization.getAnnualTurnover() == annualTurnover) {
+                elements.add(organization);
+            }
+        }
+        return elements.toArray(new Organization[0]);
+    }
+
     public void setElementById(long id, Organization element) {
         for (int i = 0; i < collection.size(); i++) {
             if (collection.get(i).getId() == id) {
@@ -84,6 +121,7 @@ public class CollectionManager {
             }
         }
     }
+
 
     public ConsoleHandler getConsoleHandler() {
         return consoleHandler;

@@ -13,11 +13,14 @@ public abstract class Command {
         this.description = description;
     }
 
-    public Command(String nameInConsole, CollectionManager collectionManager, String description, String successPhrase) {
+    public Command(String nameInConsole, String description, String successPhrase) {
         this.nameInConsole = nameInConsole;
-        this.collectionManager = collectionManager;
         this.description = description;
         this.successPhrase = successPhrase;
+    }
+
+    public void setCollectionManager(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
     }
 
     protected void printSuccess() {

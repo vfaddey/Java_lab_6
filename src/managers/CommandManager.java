@@ -14,9 +14,13 @@ import java.util.List;
 
 public class CommandManager {
     private HashSet<Command> commands = new HashSet<>();
+    CollectionManager collectionManager;
 
-    public CommandManager(Command... commands) {
-        this.commands.addAll(Arrays.asList(commands));
+    public void setCollectionManager(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
+        for (Command command : commands) {
+            command.setCollectionManager(collectionManager);
+        }
     }
 
     public void exec(String commandName) throws CommandNotExistsException {
@@ -31,8 +35,7 @@ public class CommandManager {
         for (Command command : commands) {
             if (command instanceof CommandWithParameters) {
                 if (command.getNameInConsole().equals(commandName)) {
-                        ((CommandWithParameters) command).execute(parameters);
-
+                    ((CommandWithParameters) command).execute(parameters);
                 }
             }
         }
@@ -48,6 +51,9 @@ public class CommandManager {
 
     public void addCommands(Command... commands) {
         this.commands.addAll(Arrays.asList(commands));
+        for (Command command : commands) {
+            command.setCollectionManager(collectionManager);
+        }
     }
 
     public HashSet<Command> getCommands() {

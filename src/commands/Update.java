@@ -13,8 +13,8 @@ import model.OrganizationType;
 import java.lang.reflect.Method;
 
 public class Update extends Command implements CommandWithParameters {
-    public Update(String consoleName, CollectionManager collectionManager) {
-        super(consoleName, collectionManager, "Обновляет элемент коллекции по id", "Элемент успешно обновлен!");
+    public Update(String consoleName) {
+        super(consoleName, "Обновляет элемент коллекции по id", "Элемент успешно обновлен!");
     }
 
     @Override

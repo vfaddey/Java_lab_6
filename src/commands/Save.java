@@ -7,8 +7,8 @@ import managers.CollectionManager;
 import managers.FileManager;
 
 public class Save extends Command implements CommandWithoutParameters, CommandWithParameters {
-    public Save(String consoleName, CollectionManager collectionManager) {
-        super(consoleName, collectionManager, "Сохранить коллекцию (в тот же файл)", "Коллекция сохранена!");
+    public Save(String consoleName) {
+        super(consoleName, "Сохранить коллекцию (в тот же файл)", "Коллекция сохранена!");
     }
 
     @Override

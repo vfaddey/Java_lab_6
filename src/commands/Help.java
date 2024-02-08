@@ -7,8 +7,8 @@ import managers.ConsoleHandler;
 import java.util.HashSet;
 
 public class Help extends Command implements CommandWithoutParameters {
-    public Help(String consoleName, CollectionManager collectionManager) {
-        super(consoleName, collectionManager, "Информация по всем командам", "");
+    public Help(String consoleName) {
+        super(consoleName, "Информация по всем командам", "");
     }
 
     @Override

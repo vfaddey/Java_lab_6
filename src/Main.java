@@ -16,20 +16,23 @@ public class Main {
             ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager, new Validator());
             LinkedList<Organization> collection = FileManager.readCollectionFromCSV(filename);
             CollectionManager collectionManager = new CollectionManager(collection, filename, consoleHandler);
+            commandManager.setCollectionManager(collectionManager);
             commandManager.addCommands(
-                    new Add("add", collectionManager),
-                    new Clear("clear", collectionManager),
-                    new Save("save", collectionManager),
-                    new Show("show", collectionManager),
-                    new Help("help", collectionManager),
+                    new Add("add"),
+                    new Clear("clear"),
+                    new Save("save"),
+                    new Show("show"),
+                    new Help("help"),
                     new Exit("exit"),
-                    new RemoveById("remove_by_id", collectionManager),
-                    new Update("update", collectionManager));
+                    new RemoveById("remove_by_id"),
+                    new Update("update"),
+                    new Shuffle("shuffle"),
+                    new FilterContainsName("filter_contains_name"),
+                    new FilterLessThanAnnualTurnover("filter_less_than_annual_turnover"),
+                    new RemoveAnyByAnnualTurnover("remove_any_by_annual_turnover"));
+
+
             consoleHandler.listen();
-
-
-            FileManager.writeCollectionToCSV(collection, filename);
-            scanner.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
