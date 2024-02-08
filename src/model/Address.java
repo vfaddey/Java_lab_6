@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Address {
 
     private String zipCode; //Поле не может быть null
@@ -24,5 +26,18 @@ public class Address {
                 "zipCode='" + zipCode + '\'' +
                 ", town=" + town +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Address address = (Address) object;
+        return Objects.equals(zipCode, address.zipCode) && Objects.equals(town, address.town);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(zipCode, town);
     }
 }

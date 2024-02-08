@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Coordinates {
     private Integer x; //Поле не может быть null
     private long y;
@@ -23,5 +25,18 @@ public class Coordinates {
 
     public long getY() {
         return y;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Coordinates that = (Coordinates) object;
+        return y == that.y && Objects.equals(x, that.x);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

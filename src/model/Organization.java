@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Organization {
 
@@ -70,4 +71,16 @@ public class Organization {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Organization that = (Organization) object;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(coordinates, that.coordinates) && Objects.equals(creationDate, that.creationDate) && Objects.equals(annualTurnover, that.annualTurnover) && Objects.equals(employeesCount, that.employeesCount) && type == that.type && Objects.equals(officialAddress, that.officialAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, coordinates, creationDate, annualTurnover, employeesCount, type, officialAddress);
+    }
 }
