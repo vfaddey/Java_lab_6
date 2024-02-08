@@ -13,7 +13,7 @@ public class Main {
             System.out.print("Путь к файлу с коллекцией: ");
             String filename = scanner.nextLine();
             CommandManager commandManager = new CommandManager();
-            ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager, new Validator());
+            ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager);
             LinkedList<Organization> collection = FileManager.readCollectionFromCSV(filename);
             CollectionManager collectionManager = new CollectionManager(collection, filename, consoleHandler);
             commandManager.setCollectionManager(collectionManager);

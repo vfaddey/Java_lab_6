@@ -18,12 +18,9 @@ import java.util.Scanner;
 public class ConsoleHandler {
     private Scanner scanner;
     private CommandManager commandManager;
-    private Validator validator;
-
-    public ConsoleHandler(Scanner scanner, CommandManager commandManager,  Validator validator) {
+    public ConsoleHandler(Scanner scanner, CommandManager commandManager) {
         this.scanner = scanner;
         this.commandManager = commandManager;
-        this.validator = validator;
     }
 
     public void listen() throws CommandNotExistsException {
