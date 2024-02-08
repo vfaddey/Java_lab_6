@@ -144,7 +144,4 @@ public class ConsoleHandler {
         return commandManager;
     }
 
-    public Validator getValidator() {
-        return validator;
-    }
 }
