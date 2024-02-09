@@ -27,4 +27,13 @@ public class Validator {
             return false;
         }
     }
+
+    public static boolean isArrayConsistsOfOnlyNull(Object[] array) {
+        for (Object element : array) {
+            if (element != null) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

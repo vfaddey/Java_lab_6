@@ -3,13 +3,12 @@ package managers;
 import commands.Add;
 import commands.Command;
 import commands.Help;
-import exceptions.CommandNotExistsException;
-import exceptions.ElementNotFoundException;
-import exceptions.IncorrectFilenameException;
-import exceptions.WrongParameterException;
+import exceptions.*;
 import model.*;
 
+import java.io.*;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,30 +22,78 @@ public class ConsoleHandler {
         this.commandManager = commandManager;
     }
 
-    public void listen() throws CommandNotExistsException {
-        try {
-            while (true) {
-                String[] command = scanner.nextLine().split(" ", 2);
-                String commandName = command[0];
-                if (command.length > 1) {
-                    String[] parameters = command[1].split(" ");
-                    if (parameters.length >= 1 && parameters[0].isEmpty()) {
-                        commandManager.exec(commandName);
-                    } else if (parameters.length >= 1) {
-                        commandManager.exec(commandName, parameters);
-                    }
-                } else commandManager.exec(commandName);
+    private static class ScriptHandler {
+        public void readCommands(String filename) throws IOException, WrongParameterException {
+            String[] commands = readScript(filename);
+            for (String command : commands) {
 
             }
+        }
+
+        private String[] readScript(String filename) throws WrongParameterException {
+            try {
+                List<String> commands = new ArrayList<>();
+                File file = new File(filename);
+                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String line;
+                while (!(line = bufferedReader.readLine()).isEmpty()) {
+                    commands.add(line);
+                }
+                return commands.toArray(new String[0]);
+            } catch (IOException e) {
+                throw new WrongParameterException("Файл не найден или нет доступа к нему.");
+            }
+
+        }
+    }
+
+    public void listen() throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException {
+        try {
+            while (true) {
+                System.out.print("--> ");
+                String request = scanner.nextLine();
+                String[] splitted = splitUserRequest(request);
+                String commandName = splitted[0];
+                if (splitted.length == 1) {
+                    commandManager.exec(commandName, null);
+                } else {
+                    String[] parameters = new String[splitted.length-1];
+                    commandManager.exec(commandName, parameters);
+                }
+            }
         } catch (CommandNotExistsException | ElementNotFoundException | WrongParameterException |
-                 IncorrectFilenameException e) {
+                 IncorrectFilenameException | NullUserRequestException e) {
             printError(e.toString());
-            commandManager.exec("help");
+            commandManager.exec("help", null);
             listen();
         }
     }
 
-        public String askName() {
+    private String[] splitUserRequest(String request) throws NullUserRequestException {
+        if (request.isEmpty()) throw new NullUserRequestException("Введена пустая строка");
+        if (!request.contains(" ")) return new String[]{request};
+        String command = request.split(" ", 2)[0];
+        String[] parameters = request.split(" ", 2)[1].split(" ");
+        for (int i = 0; i < parameters.length; i++) {
+            if (parameters[i].isEmpty()) {
+                parameters[i] = null;
+            }
+        }
+
+        String[] processed;
+        if (Validator.isArrayConsistsOfOnlyNull(parameters)) {
+            processed = new String[]{command};
+            return processed;
+        } else {
+            processed = new String[parameters.length + 1];
+            processed[0] = command;
+            System.arraycopy(parameters, 0, processed, 1, parameters.length);
+        }
+        return processed;
+    }
+
+    public String askName() {
         String response;
         System.out.print("Введите имя организации: ");
         response = scanner.nextLine();

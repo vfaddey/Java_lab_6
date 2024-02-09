@@ -13,7 +13,7 @@ public class Save extends Command implements CommandWithoutParameters, CommandWi
 
     @Override
     public void execute() {
-        FileManager.writeCollectionToCSV(collectionManager.getCollection(), collectionManager.getCollectionFilename());
+        FileManager.writeCollectionToCSV(collectionManager.getCollection(), collectionManager.getCollectionFilename(), collectionManager.getConsoleHandler());
         printSuccess();
     }
 
@@ -23,7 +23,7 @@ public class Save extends Command implements CommandWithoutParameters, CommandWi
             if (parameters[0].matches("^\\D.*")) {
                 if (parameters[0].matches(".*\\.csv$")) {
                     String filename = parameters[0];
-                    FileManager.writeCollectionToCSV(collectionManager.getCollection(), filename);
+                    FileManager.writeCollectionToCSV(collectionManager.getCollection(), filename, collectionManager.getConsoleHandler());
                 } else throw new IncorrectFilenameException("Расширение файла должно быть .csv");
             } else throw new IncorrectFilenameException("Строка не должна начинаться с числа");
         } catch (IncorrectFilenameException e) {

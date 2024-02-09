@@ -6,6 +6,7 @@ import exceptions.ElementNotFoundException;
 import exceptions.IncorrectFilenameException;
 import exceptions.WrongParameterException;
 import interfaces.CommandWithParameters;
+import interfaces.CommandWithoutParameters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,19 +24,14 @@ public class CommandManager {
         }
     }
 
-    public void exec(String commandName) throws CommandNotExistsException {
+    public void exec(String commandName, String[] parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException {
         if (!getConsoleCommandsNames().contains(commandName)) throw new CommandNotExistsException("Такой команды нет");
         for (Command command : commands) {
             if (command.getNameInConsole().equals(commandName)) {
-                command.execute();
-            }
-        }
-    }
-    public void exec(String commandName, String[] parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException {
-        for (Command command : commands) {
-            if (command instanceof CommandWithParameters) {
-                if (command.getNameInConsole().equals(commandName)) {
+                if (command instanceof  CommandWithParameters) {
                     ((CommandWithParameters) command).execute(parameters);
+                } else if (command instanceof CommandWithoutParameters) {
+                    ((CommandWithoutParameters) command).execute();
                 }
             }
         }

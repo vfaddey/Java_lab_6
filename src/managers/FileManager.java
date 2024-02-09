@@ -1,14 +1,20 @@
 package managers;
 
+import exceptions.CommandNotExistsException;
+import exceptions.ElementNotFoundException;
+import exceptions.IncorrectFilenameException;
+import exceptions.WrongParameterException;
 import model.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class FileManager {
-    public static LinkedList<Organization> readCollectionFromCSV(String filename) {
+    public static LinkedList<Organization> readCollectionFromCSV(String filename, ConsoleHandler consoleHandler) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException {
         LinkedList<Organization> collection = new LinkedList<>();
         try {
             File file = new File(filename);
@@ -20,14 +26,17 @@ public class FileManager {
                 String[] values = line.split(",");
                 collection.add(parseOrganizationFromStrings(values));
             }
+            consoleHandler.print("Коллекция загружена!");
+            consoleHandler.printAdvice("Напишите help для просмотра списка команд");
+            return collection;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            consoleHandler.printError("Файл с таким именем не найден. Попробуйте еще раз.");
+            consoleHandler.listen();
         }
-        System.out.println("Коллекция загружена!");
-        return collection;
+        return null;
     }
 
-    public static void writeCollectionToCSV(LinkedList<Organization> collection, String filename) {
+    public static void writeCollectionToCSV(LinkedList<Organization> collection, String filename, ConsoleHandler consoleHandler) {
         String line;
         try {
             PrintWriter writer = new PrintWriter(new FileWriter(filename));
@@ -52,6 +61,8 @@ public class FileManager {
             throw new RuntimeException(e);
         }
     }
+
+
 
 
     private static Organization parseOrganizationFromStrings(String[] data) {
