@@ -36,6 +36,24 @@ public class CollectionManager {
         collection.add(organization);
     }
 
+    public void organizationCreationFromFile(String... parameters) {
+        Organization organization = new Organization(
+                (long) (Math.random() * Long.MAX_VALUE),
+                parameters[0],
+                new Coordinates(Integer.parseInt(parameters[1]), Long.parseLong(parameters[2])),
+                LocalDate.now(),
+                Long.parseLong(parameters[3]),
+                Integer.parseInt(parameters[4]),
+                OrganizationType.values()[Integer.parseInt(parameters[5])-1],
+                new Address(
+                        parameters[6],
+                        new Location(
+                                Double.parseDouble(parameters[7]),
+                                Double.parseDouble(parameters[8])
+                                , Long.parseLong(parameters[9]))));
+        collection.add(organization);
+    }
+
     public String nameRequest() {
         return consoleHandler.askName();
     }

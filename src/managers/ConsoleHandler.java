@@ -22,22 +22,20 @@ public class ConsoleHandler {
         this.commandManager = commandManager;
     }
 
-    private static class ScriptHandler {
-        public void readCommands(String filename) throws IOException, WrongParameterException {
+    public static class ScriptHandler {
+        public static void readCommands(String filename, CommandManager commandManager) throws IOException, WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException, NullUserRequestException {
             String[] commands = readScript(filename);
-            for (String command : commands) {
-
-            }
+            commandManager.processFileCommands(commands);
         }
 
-        private String[] readScript(String filename) throws WrongParameterException {
+        private static String[] readScript(String filename) throws WrongParameterException {
             try {
                 List<String> commands = new ArrayList<>();
                 File file = new File(filename);
                 InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String line;
-                while (!(line = bufferedReader.readLine()).isEmpty()) {
+                while ((line = bufferedReader.readLine()) != null) {
                     commands.add(line);
                 }
                 return commands.toArray(new String[0]);
@@ -53,45 +51,18 @@ public class ConsoleHandler {
             while (true) {
                 System.out.print("--> ");
                 String request = scanner.nextLine();
-                String[] splitted = splitUserRequest(request);
-                String commandName = splitted[0];
-                if (splitted.length == 1) {
-                    commandManager.exec(commandName, null);
-                } else {
-                    String[] parameters = new String[splitted.length-1];
-                    commandManager.exec(commandName, parameters);
-                }
+                commandManager.exec(request);
             }
         } catch (CommandNotExistsException | ElementNotFoundException | WrongParameterException |
                  IncorrectFilenameException | NullUserRequestException e) {
             printError(e.toString());
-            commandManager.exec("help", null);
             listen();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private String[] splitUserRequest(String request) throws NullUserRequestException {
-        if (request.isEmpty()) throw new NullUserRequestException("Введена пустая строка");
-        if (!request.contains(" ")) return new String[]{request};
-        String command = request.split(" ", 2)[0];
-        String[] parameters = request.split(" ", 2)[1].split(" ");
-        for (int i = 0; i < parameters.length; i++) {
-            if (parameters[i].isEmpty()) {
-                parameters[i] = null;
-            }
-        }
 
-        String[] processed;
-        if (Validator.isArrayConsistsOfOnlyNull(parameters)) {
-            processed = new String[]{command};
-            return processed;
-        } else {
-            processed = new String[parameters.length + 1];
-            processed[0] = command;
-            System.arraycopy(parameters, 0, processed, 1, parameters.length);
-        }
-        return processed;
-    }
 
     public String askName() {
         String response;

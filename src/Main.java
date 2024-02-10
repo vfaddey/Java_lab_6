@@ -34,7 +34,8 @@ public class Main {
                 new Shuffle("shuffle"),
                 new FilterContainsName("filter_contains_name"),
                 new FilterLessThanAnnualTurnover("filter_less_than_annual_turnover"),
-                new RemoveAnyByAnnualTurnover("remove_any_by_annual_turnover"));
+                new RemoveAnyByAnnualTurnover("remove_any_by_annual_turnover"),
+                new ExecuteFile("execute_script"));
 
         consoleHandler.listen();
     }

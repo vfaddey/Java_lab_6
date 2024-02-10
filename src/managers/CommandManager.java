@@ -1,21 +1,17 @@
 package managers;
 
 import commands.Command;
-import exceptions.CommandNotExistsException;
-import exceptions.ElementNotFoundException;
-import exceptions.IncorrectFilenameException;
-import exceptions.WrongParameterException;
-import interfaces.CommandWithParameters;
-import interfaces.CommandWithoutParameters;
+import exceptions.*;
+import commands.interfaces.CommandWithParameters;
+import commands.interfaces.CommandWithoutParameters;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 public class CommandManager {
     private HashSet<Command> commands = new HashSet<>();
-    CollectionManager collectionManager;
+    private CollectionManager collectionManager;
 
     public void setCollectionManager(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
@@ -24,16 +20,55 @@ public class CommandManager {
         }
     }
 
-    public void exec(String commandName, String[] parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException {
+    public void exec(String userInput) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException, NullUserRequestException, IOException {
+        String[] splitted = splitUserRequest(userInput);
+        String commandName = splitted[0];
         if (!getConsoleCommandsNames().contains(commandName)) throw new CommandNotExistsException("Такой команды нет");
+
         for (Command command : commands) {
             if (command.getNameInConsole().equals(commandName)) {
                 if (command instanceof  CommandWithParameters) {
+                    String[] parameters = new String[splitted.length-1];
+                    for (int i = 1; i < splitted.length; i++) {
+                        System.out.println(splitted[i]);
+                        parameters[i-1] = splitted[i];
+                    }
                     ((CommandWithParameters) command).execute(parameters);
                 } else if (command instanceof CommandWithoutParameters) {
                     ((CommandWithoutParameters) command).execute();
                 }
             }
+        }
+    }
+
+    private String[] splitUserRequest(String request) throws NullUserRequestException {
+        if (request.isEmpty()) throw new NullUserRequestException("Введена пустая строка");
+        if (!request.contains(" ")) return new String[]{request};
+        String command = request.split(" ", 2)[0];
+        String[] parameters = request.split(" ", 2)[1].split(" ");
+        for (int i = 0; i < parameters.length; i++) {
+            if (parameters[i].isEmpty()) {
+                parameters[i] = null;
+            }
+        }
+
+        String[] processed;
+        if (Validator.isArrayConsistsOfOnlyNull(parameters)) {
+            processed = new String[]{command};
+            return processed;
+        } else {
+            processed = new String[parameters.length + 1];
+            processed[0] = command;
+            System.arraycopy(parameters, 0, processed, 1, parameters.length);
+        }
+        return processed;
+    }
+
+    public void processFileCommands(String[] lines) throws NullUserRequestException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException, CommandNotExistsException, IOException {
+        int i = 0;
+        while (i < lines.length) {
+            exec(lines[i]);
+            i++;
         }
     }
 
