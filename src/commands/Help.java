@@ -1,8 +1,6 @@
 package commands;
 
-import interfaces.CommandWithoutParameters;
-import managers.CollectionManager;
-import managers.ConsoleHandler;
+import commands.interfaces.CommandWithoutParameters;
 
 import java.util.HashSet;
 

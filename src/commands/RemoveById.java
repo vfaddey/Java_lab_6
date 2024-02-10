@@ -2,8 +2,7 @@ package commands;
 
 import exceptions.ElementNotFoundException;
 import exceptions.WrongParameterException;
-import interfaces.CommandWithParameters;
-import managers.CollectionManager;
+import commands.interfaces.CommandWithParameters;
 
 public class RemoveById extends Command implements CommandWithParameters {
     public RemoveById(String consoleName) {

@@ -1,7 +1,6 @@
 package commands;
 
-import interfaces.CommandWithoutParameters;
-import managers.CollectionManager;
+import commands.interfaces.CommandWithoutParameters;
 import model.Organization;
 
 public class Show extends Command implements CommandWithoutParameters {

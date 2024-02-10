@@ -3,8 +3,7 @@ package commands;
 import exceptions.ElementNotFoundException;
 import exceptions.IncorrectFilenameException;
 import exceptions.WrongParameterException;
-import interfaces.CommandWithParameters;
-import managers.CollectionManager;
+import commands.interfaces.CommandWithParameters;
 import model.Organization;
 
 public class FilterContainsName extends Command implements CommandWithParameters {

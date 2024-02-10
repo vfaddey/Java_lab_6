@@ -1,7 +1,6 @@
 package commands;
 
-import interfaces.CommandWithoutParameters;
-import managers.CollectionManager;
+import commands.interfaces.CommandWithoutParameters;
 
 public class Add extends Command implements CommandWithoutParameters {
     public Add(String consoleName) {
@@ -13,4 +12,10 @@ public class Add extends Command implements CommandWithoutParameters {
         collectionManager.interactiveOrganizationCreation();
         printSuccess();
     }
+
+    public void executeFromScript(String... parameters) {
+        collectionManager.organizationCreationFromFile(parameters);
+        printSuccess();
+    }
+
 }

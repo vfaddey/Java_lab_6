@@ -3,8 +3,7 @@ package commands;
 import exceptions.ElementNotFoundException;
 import exceptions.IncorrectFilenameException;
 import exceptions.WrongParameterException;
-import interfaces.CommandWithParameters;
-import managers.CollectionManager;
+import commands.interfaces.CommandWithParameters;
 
 public class RemoveLower extends Command implements CommandWithParameters {
     public RemoveLower(String nameInConsole, String description, String successPhrase) {
