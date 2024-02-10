@@ -23,7 +23,7 @@ public class CollectionManager {
         this.collectionFilename = collectionFilename;
         this.consoleHandler = consoleHandler;
         lastUpdateDate = LocalDate.now();
-
+        updateInformation();
     }
 
     private void updateInformation() {
