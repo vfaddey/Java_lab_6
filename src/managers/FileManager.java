@@ -20,19 +20,22 @@ public class FileManager {
             File file = new File(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            bufferedReader.readLine();
+            String firstLine = bufferedReader.readLine();
+            if (firstLine == null) throw new NullPointerException("Этот файл пустой!");
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] values = line.split(",");
                 collection.add(parseOrganizationFromStrings(values));
-                System.out.println(parseOrganizationFromStrings(values));
             }
             consoleHandler.print("Коллекция загружена!");
             consoleHandler.printAdvice("Напишите help для просмотра списка команд");
             return collection;
         } catch (IOException e) {
             consoleHandler.printError("Файл с таким именем не найден. Попробуйте еще раз.");
-            consoleHandler.listen();
+            readCollectionFromCSV(filename, consoleHandler);
+        } catch (NullPointerException e) {
+            consoleHandler.printError(e.toString());
+            readCollectionFromCSV(filename, consoleHandler);
         }
         return null;
     }

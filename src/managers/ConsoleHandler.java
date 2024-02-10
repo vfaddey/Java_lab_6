@@ -19,7 +19,7 @@ public class ConsoleHandler {
 
     }
 
-    private String collectionFilenameRequest() {
+    public String collectionFilenameRequest() {
         System.out.print("Введите путь к файлу коллекции: ");
         return scanner.nextLine();
     }
@@ -51,7 +51,7 @@ public class ConsoleHandler {
     public void listen() throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException {
         try {
             while (true) {
-                System.out.print("--> ");
+                System.out.print(">>> ");
                 String request = scanner.nextLine();
                 commandManager.exec(request);
             }

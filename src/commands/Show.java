@@ -11,8 +11,13 @@ public class Show extends Command implements CommandWithoutParameters {
 
     @Override
     public void execute() {
-        for (Organization organization : collectionManager.getCollection()) {
-            System.out.println(organization);
+        if (collectionManager.getCollection().size() != 0) {
+            for (Organization organization : collectionManager.getCollection()) {
+                collectionManager.getConsoleHandler().print(organization.toString());
+            }
+        } else {
+            collectionManager.getConsoleHandler().print("В коллекции пока нет элементов(");
         }
+
     }
 }

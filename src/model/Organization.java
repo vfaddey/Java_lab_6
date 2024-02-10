@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Organization {
+public class Organization implements Comparable<Organization> {
 
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -82,5 +82,25 @@ public class Organization {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, coordinates, creationDate, annualTurnover, employeesCount, type, officialAddress);
+    }
+
+    @Override
+    public int compareTo(Organization o) {
+        int compareById = this.id.compareTo(o.getId());
+        if (compareById != 0) {
+            return compareById;
+        }
+
+        int compareByName = this.name.compareTo(o.getName());
+        if (compareByName != 0) {
+            return compareByName;
+        }
+
+        int compareByAnnualTurnover = this.annualTurnover.compareTo(o.getAnnualTurnover());
+        if (compareByAnnualTurnover != 0) {
+            return compareByAnnualTurnover;
+        }
+
+        return this.employeesCount.compareTo(o.getEmployeesCount());
     }
 }

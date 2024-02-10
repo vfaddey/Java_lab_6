@@ -1,35 +1,60 @@
 package managers;
 
+import exceptions.CommandNotExistsException;
 import exceptions.ElementNotFoundException;
+import exceptions.IncorrectFilenameException;
+import exceptions.WrongParameterException;
 import model.*;
 
 
+import java.lang.reflect.Type;
+import java.lang.reflect.ParameterizedType;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class CollectionManager {
 
-    private final LinkedList<Organization> collection;
-    private final String collectionFilename;
+    private LinkedList<Organization> collection;
+    private String collectionFilename;
     private final ConsoleHandler consoleHandler;
     private String information;
     private LocalDate lastUpdateDate;
 
-    public CollectionManager(LinkedList<Organization> collection, String collectionFilename, ConsoleHandler consoleHandler) {
-        this.collection = collection;
-        this.collectionFilename = collectionFilename;
+    public CollectionManager(ConsoleHandler consoleHandler) throws IncorrectFilenameException, ElementNotFoundException, WrongParameterException, CommandNotExistsException {
         this.consoleHandler = consoleHandler;
         lastUpdateDate = LocalDate.now();
+        loadCollection();
         updateInformation();
+    }
+
+    public void loadCollection() throws IncorrectFilenameException, ElementNotFoundException, WrongParameterException, CommandNotExistsException {
+        String fileName = consoleHandler.collectionFilenameRequest();
+        this.collection = FileManager.readCollectionFromCSV(fileName, consoleHandler);
+        this.collectionFilename = fileName;
+        if (collection != null) {
+            Collections.sort(collection);
+        }
     }
 
     private void updateInformation() {
         information = "Тип коллекции: " + LinkedList.class.getName() + "\n"
-                + "Хранит объекты типа: " + collection.getFirst().getClass().getName() + "\n"
+                + "Хранит объекты типа: " + getCollectionClassName() + "\n"
                 + "Последнее обновление коллекции: " + lastUpdateDate;
+    }
+
+    private String getCollectionClassName() {
+        Type type = collection.getClass().getGenericSuperclass();
+        if (type instanceof ParameterizedType) {
+            ParameterizedType paramType = (ParameterizedType) type;
+            Type[] typeArguments = paramType.getActualTypeArguments();
+            if (typeArguments.length > 0) {
+                if (typeArguments[0] instanceof Class) {
+                    Class<?> typeArgClass = (Class<?>) typeArguments[0];
+                    return typeArgClass.getName();
+                }
+            }
+        }
+        return "Не удалось определить тип";
     }
 
     public void interactiveOrganizationCreation() {
@@ -156,7 +181,6 @@ public class CollectionManager {
             }
         }
     }
-
 
     public ConsoleHandler getConsoleHandler() {
         return consoleHandler;

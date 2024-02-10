@@ -14,12 +14,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Путь к файлу с коллекцией: ");
-        String filename = scanner.nextLine();
         CommandManager commandManager = new CommandManager();
         ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager);
-        LinkedList<Organization> collection = FileManager.readCollectionFromCSV(filename, consoleHandler);
-        CollectionManager collectionManager = new CollectionManager(collection, filename, consoleHandler);
+        CollectionManager collectionManager = new CollectionManager(consoleHandler);
         commandManager.setCollectionManager(collectionManager);
         commandManager.addCommands(
                 new Add("add"),
