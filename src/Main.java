@@ -13,7 +13,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException {
-
         Scanner scanner = new Scanner(System.in);
         System.out.print("Путь к файлу с коллекцией: ");
         String filename = scanner.nextLine();

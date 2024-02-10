@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Address {
 
-    private String zipCode; //Поле не может быть null
-    private Location town; //Поле не может быть null
+    private final String zipCode; //Поле не может быть null
+    private final Location town; //Поле не может быть null
 
     public Address(String zipCode, Location town) {
         this.zipCode = zipCode;

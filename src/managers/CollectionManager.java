@@ -12,15 +12,24 @@ import java.util.List;
 
 public class CollectionManager {
 
-    private LinkedList<Organization> collection;
-    private String collectionFilename;
-    private ConsoleHandler consoleHandler;
+    private final LinkedList<Organization> collection;
+    private final String collectionFilename;
+    private final ConsoleHandler consoleHandler;
     private String information;
+    private LocalDate lastUpdateDate;
 
     public CollectionManager(LinkedList<Organization> collection, String collectionFilename, ConsoleHandler consoleHandler) {
         this.collection = collection;
         this.collectionFilename = collectionFilename;
         this.consoleHandler = consoleHandler;
+        lastUpdateDate = LocalDate.now();
+
+    }
+
+    private void updateInformation() {
+        information = "Тип коллекции: " + LinkedList.class.getName() + "\n"
+                + "Хранит объекты типа: " + collection.getFirst().getClass().getName() + "\n"
+                + "Последнее обновление коллекции: " + lastUpdateDate;
     }
 
     public void interactiveOrganizationCreation() {
@@ -34,6 +43,7 @@ public class CollectionManager {
                 organizationTypeRequest(),
                 officialAddressRequest());
         collection.add(organization);
+        lastUpdateDate = LocalDate.now();
     }
 
     public void organizationCreationFromFile(String... parameters) {
@@ -52,6 +62,12 @@ public class CollectionManager {
                                 Double.parseDouble(parameters[8])
                                 , Long.parseLong(parameters[9]))));
         collection.add(organization);
+        lastUpdateDate = LocalDate.now();
+    }
+
+    public void removeById(long id) throws ElementNotFoundException {
+        collection.remove(getElementById(id));
+        lastUpdateDate = LocalDate.now();
     }
 
     public String nameRequest() {
@@ -119,6 +135,7 @@ public class CollectionManager {
 
     public void shuffleCollection() {
         Collections.shuffle(collection);
+        lastUpdateDate = LocalDate.now();
     }
 
     public Organization[] getElementsByAnnualTurnover(long annualTurnover) {

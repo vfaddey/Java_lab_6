@@ -1,8 +1,5 @@
 package managers;
 
-import commands.Add;
-import commands.Command;
-import commands.Help;
 import exceptions.*;
 import model.*;
 
@@ -10,16 +7,21 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleHandler {
-    private Scanner scanner;
-    private CommandManager commandManager;
+    private final Scanner scanner;
+    private final CommandManager commandManager;
     public ConsoleHandler(Scanner scanner, CommandManager commandManager) {
         this.scanner = scanner;
         this.commandManager = commandManager;
+
+    }
+
+    private String collectionFilenameRequest() {
+        System.out.print("Введите путь к файлу коллекции: ");
+        return scanner.nextLine();
     }
 
     public static class ScriptHandler {

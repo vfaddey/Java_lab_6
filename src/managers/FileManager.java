@@ -25,6 +25,7 @@ public class FileManager {
             while ((line = bufferedReader.readLine()) != null) {
                 String[] values = line.split(",");
                 collection.add(parseOrganizationFromStrings(values));
+                System.out.println(parseOrganizationFromStrings(values));
             }
             consoleHandler.print("Коллекция загружена!");
             consoleHandler.printAdvice("Напишите help для просмотра списка команд");

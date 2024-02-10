@@ -14,7 +14,7 @@ public class FilterLessThanAnnualTurnover extends Command implements CommandWith
 
     @Override
     public void execute(String... parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException {
-        if (Validator.isCorrectLong(parameters[0])) {
+        if (Validator.isCorrectNumber(parameters[0], Long.class)) {
             long annualTurnover = Long.parseLong(parameters[0]);
             Organization[] elements = collectionManager.getElementsLessThanAnnualTurnover(annualTurnover);
             for (Organization el : elements) {

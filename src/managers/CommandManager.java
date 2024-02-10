@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class CommandManager {
-    private HashSet<Command> commands = new HashSet<>();
+    private final HashSet<Command> commands = new HashSet<>();
     private CollectionManager collectionManager;
 
     public void setCollectionManager(CollectionManager collectionManager) {
@@ -30,7 +30,6 @@ public class CommandManager {
                 if (command instanceof  CommandWithParameters) {
                     String[] parameters = new String[splitted.length-1];
                     for (int i = 1; i < splitted.length; i++) {
-                        System.out.println(splitted[i]);
                         parameters[i-1] = splitted[i];
                     }
                     ((CommandWithParameters) command).execute(parameters);
