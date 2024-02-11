@@ -30,12 +30,11 @@ public class FileManager {
             return collection;
         } catch (IOException e) {
             consoleHandler.printError("Файл с таким именем не найден. Попробуйте еще раз.");
-            readCollectionFromCSV(filename, consoleHandler);
+            return null;
         } catch (NullPointerException e) {
             consoleHandler.printError(e.toString());
-            readCollectionFromCSV(filename, consoleHandler);
+            return null;
         }
-        return null;
     }
 
     public static void writeCollectionToCSV(LinkedList<Organization> collection, String filename) {

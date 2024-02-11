@@ -30,6 +30,9 @@ public class CollectionManager {
     public void loadCollection() throws IncorrectFilenameException, ElementNotFoundException, WrongParameterException, CommandNotExistsException {
         String fileName = consoleHandler.collectionFilenameRequest();
         this.collection = FileManager.readCollectionFromCSV(fileName, consoleHandler);
+        if (collection == null) {
+            loadCollection();
+        }
         this.collectionFilename = fileName;
         if (collection != null) {
             Collections.sort(collection);
