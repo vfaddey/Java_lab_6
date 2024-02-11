@@ -1,6 +1,5 @@
 package managers;
 
-import java.lang.reflect.InvocationTargetException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
@@ -22,6 +21,10 @@ public class Validator {
             return isCorrectNumber(x, Integer.class) && isCorrectNumber(y, Long.class);
         }
         return false;
+    }
+
+    public static boolean isValidName(String str) {
+        return !isNull(str);
     }
 
     public static boolean areCorrectLocationParams(String x, String y, String z) {

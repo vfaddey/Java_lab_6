@@ -47,12 +47,10 @@ public class CollectionManager {
 
     private String getCollectionClassName() {
         Type type = collection.getClass().getGenericSuperclass();
-        if (type instanceof ParameterizedType) {
-            ParameterizedType paramType = (ParameterizedType) type;
+        if (type instanceof ParameterizedType paramType) {
             Type[] typeArguments = paramType.getActualTypeArguments();
             if (typeArguments.length > 0) {
-                if (typeArguments[0] instanceof Class) {
-                    Class<?> typeArgClass = (Class<?>) typeArguments[0];
+                if (typeArguments[0] instanceof Class<?> typeArgClass) {
                     return typeArgClass.getName();
                 }
             }
@@ -98,12 +96,44 @@ public class CollectionManager {
         lastUpdateDate = LocalDate.now();
     }
 
-    public String nameRequest() {
-        return consoleHandler.askName();
+    public String nameRequest() throws WrongParameterException {
+        try {
+            String name = consoleHandler.askName();
+            if (Validator.isValidName(name)) {
+                return name;
+            } else {
+                throw new WrongParameterException("Имя не может быть пустым");
+            }
+        } catch (WrongParameterException e) {
+            consoleHandler.printError(e.toString());
+            return nameRequest();
+        }
     }
 
-    public Coordinates coordinatesRequest() {
-        return consoleHandler.askCoordinates();
+    public Coordinates coordinatesRequest() throws WrongParameterException {
+        String response = consoleHandler.askCoordinates();
+        int x;
+        long y;
+        try {
+            if (Validator.isCorrectNumber(response.split(" ")[0], Integer.class) && Validator.isCorrectNumber(response.split(" ")[1], Long.class)) {
+                if (!Validator.isNull(response.split(" ")[0])) {
+                    x = Integer.parseInt(response.split(" ")[0]);
+                    y = Long.parseLong(response.split(" ")[1]);
+                    return new Coordinates(x,y);
+                } else {
+                    throw new WrongParameterException("x не может быть null.");
+                }
+            } else if (Validator.isCorrectNumber(response.split(" ")[1], Long.class)) {
+                y = Long.parseLong(response.split(" ")[1]);
+                return new Coordinates(null, y);
+            } else {
+                throw new WrongParameterException("Неверно введены числа.");
+            }
+        } catch (WrongParameterException e) {
+            consoleHandler.printError(e.toString());
+            return coordinatesRequest();
+        }
+
     }
 
     public long annualTurnoverRequest() {
@@ -166,7 +196,7 @@ public class CollectionManager {
 
 
     public OrganizationType organizationTypeRequest() throws WrongParameterException {
-        String response = consoleHandler.askOrganizationType();
+        String response = consoleHandler.askOrganizationType(OrganizationType.values());
         String num;
         try {
             if (Validator.isNull(response)) {

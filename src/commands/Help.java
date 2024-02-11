@@ -11,10 +11,12 @@ public class Help extends Command implements CommandWithoutParameters {
 
     @Override
     public void execute() {
+        int padding = 40;
         HashSet<Command> commands = collectionManager.getConsoleHandler().getCommandManager().getCommands();
-        collectionManager.getConsoleHandler().println("Все доступные команды:");
+        StringBuilder output = new StringBuilder("Все доступные команды:\n");
         for (Command command : commands) {
-            collectionManager.getConsoleHandler().println(command.getNameInConsole() + " | " + command.getDescription());
+            output.append(String.format("%-" + padding + "s | %s\n", command.getNameInConsole(), command.getDescription()));
         }
+        collectionManager.getConsoleHandler().println(output);
     }
 }

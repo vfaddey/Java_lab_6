@@ -64,24 +64,14 @@ public class ConsoleHandler {
         }
     }
 
-
     public String askName() {
-        String response;
         print("Введите имя организации: ");
-        response = scanner.nextLine();
-        //валидация
-        return response;
+        return scanner.nextLine();
     }
 
-    public Coordinates askCoordinates() {
-        Coordinates response;
+    public String askCoordinates() {
         print("Введите через пробел координаты x и y (числа целые): ");
-        String str = scanner.nextLine();
-        // валидация
-        int x = Integer.parseInt(str.split(" ")[0]);
-        long y = Long.parseLong(str.split(" ")[1]);
-        response = new Coordinates(x,y);
-        return response;
+        return scanner.nextLine();
     }
 
     public String askAnnualTurnover() {
@@ -94,9 +84,9 @@ public class ConsoleHandler {
         return scanner.nextLine();
     }
 
-    public String askOrganizationType() {
+    public String askOrganizationType(OrganizationType[] values) {
         print("Введите номер типа Вашей организации: ");
-        for (OrganizationType type : OrganizationType.values()) {
+        for (OrganizationType type : values) {
             println(type.ordinal() + 1 + ") " + type.name());
         }
         return scanner.nextLine();
@@ -132,7 +122,7 @@ public class ConsoleHandler {
     }
 
     public void print(Object obj) {
-        System.out.println(obj.toString());
+        System.out.print(obj.toString());
     }
 
     public void printAdvice(String advice) {
