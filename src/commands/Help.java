@@ -12,9 +12,9 @@ public class Help extends Command implements CommandWithoutParameters {
     @Override
     public void execute() {
         HashSet<Command> commands = collectionManager.getConsoleHandler().getCommandManager().getCommands();
-        collectionManager.getConsoleHandler().print("Все доступные команды:");
+        collectionManager.getConsoleHandler().println("Все доступные команды:");
         for (Command command : commands) {
-            collectionManager.getConsoleHandler().print(command.getNameInConsole() + " | " + command.getDescription());
+            collectionManager.getConsoleHandler().println(command.getNameInConsole() + " | " + command.getDescription());
         }
     }
 }

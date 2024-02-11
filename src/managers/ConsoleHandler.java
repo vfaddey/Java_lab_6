@@ -65,10 +65,9 @@ public class ConsoleHandler {
     }
 
 
-
     public String askName() {
         String response;
-        System.out.print("Введите имя организации: ");
+        print("Введите имя организации: ");
         response = scanner.nextLine();
         //валидация
         return response;
@@ -76,7 +75,7 @@ public class ConsoleHandler {
 
     public Coordinates askCoordinates() {
         Coordinates response;
-        System.out.print("Введите через пробел координаты x и y (числа целые): ");
+        print("Введите через пробел координаты x и y (числа целые): ");
         String str = scanner.nextLine();
         // валидация
         int x = Integer.parseInt(str.split(" ")[0]);
@@ -87,7 +86,7 @@ public class ConsoleHandler {
 
     public long askAnnualTurnover() {
         long response;
-        System.out.print("Введите годовой оборот компании (целое число): ");
+        print("Введите годовой оборот компании (целое число): ");
         String str  = scanner.nextLine();
         // валидация
         response = Long.parseLong(str);
@@ -96,7 +95,7 @@ public class ConsoleHandler {
 
     public int askEmployeesCount() {
         int response;
-        System.out.print("Введите количество сотрудников: ");
+        print("Введите количество сотрудников: ");
         String str = scanner.nextLine();
         // валидация
         response = Integer.parseInt(str);
@@ -104,20 +103,19 @@ public class ConsoleHandler {
     }
 
     public String askOrganizationType() {
-        System.out.println("Введите номер типа Вашей организации: ");
+        print("Введите номер типа Вашей организации: ");
         for (OrganizationType type : OrganizationType.values()) {
-            System.out.println(type.ordinal() + 1 + ") " + type.name());
+            println(type.ordinal() + 1 + ") " + type.name());
         }
-        String response = scanner.nextLine();
-        return response;
+        return scanner.nextLine();
     }
 
     public Address askOfficialAddress() {
         Address response;
-        System.out.print("Введите город(?): ");
+        print("Введите город(?): ");
         String zipCode = scanner.nextLine();
         // валидация
-        System.out.print("Введите координаты локации x, y, z через пробел (x и y - вещественные, z - целое): ");
+        print("Введите координаты локации x, y, z через пробел (x и y - вещественные, z - целое): ");
         String loc = scanner.nextLine();
         // валидация
         double x = Double.parseDouble(loc.split(" ")[0]);
@@ -128,7 +126,7 @@ public class ConsoleHandler {
     }
 
     public String askWhatToChange() {
-        System.out.println("Выберите, что Вы хотите поменять и укажите соответствующие номера характеристик через пробел: ");
+        println("Выберите, что Вы хотите поменять и укажите соответствующие номера характеристик через пробел: ");
         Field[] fields = Organization.class.getDeclaredFields();
         List<Field> filteredFields = new ArrayList<>();
 
@@ -139,13 +137,17 @@ public class ConsoleHandler {
         }
         Field[] resultingArray = filteredFields.toArray(new Field[0]);
         for (int i = 1; i <= resultingArray.length; i++) {
-            System.out.println(i + ") " + resultingArray[i-1].getName());
+            println(i + ") " + resultingArray[i-1].getName());
         }
         return scanner.nextLine();
     }
 
-    public void print(String str) {
-        System.out.println(str);
+    public void println(Object obj) {
+        System.out.println(obj.toString());
+    }
+
+    public void print(Object obj) {
+        System.out.println(obj.toString());
     }
 
     public void printAdvice(String advice) {
@@ -154,10 +156,6 @@ public class ConsoleHandler {
 
     public void printError(String message) {
         System.out.println("Ошибка: " + message);
-    }
-
-    public Scanner getScanner() {
-        return scanner;
     }
 
     public CommandManager getCommandManager() {

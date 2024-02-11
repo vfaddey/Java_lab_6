@@ -14,6 +14,6 @@ public class FilterContainsName extends Command implements CommandWithParameters
     @Override
     public void execute(String... parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException {
         Organization[] elements = collectionManager.getElementsByName(parameters[0]);
-        for (Organization el : elements) collectionManager.getConsoleHandler().print(el.toString());
+        for (Organization el : elements) collectionManager.getConsoleHandler().println(el);
     }
 }

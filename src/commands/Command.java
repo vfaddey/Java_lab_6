@@ -3,8 +3,8 @@ package commands;
 import managers.CollectionManager;
 
 public abstract class Command {
-    private String nameInConsole;
-    private String description;
+    private final String nameInConsole;
+    private final String description;
     protected String successPhrase;
     protected CollectionManager collectionManager;
 
@@ -24,7 +24,7 @@ public abstract class Command {
     }
 
     protected void printSuccess() {
-        collectionManager.getConsoleHandler().print(successPhrase);
+        collectionManager.getConsoleHandler().println(successPhrase);
     }
 
     public String getNameInConsole() {

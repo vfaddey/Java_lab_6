@@ -9,6 +9,6 @@ public class Info extends Command implements CommandWithoutParameters {
 
     @Override
     public void execute() {
-        collectionManager.getConsoleHandler().print(collectionManager.getInformation());
+        collectionManager.getConsoleHandler().println(collectionManager.getInformation());
     }
 }

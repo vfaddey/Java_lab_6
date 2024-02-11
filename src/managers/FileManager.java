@@ -9,9 +9,7 @@ import model.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class FileManager {
     public static LinkedList<Organization> readCollectionFromCSV(String filename, ConsoleHandler consoleHandler) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException {
@@ -27,7 +25,7 @@ public class FileManager {
                 String[] values = line.split(",");
                 collection.add(parseOrganizationFromStrings(values));
             }
-            consoleHandler.print("Коллекция загружена!");
+            consoleHandler.println("Коллекция загружена!");
             consoleHandler.printAdvice("Напишите help для просмотра списка команд");
             return collection;
         } catch (IOException e) {
@@ -40,7 +38,7 @@ public class FileManager {
         return null;
     }
 
-    public static void writeCollectionToCSV(LinkedList<Organization> collection, String filename, ConsoleHandler consoleHandler) {
+    public static void writeCollectionToCSV(LinkedList<Organization> collection, String filename) {
         String line;
         try {
             PrintWriter writer = new PrintWriter(new FileWriter(filename));
