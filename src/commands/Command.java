@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.WrongParameterException;
 import managers.CollectionManager;
 
 public abstract class Command {
@@ -35,7 +36,7 @@ public abstract class Command {
         return description;
     }
 
-    public void execute() {
+    public void execute() throws WrongParameterException {
 
     }
 

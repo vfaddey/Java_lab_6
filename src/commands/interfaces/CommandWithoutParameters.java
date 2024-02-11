@@ -1,5 +1,7 @@
 package commands.interfaces;
 
+import exceptions.WrongParameterException;
+
 public interface CommandWithoutParameters {
-    void execute();
+    void execute() throws WrongParameterException;
 }

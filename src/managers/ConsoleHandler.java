@@ -84,22 +84,14 @@ public class ConsoleHandler {
         return response;
     }
 
-    public long askAnnualTurnover() {
-        long response;
+    public String askAnnualTurnover() {
         print("Введите годовой оборот компании (целое число): ");
-        String str  = scanner.nextLine();
-        // валидация
-        response = Long.parseLong(str);
-        return response;
+        return scanner.nextLine();
     }
 
-    public int askEmployeesCount() {
-        int response;
+    public String askEmployeesCount() {
         print("Введите количество сотрудников: ");
-        String str = scanner.nextLine();
-        // валидация
-        response = Integer.parseInt(str);
-        return response;
+        return scanner.nextLine();
     }
 
     public String askOrganizationType() {
@@ -110,19 +102,12 @@ public class ConsoleHandler {
         return scanner.nextLine();
     }
 
-    public Address askOfficialAddress() {
-        Address response;
+    public String askOfficialAddress() {
         print("Введите город(?): ");
         String zipCode = scanner.nextLine();
-        // валидация
         print("Введите координаты локации x, y, z через пробел (x и y - вещественные, z - целое): ");
         String loc = scanner.nextLine();
-        // валидация
-        double x = Double.parseDouble(loc.split(" ")[0]);
-        double y = Double.parseDouble(loc.split(" ")[1]);
-        long z = Long.parseLong(loc.split(" ")[2]);
-        response = new Address(zipCode, new Location(x,y,z));
-        return response;
+        return zipCode + " " + loc;
     }
 
     public String askWhatToChange() {

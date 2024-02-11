@@ -60,7 +60,7 @@ public class CollectionManager {
         return "Не удалось определить тип";
     }
 
-    public void interactiveOrganizationCreation() {
+    public void interactiveOrganizationCreation() throws WrongParameterException {
         Organization organization = new Organization(
                 (long) (Math.random() * Long.MAX_VALUE),
                 nameRequest(),
@@ -87,8 +87,8 @@ public class CollectionManager {
                         parameters[6],
                         new Location(
                                 Double.parseDouble(parameters[7]),
-                                Double.parseDouble(parameters[8])
-                                , Long.parseLong(parameters[9]))));
+                                Double.parseDouble(parameters[8]),
+                                Long.parseLong(parameters[9]))));
         collection.add(organization);
         lastUpdateDate = LocalDate.now();
     }
@@ -107,20 +107,110 @@ public class CollectionManager {
     }
 
     public long annualTurnoverRequest() {
-        return consoleHandler.askAnnualTurnover();
+        long result = -1;
+        String response = consoleHandler.askAnnualTurnover();
+
+        try {
+            if (Validator.isNull(response)) {
+                throw new WrongParameterException("Введена пустая строка");
+            }
+            if (response.contains(" ")) {
+                String[] splitted = response.split(" ");
+                if (Validator.isCorrectNumber(splitted[0], Long.class)) {
+                    result = Long.parseLong(splitted[0]);
+                }
+            } else if (Validator.isCorrectNumber(response, Long.class)) {
+                result = Long.parseLong(response);
+            } else {
+                throw new WrongParameterException("Неверно введено число.");
+            }
+            if (result > 0) {
+                return result;
+            } else {
+                throw new WrongParameterException("Число сотрудников не может быть меньше одного.");
+            }
+        } catch (WrongParameterException e) {
+            consoleHandler.printError(e.toString());
+            return annualTurnoverRequest();
+        }
     }
 
-    public int employeesCountRequest() {
-        return consoleHandler.askEmployeesCount();
+    public int employeesCountRequest() throws WrongParameterException {
+        int result = -1;
+        String response = consoleHandler.askEmployeesCount();
+
+        try {
+            if (Validator.isNull(response)) {
+                throw new WrongParameterException("Введена пустая строка");
+            }
+            if (response.contains(" ")) {
+                String[] splitted = response.split(" ");
+                if (Validator.isCorrectNumber(splitted[0], Integer.class)) {
+                    result = Integer.parseInt(splitted[0]);
+                }
+            } else if (Validator.isCorrectNumber(response, Integer.class)) {
+                result = Integer.parseInt(response);
+            } else {
+                throw new WrongParameterException("Неверно введено число.");
+            }
+            if (result > 0) {
+                return result;
+            } else {
+                throw new WrongParameterException("Число сотрудников не может быть меньше одного.");
+            }
+        } catch (WrongParameterException e) {
+            consoleHandler.printError(e.toString());
+            return employeesCountRequest();
+        }
     }
 
-    public OrganizationType organizationTypeRequest() {
+
+    public OrganizationType organizationTypeRequest() throws WrongParameterException {
         String response = consoleHandler.askOrganizationType();
-        return OrganizationType.values()[Integer.parseInt(response)-1];
+        String num;
+        try {
+            if (Validator.isNull(response)) {
+                throw new WrongParameterException("Поле не может быть пустым.");
+            }
+            if (response.contains(" ")) {
+                num = response.split(" ")[0];
+                if (Validator.isNull(num)) {
+                    throw new WrongParameterException("Строка введена неверно.");
+                }
+
+            } else {
+                num = response;
+            }
+            if (Validator.isCorrectNumber(num, Integer.class)) {
+                if (Integer.parseInt(num) <= OrganizationType.values().length && Integer.parseInt(num) > 1) {
+                    return OrganizationType.values()[Integer.parseInt(num)-1];
+                } else {
+                    throw new WrongParameterException("Введено неверный номер.");
+                }
+            } else {
+                throw new WrongParameterException("Неправильно введено число.");
+            }
+
+        } catch (WrongParameterException | NumberFormatException e) {
+            consoleHandler.printError(e.toString());
+            return organizationTypeRequest();
+        }
     }
 
     public Address officialAddressRequest() {
-        return consoleHandler.askOfficialAddress();
+        String response = consoleHandler.askOfficialAddress();
+        String zipCode = response.split(" ")[0];
+        String loc = response.split(" ", 2)[1];
+        if (Validator.areCorrectLocationParams(loc.split(" ")[0], loc.split(" ")[1], loc.split(" ")[2])) {
+            double x = Double.parseDouble(loc.split(" ")[0]);
+            double y = Double.parseDouble(loc.split(" ")[1]);
+            long z = Long.parseLong(loc.split(" ")[2]);
+            return new Address(zipCode, new Location(x,y,z));
+        } else {
+            consoleHandler.printError("Неверно введены параметры. Попробуйте снова: ");
+            officialAddressRequest();
+        }
+        return null;
     }
 
     public LinkedList<Organization> getCollection() {

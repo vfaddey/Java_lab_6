@@ -34,6 +34,9 @@ public class Update extends Command implements CommandWithParameters {
                     fieldsNumbers[i] = Integer.parseInt(splitted[i]);
                 }
                 for (int num : fieldsNumbers) {
+                    if (num > 6) {
+                        throw new WrongParameterException("Число " + num + " не соответствует ни одному из полей");
+                    }
                     switch (num) {
                         case 1 -> name = collectionManager.nameRequest();
                         case 2 -> coordinates = collectionManager.coordinatesRequest();
@@ -60,6 +63,9 @@ public class Update extends Command implements CommandWithParameters {
         } catch (ElementNotFoundException e) {
             collectionManager.getConsoleHandler().printError(e.toString());
             collectionManager.getConsoleHandler().printAdvice("Введите id существующего элемента. Используйте команду show для просмотра коллекции.");
+        } catch (WrongParameterException e) {
+            collectionManager.getConsoleHandler().printError(e.toString());
+            execute(parameters);
         }
     }
 }
