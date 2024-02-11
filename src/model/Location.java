@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Location {
 
-    private double x;
-    private double y;
-    private long z;
+    private final double x;
+    private final double y;
+    private final long z;
 
     public Location(double x, double y, long z) {
         this.x = x;

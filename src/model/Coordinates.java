@@ -3,8 +3,8 @@ package model;
 import java.util.Objects;
 
 public class Coordinates {
-    private Integer x; //Поле не может быть null
-    private long y;
+    private final Integer x; //Поле не может быть null
+    private final long y;
 
     public Coordinates(Integer x, long y) {
         this.x = x;
