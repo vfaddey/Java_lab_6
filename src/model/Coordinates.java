@@ -34,7 +34,6 @@ public class Coordinates {
         Coordinates that = (Coordinates) object;
         return y == that.y && Objects.equals(x, that.x);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
