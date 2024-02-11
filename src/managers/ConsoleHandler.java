@@ -26,8 +26,13 @@ public class ConsoleHandler {
 
     public static class ScriptHandler {
         public static void readCommands(String filename, CommandManager commandManager) throws IOException, WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException, NullUserRequestException {
-            String[] commands = readScript(filename);
-            commandManager.processFileCommands(commands);
+            try {
+                String[] commands = readScript(filename);
+                commandManager.processFileCommands(commands);
+            } catch (WrongParameterException e) {
+                throw new WrongParameterException(e.toString());
+            }
+
         }
 
         private static String[] readScript(String filename) throws WrongParameterException {

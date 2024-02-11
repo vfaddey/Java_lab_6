@@ -16,18 +16,8 @@ public class ExecuteFile extends Command implements CommandWithParameters {
         try {
             ConsoleHandler.ScriptHandler.readCommands(parameters[0], collectionManager.getConsoleHandler().getCommandManager());
             printSuccess();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (WrongParameterException e) {
-            throw new RuntimeException(e);
-        } catch (IncorrectFilenameException e) {
-            throw new RuntimeException(e);
-        } catch (ElementNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (CommandNotExistsException e) {
-            throw new RuntimeException(e);
-        } catch (NullUserRequestException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | WrongParameterException | IncorrectFilenameException | ElementNotFoundException | CommandNotExistsException | NullUserRequestException e) {
+            throw new WrongParameterException("Файл не найден или нет доступа к файлу.");
         }
     }
 }
