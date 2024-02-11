@@ -47,10 +47,12 @@ public class CollectionManager {
 
     private String getCollectionClassName() {
         Type type = collection.getClass().getGenericSuperclass();
-        if (type instanceof ParameterizedType paramType) {
+        if (type instanceof ParameterizedType) {
+            ParameterizedType paramType = (ParameterizedType) type;
             Type[] typeArguments = paramType.getActualTypeArguments();
             if (typeArguments.length > 0) {
-                if (typeArguments[0] instanceof Class<?> typeArgClass) {
+                if (typeArguments[0] instanceof Class) {
+                    Class<?> typeArgClass = (Class<?>) typeArguments[0];
                     return typeArgClass.getName();
                 }
             }
