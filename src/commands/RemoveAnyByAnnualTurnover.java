@@ -1,7 +1,5 @@
 package commands;
 
-import exceptions.ElementNotFoundException;
-import exceptions.IncorrectFilenameException;
 import exceptions.WrongParameterException;
 import commands.interfaces.CommandWithParameters;
 import managers.Validator;
@@ -13,7 +11,7 @@ public class RemoveAnyByAnnualTurnover extends Command implements CommandWithPar
     }
 
     @Override
-    public void execute(String... parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException {
+    public void execute(String... parameters) throws WrongParameterException {
         if (Validator.isCorrectNumber(parameters[0], Long.class)) {
             Organization element = collectionManager.getElementsByAnnualTurnover(Long.parseLong(parameters[0]))[0];
             collectionManager.getCollection().remove(element);

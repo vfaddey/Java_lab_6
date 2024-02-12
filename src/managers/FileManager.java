@@ -1,9 +1,5 @@
 package managers;
 
-import exceptions.CommandNotExistsException;
-import exceptions.ElementNotFoundException;
-import exceptions.IncorrectFilenameException;
-import exceptions.WrongParameterException;
 import model.*;
 
 import java.io.*;
@@ -12,7 +8,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class FileManager {
-    public static LinkedList<Organization> readCollectionFromCSV(String filename, ConsoleHandler consoleHandler) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException {
+    public static LinkedList<Organization> readCollectionFromCSV(String filename, ConsoleHandler consoleHandler) {
         LinkedList<Organization> collection = new LinkedList<>();
         try {
             File file = new File(filename);

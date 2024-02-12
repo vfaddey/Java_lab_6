@@ -39,7 +39,7 @@ public class CommandManager {
                     }
                 }
             }
-        } catch (CommandNotExistsException | WrongParameterException | ElementNotFoundException | IncorrectFilenameException | NullUserRequestException | IOException e) {
+        } catch (CommandNotExistsException | WrongParameterException | NullUserRequestException e) {
             collectionManager.getConsoleHandler().printError(e.toString());
             collectionManager.getConsoleHandler().listen();
         }

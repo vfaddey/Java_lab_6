@@ -10,7 +10,7 @@ public class RemoveById extends Command implements CommandWithParameters {
     }
 
     @Override
-    public void execute(String... parameters) throws WrongParameterException, ElementNotFoundException {
+    public void execute(String... parameters) throws WrongParameterException {
         if (parameters[0].isEmpty()) throw new WrongParameterException("Параметр пуст.");
         try {
             collectionManager.removeById(Long.parseLong(parameters[0]));

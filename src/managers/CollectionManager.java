@@ -1,8 +1,6 @@
 package managers;
 
-import exceptions.CommandNotExistsException;
 import exceptions.ElementNotFoundException;
-import exceptions.IncorrectFilenameException;
 import exceptions.WrongParameterException;
 import model.*;
 
@@ -20,14 +18,14 @@ public class CollectionManager {
     private String information;
     private LocalDate lastUpdateDate;
 
-    public CollectionManager(ConsoleHandler consoleHandler) throws IncorrectFilenameException, ElementNotFoundException, WrongParameterException, CommandNotExistsException {
+    public CollectionManager(ConsoleHandler consoleHandler) {
         this.consoleHandler = consoleHandler;
         lastUpdateDate = LocalDate.now();
         loadCollection();
         updateInformation();
     }
 
-    public void loadCollection() throws IncorrectFilenameException, ElementNotFoundException, WrongParameterException, CommandNotExistsException {
+    public void loadCollection() {
         String fileName = consoleHandler.collectionFilenameRequest();
         this.collection = FileManager.readCollectionFromCSV(fileName, consoleHandler);
         if (collection == null) {
@@ -60,7 +58,7 @@ public class CollectionManager {
         return "Не удалось определить тип";
     }
 
-    public void interactiveOrganizationCreation() throws WrongParameterException {
+    public void interactiveOrganizationCreation() {
         Organization organization = new Organization(
                 (long) (Math.random() * Long.MAX_VALUE),
                 nameRequest(),
@@ -98,7 +96,7 @@ public class CollectionManager {
         lastUpdateDate = LocalDate.now();
     }
 
-    public String nameRequest() throws WrongParameterException {
+    public String nameRequest() {
         try {
             String name = consoleHandler.askName();
             if (Validator.isValidName(name)) {
@@ -112,7 +110,7 @@ public class CollectionManager {
         }
     }
 
-    public Coordinates coordinatesRequest() throws WrongParameterException {
+    public Coordinates coordinatesRequest() {
         String response = consoleHandler.askCoordinates();
         int x;
         long y;
@@ -164,7 +162,7 @@ public class CollectionManager {
         }
     }
 
-    public int employeesCountRequest() throws WrongParameterException {
+    public int employeesCountRequest()  {
         int result = -1;
         String response = consoleHandler.askEmployeesCount();
 
@@ -194,7 +192,7 @@ public class CollectionManager {
     }
 
 
-    public OrganizationType organizationTypeRequest() throws WrongParameterException {
+    public OrganizationType organizationTypeRequest() {
         String response = consoleHandler.askOrganizationType(OrganizationType.values());
         String num;
         try {

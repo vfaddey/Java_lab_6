@@ -1,8 +1,5 @@
 package commands;
 
-import exceptions.ElementNotFoundException;
-import exceptions.IncorrectFilenameException;
-import exceptions.WrongParameterException;
 import commands.interfaces.CommandWithParameters;
 
 public class RemoveGreater extends Command implements CommandWithParameters {
@@ -11,7 +8,7 @@ public class RemoveGreater extends Command implements CommandWithParameters {
     }
 
     @Override
-    public void execute(String... parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException {
+    public void execute(String... parameters)  {
 
     }
 }

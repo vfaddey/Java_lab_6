@@ -17,7 +17,7 @@ public class Save extends Command implements CommandWithoutParameters, CommandWi
     }
 
     @Override
-    public void execute(String... parameters) throws IncorrectFilenameException {
+    public void execute(String... parameters) {
         if (parameters.length == 0) execute();
         else {
             try {

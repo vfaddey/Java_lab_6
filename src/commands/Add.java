@@ -1,7 +1,7 @@
 package commands;
 
 import commands.interfaces.CommandWithoutParameters;
-import exceptions.WrongParameterException;
+
 
 public class Add extends Command implements CommandWithoutParameters {
     public Add(String consoleName) {
@@ -9,7 +9,7 @@ public class Add extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() throws WrongParameterException {
+    public void execute() {
         collectionManager.interactiveOrganizationCreation();
         printSuccess();
     }

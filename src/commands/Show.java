@@ -6,7 +6,6 @@ import exceptions.*;
 import managers.Validator;
 import model.Organization;
 
-import java.io.IOException;
 
 public class Show extends Command implements CommandWithoutParameters, CommandWithParameters {
 
@@ -27,7 +26,7 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
     }
 
     @Override
-    public void execute(String... parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException, IOException, CommandNotExistsException, NullUserRequestException {
+    public void execute(String... parameters) throws WrongParameterException {
         if (parameters.length == 0) {
             execute();
         } else {

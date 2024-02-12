@@ -12,7 +12,7 @@ public class ExecuteFile extends Command implements CommandWithParameters {
     }
 
     @Override
-    public void execute(String... parameters) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException, IOException, CommandNotExistsException, NullUserRequestException {
+    public void execute(String... parameters) throws WrongParameterException {
         try {
             ConsoleHandler.ScriptHandler.readCommands(parameters[0], collectionManager.getConsoleHandler().getCommandManager());
             printSuccess();
