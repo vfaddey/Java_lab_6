@@ -32,7 +32,6 @@ public class ConsoleHandler {
             } catch (WrongParameterException e) {
                 throw new WrongParameterException(e.toString());
             }
-
         }
 
         private static String[] readScript(String filename) throws WrongParameterException {
@@ -53,19 +52,11 @@ public class ConsoleHandler {
         }
     }
 
-    public void listen() throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException {
-        try {
-            while (true) {
-                System.out.print(">>> ");
-                String request = scanner.nextLine();
-                commandManager.exec(request);
-            }
-        } catch (CommandNotExistsException | ElementNotFoundException | WrongParameterException |
-                 IncorrectFilenameException | NullUserRequestException e) {
-            printError(e.toString());
-            listen();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public void listen() throws IncorrectFilenameException, ElementNotFoundException, IOException, WrongParameterException, CommandNotExistsException, NullUserRequestException {
+        while (true) {
+            print(">>> ");
+            String request = scanner.nextLine();
+            commandManager.exec(request);
         }
     }
 

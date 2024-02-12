@@ -125,9 +125,6 @@ public class CollectionManager {
                 } else {
                     throw new WrongParameterException("x не может быть null.");
                 }
-            } else if (Validator.isCorrectNumber(response.split(" ")[1], Long.class)) {
-                y = Long.parseLong(response.split(" ")[1]);
-                return new Coordinates(null, y);
             } else {
                 throw new WrongParameterException("Неверно введены числа.");
             }

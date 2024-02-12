@@ -21,23 +21,29 @@ public class CommandManager {
     }
 
     public void exec(String userInput) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException, NullUserRequestException, IOException {
-        String[] splitted = splitUserRequest(userInput);
-        String commandName = splitted[0];
-        if (!getConsoleCommandsNames().contains(commandName)) throw new CommandNotExistsException("Такой команды нет");
+        try {
+            String[] splitted = splitUserRequest(userInput);
+            String commandName = splitted[0];
+            if (!getConsoleCommandsNames().contains(commandName)) throw new CommandNotExistsException("Такой команды нет");
 
-        for (Command command : commands) {
-            if (command.getNameInConsole().equals(commandName)) {
-                if (command instanceof  CommandWithParameters) {
-                    String[] parameters = new String[splitted.length-1];
-                    for (int i = 1; i < splitted.length; i++) {
-                        parameters[i-1] = splitted[i];
+            for (Command command : commands) {
+                if (command.getNameInConsole().equals(commandName)) {
+                    if (command instanceof  CommandWithParameters) {
+                        String[] parameters = new String[splitted.length-1];
+                        for (int i = 1; i < splitted.length; i++) {
+                            parameters[i-1] = splitted[i];
+                        }
+                        ((CommandWithParameters) command).execute(parameters);
+                    } else if (command instanceof CommandWithoutParameters) {
+                        ((CommandWithoutParameters) command).execute();
                     }
-                    ((CommandWithParameters) command).execute(parameters);
-                } else if (command instanceof CommandWithoutParameters) {
-                    ((CommandWithoutParameters) command).execute();
                 }
             }
+        } catch (CommandNotExistsException | WrongParameterException | ElementNotFoundException | IncorrectFilenameException | NullUserRequestException | IOException e) {
+            collectionManager.getConsoleHandler().printError(e.toString());
+            collectionManager.getConsoleHandler().listen();
         }
+
     }
 
     private String[] splitUserRequest(String request) throws NullUserRequestException {

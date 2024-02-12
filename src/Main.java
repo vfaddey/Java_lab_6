@@ -1,14 +1,12 @@
 import commands.*;
-import exceptions.CommandNotExistsException;
-import exceptions.ElementNotFoundException;
-import exceptions.IncorrectFilenameException;
-import exceptions.WrongParameterException;
+import exceptions.*;
 import managers.*;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException {
+    public static void main(String[] args) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException, IOException, NullUserRequestException {
         Scanner scanner = new Scanner(System.in);
         CommandManager commandManager = new CommandManager();
         ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager);
