@@ -58,8 +58,13 @@ public class CollectionManager {
         return "Не удалось определить тип";
     }
 
-    public void interactiveOrganizationCreation() {
-        Organization organization = new Organization(
+    public void addNewElement() {
+        collection.add(interactiveOrganizationCreation());
+        lastUpdateDate = LocalDate.now();
+    }
+
+    public Organization interactiveOrganizationCreation() {
+        return new Organization(
                 (long) (Math.random() * Long.MAX_VALUE),
                 nameRequest(),
                 coordinatesRequest(),
@@ -68,8 +73,6 @@ public class CollectionManager {
                 employeesCountRequest(),
                 organizationTypeRequest(),
                 officialAddressRequest());
-        collection.add(organization);
-        lastUpdateDate = LocalDate.now();
     }
 
     public void organizationCreationFromFile(String... parameters) {

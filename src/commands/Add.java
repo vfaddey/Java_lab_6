@@ -10,7 +10,7 @@ public class Add extends Command implements CommandWithoutParameters {
 
     @Override
     public void execute() {
-        collectionManager.interactiveOrganizationCreation();
+        collectionManager.addNewElement();
         printSuccess();
     }
 

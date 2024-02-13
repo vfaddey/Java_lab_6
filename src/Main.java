@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException, IOException, NullUserRequestException {
+
         Scanner scanner = new Scanner(System.in);
         CommandManager commandManager = new CommandManager();
         ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager);

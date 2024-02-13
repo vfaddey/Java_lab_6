@@ -28,14 +28,16 @@ public class CommandManager {
 
             for (Command command : commands) {
                 if (command.getNameInConsole().equals(commandName)) {
-                    if (command instanceof  CommandWithParameters) {
-                        String[] parameters = new String[splitted.length-1];
-                        for (int i = 1; i < splitted.length; i++) {
-                            parameters[i-1] = splitted[i];
-                        }
+                    String[] parameters = new String[splitted.length-1];
+                    for (int i = 1; i < splitted.length; i++) {
+                        parameters[i-1] = splitted[i];
+                    }
+                    if (command instanceof CommandWithParameters && parameters.length != 0) {
                         ((CommandWithParameters) command).execute(parameters);
                     } else if (command instanceof CommandWithoutParameters) {
                         ((CommandWithoutParameters) command).execute();
+                    } else if (parameters.length == 0 && command instanceof CommandWithParameters) {
+                            throw new WrongParameterException("Вы не ввели параметр.");
                     }
                 }
             }
@@ -51,11 +53,14 @@ public class CommandManager {
         if (!request.contains(" ")) return new String[]{request};
         String command = request.split(" ", 2)[0];
         String[] parameters = request.split(" ", 2)[1].split(" ");
-        for (int i = 0; i < parameters.length; i++) {
-            if (parameters[i].isEmpty()) {
-                parameters[i] = null;
+        if (parameters.length != 0) {
+            for (int i = 0; i < parameters.length; i++) {
+                if (parameters[i].isEmpty()) {
+                    parameters[i] = null;
+                }
             }
         }
+
 
         String[] processed;
         if (Validator.isArrayConsistsOfOnlyNull(parameters)) {
