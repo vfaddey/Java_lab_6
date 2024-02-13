@@ -7,7 +7,7 @@ import model.Organization;
 
 public class RemoveAnyByAnnualTurnover extends Command implements CommandWithParameters {
     public RemoveAnyByAnnualTurnover(String nameInConsole) {
-        super(nameInConsole, "Удаляет элемент по указанному годовому обороту", "Элемент удален!");
+        super(nameInConsole, "<long annualTurnover> Удаляет элемент по указанному годовому обороту", "Элемент удален!");
     }
 
     @Override

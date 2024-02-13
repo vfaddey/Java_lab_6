@@ -27,7 +27,9 @@ public class Main {
                 new FilterLessThanAnnualTurnover("filter_less_than_annual_turnover"),
                 new RemoveAnyByAnnualTurnover("remove_any_by_annual_turnover"),
                 new ExecuteFile("execute_script"),
-                new Info("info"));
+                new Info("info"),
+                new RemoveGreater("remove_greater"),
+                new RemoveLower("remover_lower"));
 
         consoleHandler.listen();
     }

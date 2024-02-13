@@ -12,19 +12,33 @@ public class Validator {
         return matcher.matches();
     }
 
+    public static boolean isStringWithNumbers(String str) {
+        String[] numbers = str.split(" ");
+        for (String number : numbers) {
+            if (!number.matches("-?\\d+(\\.\\d+)?")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isEmptyArray(Object[] arr) {
+        return arr.length == 0;
+    }
+
     public static boolean isNull(Object obj) {
         return obj == null;
     }
 
     public static boolean areCorrectCoordinatesParams(String x, String y) {
-        if (!isNull(x)) {
+        if (!x.isEmpty() && !y.isEmpty()) {
             return isCorrectNumber(x, Integer.class) && isCorrectNumber(y, Long.class);
         }
         return false;
     }
 
     public static boolean isValidName(String str) {
-        return !isNull(str);
+        return !isNull(str) && !str.isEmpty() && str.matches("^[^\\s].*");
     }
 
     public static boolean areCorrectLocationParams(String x, String y, String z) {

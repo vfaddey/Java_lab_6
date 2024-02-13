@@ -4,7 +4,7 @@ import commands.interfaces.CommandWithoutParameters;
 
 public class Clear extends Command implements CommandWithoutParameters {
     public Clear(String consoleName) {
-        super(consoleName, "Очистить коллекцию", "Коллекция очищена!");
+        super(consoleName, "<Без параметров> Очистить коллекцию", "Коллекция очищена!");
     }
 
     @Override

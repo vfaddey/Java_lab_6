@@ -6,7 +6,7 @@ import commands.interfaces.CommandWithParameters;
 
 public class RemoveById extends Command implements CommandWithParameters {
     public RemoveById(String consoleName) {
-        super(consoleName, "Удаляет элемент коллеции по id", "Элемент коллекции удален!");
+        super(consoleName, "<long id> Удаляет элемент коллеции по id", "Элемент коллекции удален!");
     }
 
     @Override

@@ -5,7 +5,7 @@ import model.Organization;
 
 public class FilterContainsName extends Command implements CommandWithParameters {
     public FilterContainsName(String nameInConsole) {
-        super(nameInConsole, "Выводит все элементы, имена которых содержат указанную подстроку", "");
+        super(nameInConsole, "<String name> Выводит все элементы, имена которых содержат указанную подстроку", "");
     }
 
     @Override

@@ -7,7 +7,7 @@ import model.Organization;
 
 public class FilterLessThanAnnualTurnover extends Command implements CommandWithParameters {
     public FilterLessThanAnnualTurnover(String nameInConsole) {
-        super(nameInConsole, "Выводит все элементы, оборот которых меньше указанного", "");
+        super(nameInConsole, "<long annualTurnover> Выводит все элементы, оборот которых меньше указанного", "");
     }
 
     @Override

@@ -60,40 +60,17 @@ public class ConsoleHandler {
         }
     }
 
-    public String askName() {
-        print("Введите имя организации: ");
-        return scanner.nextLine();
-    }
-
-    public String askCoordinates() {
-        print("Введите через пробел координаты x и y (числа целые): ");
-        return scanner.nextLine();
-    }
-
-    public String askAnnualTurnover() {
-        print("Введите годовой оборот компании (целое число): ");
-        return scanner.nextLine();
-    }
-
-    public String askEmployeesCount() {
-        print("Введите количество сотрудников: ");
+    public String ask(String message) {
+        print(message);
         return scanner.nextLine();
     }
 
     public String askOrganizationType(OrganizationType[] values) {
-        print("Введите номер типа Вашей организации: ");
+        println("Введите номер типа Вашей организации: ");
         for (OrganizationType type : values) {
             println(type.ordinal() + 1 + ") " + type.name());
         }
         return scanner.nextLine();
-    }
-
-    public String askOfficialAddress() {
-        print("Введите город(?): ");
-        String zipCode = scanner.nextLine();
-        print("Введите координаты локации x, y, z через пробел (x и y - вещественные, z - целое): ");
-        String loc = scanner.nextLine();
-        return zipCode + " " + loc;
     }
 
     public String askWhatToChange() {

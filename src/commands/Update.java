@@ -11,7 +11,7 @@ import model.OrganizationType;
 
 public class Update extends Command implements CommandWithParameters {
     public Update(String consoleName) {
-        super(consoleName, "Обновляет элемент коллекции по id", "Элемент успешно обновлен!");
+        super(consoleName, "<long id> Обновляет элемент коллекции по id", "Элемент успешно обновлен!");
     }
 
     @Override

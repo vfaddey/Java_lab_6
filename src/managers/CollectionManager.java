@@ -44,26 +44,16 @@ public class CollectionManager {
     }
 
     private String getCollectionClassName() {
-        Type type = collection.getClass().getGenericSuperclass();
-        if (type instanceof ParameterizedType) {
-            ParameterizedType paramType = (ParameterizedType) type;
-            Type[] typeArguments = paramType.getActualTypeArguments();
-            if (typeArguments.length > 0) {
-                if (typeArguments[0] instanceof Class) {
-                    Class<?> typeArgClass = (Class<?>) typeArguments[0];
-                    return typeArgClass.getName();
-                }
-            }
-        }
-        return "Не удалось определить тип";
+        Class<? extends LinkedList> dataType = collection.getClass();
+        return dataType.getName();
     }
 
-    public void addNewElement() {
-        collection.add(interactiveOrganizationCreation());
+    public void addNewElement(Organization organization) {
+        collection.add(organization);
         lastUpdateDate = LocalDate.now();
     }
 
-    public Organization interactiveOrganizationCreation() {
+    public Organization interactiveOrganizationCreation() throws WrongParameterException {
         return new Organization(
                 (long) (Math.random() * Long.MAX_VALUE),
                 nameRequest(),
@@ -100,8 +90,8 @@ public class CollectionManager {
     }
 
     public String nameRequest() {
+        String name = consoleHandler.ask("Введите название организации: ");
         try {
-            String name = consoleHandler.askName();
             if (Validator.isValidName(name)) {
                 return name;
             } else {
@@ -113,11 +103,14 @@ public class CollectionManager {
         }
     }
 
-    public Coordinates coordinatesRequest() {
-        String response = consoleHandler.askCoordinates();
+    public Coordinates coordinatesRequest() throws WrongParameterException {
+        String response = consoleHandler.ask("Введите через пробел координаты x и y (числа целые): ");
         int x;
         long y;
         try {
+            if (response.split(" ").length < 2) {
+                throw new WrongParameterException("Введены не все параметры.");
+            }
             if (Validator.isCorrectNumber(response.split(" ")[0], Integer.class) && Validator.isCorrectNumber(response.split(" ")[1], Long.class)) {
                 if (!Validator.isNull(response.split(" ")[0])) {
                     x = Integer.parseInt(response.split(" ")[0]);
@@ -138,10 +131,10 @@ public class CollectionManager {
 
     public long annualTurnoverRequest() {
         long result = -1;
-        String response = consoleHandler.askAnnualTurnover();
+        String response = consoleHandler.ask("Введите годовой оборот компании (целое число): ");
 
         try {
-            if (Validator.isNull(response)) {
+            if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
                 throw new WrongParameterException("Введена пустая строка");
             }
             if (response.contains(" ")) {
@@ -167,10 +160,10 @@ public class CollectionManager {
 
     public int employeesCountRequest()  {
         int result = -1;
-        String response = consoleHandler.askEmployeesCount();
+        String response = consoleHandler.ask("Введите количество сотрудников: ");
 
         try {
-            if (Validator.isNull(response)) {
+            if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
                 throw new WrongParameterException("Введена пустая строка");
             }
             if (response.contains(" ")) {
@@ -199,7 +192,7 @@ public class CollectionManager {
         String response = consoleHandler.askOrganizationType(OrganizationType.values());
         String num;
         try {
-            if (Validator.isNull(response)) {
+            if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
                 throw new WrongParameterException("Поле не может быть пустым.");
             }
             if (response.contains(" ")) {
@@ -212,7 +205,7 @@ public class CollectionManager {
                 num = response;
             }
             if (Validator.isCorrectNumber(num, Integer.class)) {
-                if (Integer.parseInt(num) <= OrganizationType.values().length && Integer.parseInt(num) > 1) {
+                if (Integer.parseInt(num) <= OrganizationType.values().length && Integer.parseInt(num) >= 1) {
                     return OrganizationType.values()[Integer.parseInt(num)-1];
                 } else {
                     throw new WrongParameterException("Введено неверный номер.");
@@ -227,20 +220,27 @@ public class CollectionManager {
         }
     }
 
-    public Address officialAddressRequest() {
-        String response = consoleHandler.askOfficialAddress();
-        String zipCode = response.split(" ")[0];
-        String loc = response.split(" ", 2)[1];
-        if (Validator.areCorrectLocationParams(loc.split(" ")[0], loc.split(" ")[1], loc.split(" ")[2])) {
-            double x = Double.parseDouble(loc.split(" ")[0]);
-            double y = Double.parseDouble(loc.split(" ")[1]);
-            long z = Long.parseLong(loc.split(" ")[2]);
-            return new Address(zipCode, new Location(x,y,z));
-        } else {
-            consoleHandler.printError("Неверно введены параметры. Попробуйте снова: ");
-            officialAddressRequest();
+    public Address officialAddressRequest() throws WrongParameterException {
+        String zipCode = consoleHandler.ask("Введите город(?): ");
+        String loc = consoleHandler.ask("Введите координаты локации x, y, z через пробел (x и y - вещественные, z - целое): ");
+        try {
+            if (loc.split(" ").length < 3) {
+                throw new WrongParameterException("Неверно введены координаты локации");
+            }
+            if (Validator.isStringWithNumbers(loc) && Validator.isValidName(zipCode)) {
+                if (Validator.areCorrectLocationParams(loc.split(" ")[0], loc.split(" ")[1], loc.split(" ")[2])) {
+                    double x = Double.parseDouble(loc.split(" ")[0]);
+                    double y = Double.parseDouble(loc.split(" ")[1]);
+                    long z = Long.parseLong(loc.split(" ")[2]);
+                    return new Address(zipCode, new Location(x,y,z));
+                } else {
+                    throw new WrongParameterException("Неверно введены координаты локации.");
+                }
+            } throw new WrongParameterException("Неверно введены параметры. Попробуйте снова.");
+        } catch (WrongParameterException e) {
+            consoleHandler.printError(e.toString());
+            return officialAddressRequest();
         }
-        return null;
     }
 
     public LinkedList<Organization> getCollection() {

@@ -1,16 +1,19 @@
 package commands;
 
 import commands.interfaces.CommandWithoutParameters;
+import exceptions.WrongParameterException;
+import model.Organization;
 
 
 public class Add extends Command implements CommandWithoutParameters {
     public Add(String consoleName) {
-        super(consoleName, "Добавить новую организацию в коллекцию", "Новый элемент добавлен!");
+        super(consoleName, "<Без параметров> Добавить новую организацию в коллекцию", "Новый элемент добавлен!");
     }
 
     @Override
-    public void execute() {
-        collectionManager.addNewElement();
+    public void execute() throws WrongParameterException {
+        Organization newElement = collectionManager.interactiveOrganizationCreation();
+        collectionManager.addNewElement(newElement);
         printSuccess();
     }
 

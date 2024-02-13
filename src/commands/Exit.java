@@ -4,7 +4,7 @@ import commands.interfaces.CommandWithoutParameters;
 
 public class Exit extends Command implements CommandWithoutParameters {
     public Exit(String consoleName) {
-        super(consoleName, "Завершает работу без сохранения файла");
+        super(consoleName, "<Без параметров> Завершает работу без сохранения файла");
     }
 
     @Override
