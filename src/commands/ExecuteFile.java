@@ -18,6 +18,8 @@ public class ExecuteFile extends Command implements CommandWithParameters {
             printSuccess();
         } catch (IOException | WrongParameterException | IncorrectFilenameException | ElementNotFoundException | CommandNotExistsException | NullUserRequestException e) {
             throw new WrongParameterException("Файл не найден или нет доступа к файлу.");
+        } catch (RecursionExecutionException e) {
+            collectionManager.getConsoleHandler().printError(e.toString());
         }
     }
 }

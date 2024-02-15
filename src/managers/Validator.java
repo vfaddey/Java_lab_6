@@ -5,6 +5,10 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+
+/**
+ * Class that consist of some static methods that check users' inputs
+ */
 public class Validator {
     public static boolean isStringWithIntegers(String inputString) {
         Pattern pattern = Pattern.compile("^\\s*\\d+\\s*(?:\\s+\\d+\\s*)*$");

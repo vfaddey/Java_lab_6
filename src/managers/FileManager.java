@@ -7,6 +7,9 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
+/**
+ * Class for working with files
+ */
 public class FileManager {
     public static LinkedList<Organization> readCollectionFromCSV(String filename, ConsoleHandler consoleHandler) {
         LinkedList<Organization> collection = new LinkedList<>();

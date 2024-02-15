@@ -1,15 +1,18 @@
 package managers;
 
 import exceptions.ElementNotFoundException;
+import exceptions.NullUserRequestException;
 import exceptions.WrongParameterException;
 import model.*;
 
 
-import java.lang.reflect.Type;
-import java.lang.reflect.ParameterizedType;
 import java.time.LocalDate;
 import java.util.*;
 
+
+/**
+ * Class, that manage the collection, makes requests to user
+ */
 public class CollectionManager {
 
     private LinkedList<Organization> collection;
@@ -103,7 +106,7 @@ public class CollectionManager {
         }
     }
 
-    public Coordinates coordinatesRequest() throws WrongParameterException {
+    public Coordinates coordinatesRequest() {
         String response = consoleHandler.ask("Введите через пробел координаты x и y (числа целые): ");
         int x;
         long y;
@@ -135,7 +138,7 @@ public class CollectionManager {
 
         try {
             if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
-                throw new WrongParameterException("Введена пустая строка");
+                throw new NullUserRequestException("Введена пустая строка");
             }
             if (response.contains(" ")) {
                 String[] splitted = response.split(" ");
@@ -152,7 +155,7 @@ public class CollectionManager {
             } else {
                 throw new WrongParameterException("Число сотрудников не может быть меньше одного.");
             }
-        } catch (WrongParameterException e) {
+        } catch (WrongParameterException | NullUserRequestException e) {
             consoleHandler.printError(e.toString());
             return annualTurnoverRequest();
         }
@@ -164,7 +167,7 @@ public class CollectionManager {
 
         try {
             if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
-                throw new WrongParameterException("Введена пустая строка");
+                throw new NullUserRequestException("Введена пустая строка");
             }
             if (response.contains(" ")) {
                 String[] splitted = response.split(" ");
@@ -181,7 +184,7 @@ public class CollectionManager {
             } else {
                 throw new WrongParameterException("Число сотрудников не может быть меньше одного.");
             }
-        } catch (WrongParameterException e) {
+        } catch (WrongParameterException | NullUserRequestException e) {
             consoleHandler.printError(e.toString());
             return employeesCountRequest();
         }
@@ -193,7 +196,7 @@ public class CollectionManager {
         String num;
         try {
             if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
-                throw new WrongParameterException("Поле не может быть пустым.");
+                throw new NullUserRequestException("Поле не может быть пустым.");
             }
             if (response.contains(" ")) {
                 num = response.split(" ")[0];
@@ -214,13 +217,13 @@ public class CollectionManager {
                 throw new WrongParameterException("Неправильно введено число.");
             }
 
-        } catch (WrongParameterException | NumberFormatException e) {
+        } catch (WrongParameterException | NumberFormatException | NullUserRequestException e) {
             consoleHandler.printError(e.toString());
             return organizationTypeRequest();
         }
     }
 
-    public Address officialAddressRequest() throws WrongParameterException {
+    public Address officialAddressRequest() {
         String zipCode = consoleHandler.ask("Введите город(?): ");
         String loc = consoleHandler.ask("Введите координаты локации x, y, z через пробел (x и y - вещественные, z - целое): ");
         try {

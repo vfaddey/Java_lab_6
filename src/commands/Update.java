@@ -9,6 +9,9 @@ import model.Coordinates;
 import model.Organization;
 import model.OrganizationType;
 
+/**
+ * Command, needs to update element of collection by its id. Offers user to write required fields
+ */
 public class Update extends Command implements CommandWithParameters {
     public Update(String consoleName) {
         super(consoleName, "<long id> Обновляет элемент коллекции по id", "Элемент успешно обновлен!");

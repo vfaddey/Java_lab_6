@@ -4,6 +4,9 @@ package commands;
 import exceptions.WrongParameterException;
 import managers.CollectionManager;
 
+/**
+ * Abstract class of command
+ */
 public abstract class Command {
     private final String nameInConsole;
     private final String description;

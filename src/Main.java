@@ -29,7 +29,7 @@ public class Main {
                 new ExecuteFile("execute_script"),
                 new Info("info"),
                 new RemoveGreater("remove_greater"),
-                new RemoveLower("remover_lower"));
+                new RemoveLower("remove_lower"));
 
         consoleHandler.listen();
     }

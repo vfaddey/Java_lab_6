@@ -4,7 +4,9 @@ import commands.interfaces.CommandWithoutParameters;
 import exceptions.WrongParameterException;
 import model.Organization;
 
-
+/**
+ * Adds a new element to collection
+ */
 public class Add extends Command implements CommandWithoutParameters {
     public Add(String consoleName) {
         super(consoleName, "<Без параметров> Добавить новую организацию в коллекцию", "Новый элемент добавлен!");

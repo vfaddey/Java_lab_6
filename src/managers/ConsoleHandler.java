@@ -7,9 +7,14 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * Class that handles users' inputs and sends them to CommandManager
+ */
 public class ConsoleHandler {
     private final Scanner scanner;
     private final CommandManager commandManager;
@@ -42,13 +47,15 @@ public class ConsoleHandler {
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
+                    if (line.equals("execute_script " + filename)) {
+                        throw new RecursionExecutionException("Рекурсивный вызов файла.");
+                    }
                     commands.add(line);
                 }
                 return commands.toArray(new String[0]);
             } catch (IOException e) {
                 throw new WrongParameterException("Файл не найден или нет доступа к нему.");
             }
-
         }
     }
 

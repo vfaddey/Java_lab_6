@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 
+
+/**
+ * Handles console requests, executes commands
+ */
 public class CommandManager {
     private final HashSet<Command> commands = new HashSet<>();
     private CollectionManager collectionManager;
