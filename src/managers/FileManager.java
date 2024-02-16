@@ -78,5 +78,4 @@ public class FileManager {
 
         return new Organization(id, name, coordinates, creationDate, annualTurnover, employeesCount, type, officialAddress);
     }
-
 }

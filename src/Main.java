@@ -31,6 +31,6 @@ public class Main {
                 new RemoveGreater("remove_greater"),
                 new RemoveLower("remove_lower"));
 
-        consoleHandler.listen();
+        consoleHandler.runProgram();
     }
 }

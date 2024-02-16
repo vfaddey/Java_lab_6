@@ -6,10 +6,7 @@ import model.*;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 /**
@@ -59,11 +56,19 @@ public class ConsoleHandler {
         }
     }
 
+    public void runProgram() throws IncorrectFilenameException, ElementNotFoundException, IOException, WrongParameterException, CommandNotExistsException, NullUserRequestException {
+        while (true) {
+            listen();
+        }
+    }
+
     public void listen() throws IncorrectFilenameException, ElementNotFoundException, IOException, WrongParameterException, CommandNotExistsException, NullUserRequestException {
         while (true) {
-            print(">>> ");
-            String request = scanner.nextLine();
-            commandManager.exec(request);
+
+                print(">>> ");
+                String request = scanner.nextLine();
+                commandManager.exec(request);
+
         }
     }
 
