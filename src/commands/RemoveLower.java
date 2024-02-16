@@ -1,7 +1,6 @@
 package commands;
 
 import commands.interfaces.CommandWithoutParameters;
-import exceptions.WrongParameterException;
 import model.Organization;
 
 public class RemoveLower extends Command implements CommandWithoutParameters {
@@ -10,7 +9,7 @@ public class RemoveLower extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() throws WrongParameterException {
+    public void execute() {
         Organization comparator = collectionManager.interactiveOrganizationCreation();
         collectionManager.getCollection().removeIf(organization -> comparator.compareTo(organization) > 0);
     }

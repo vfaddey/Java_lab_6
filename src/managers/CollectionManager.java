@@ -56,7 +56,7 @@ public class CollectionManager {
         lastUpdateDate = LocalDate.now();
     }
 
-    public Organization interactiveOrganizationCreation() throws WrongParameterException {
+    public Organization interactiveOrganizationCreation() {
         return new Organization(
                 (long) (Math.random() * Long.MAX_VALUE),
                 nameRequest(),

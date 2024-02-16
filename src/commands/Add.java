@@ -1,7 +1,7 @@
 package commands;
 
 import commands.interfaces.CommandWithoutParameters;
-import exceptions.WrongParameterException;
+
 import model.Organization;
 
 /**
@@ -13,7 +13,7 @@ public class Add extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() throws WrongParameterException {
+    public void execute() {
         Organization newElement = collectionManager.interactiveOrganizationCreation();
         collectionManager.addNewElement(newElement);
         printSuccess();

@@ -56,19 +56,16 @@ public class ConsoleHandler {
         }
     }
 
-    public void runProgram() throws IncorrectFilenameException, ElementNotFoundException, IOException, WrongParameterException, CommandNotExistsException, NullUserRequestException {
-        while (true) {
-            listen();
-        }
-    }
-
     public void listen() throws IncorrectFilenameException, ElementNotFoundException, IOException, WrongParameterException, CommandNotExistsException, NullUserRequestException {
         while (true) {
-
+            try {
                 print(">>> ");
                 String request = scanner.nextLine();
                 commandManager.exec(request);
-
+            } catch (NoSuchElementException e) {
+                System.exit(0);
+                break;
+            }
         }
     }
 
