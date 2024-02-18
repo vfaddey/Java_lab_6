@@ -2,8 +2,8 @@ package managers;
 
 import commands.Command;
 import exceptions.*;
-import commands.interfaces.CommandWithParameters;
-import commands.interfaces.CommandWithoutParameters;
+import interfaces.CommandWithParameters;
+import interfaces.CommandWithoutParameters;
 
 import java.io.IOException;
 import java.util.Arrays;

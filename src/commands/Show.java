@@ -1,8 +1,8 @@
 package commands;
 
-import commands.interfaces.CommandWithParameters;
-import commands.interfaces.CommandWithoutParameters;
 import exceptions.*;
+import interfaces.CommandWithParameters;
+import interfaces.CommandWithoutParameters;
 import managers.Validator;
 import model.Organization;
 

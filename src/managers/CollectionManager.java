@@ -153,7 +153,7 @@ public class CollectionManager {
             if (result > 0) {
                 return result;
             } else {
-                throw new WrongParameterException("Число сотрудников не может быть меньше одного.");
+                throw new WrongParameterException("Годовой оборот не может быть меньше нуля.");
             }
         } catch (WrongParameterException | NullUserRequestException e) {
             consoleHandler.printError(e.toString());

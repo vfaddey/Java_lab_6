@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.*;
-import commands.interfaces.CommandWithParameters;
+import interfaces.CommandWithParameters;
 import managers.ConsoleHandler;
 
 import java.io.IOException;

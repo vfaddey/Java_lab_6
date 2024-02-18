@@ -1,6 +1,6 @@
 package commands;
 
-import commands.interfaces.CommandWithParameters;
+import interfaces.CommandWithParameters;
 import model.Organization;
 
 public class FilterContainsName extends Command implements CommandWithParameters {

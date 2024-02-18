@@ -1,6 +1,4 @@
-package commands.interfaces;
-
-
+package interfaces;
 
 public interface CommandWithoutParameters {
     void execute();

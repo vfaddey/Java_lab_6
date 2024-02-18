@@ -1,8 +1,8 @@
 package commands;
 
 import exceptions.IncorrectFilenameException;
-import commands.interfaces.CommandWithParameters;
-import commands.interfaces.CommandWithoutParameters;
+import interfaces.CommandWithParameters;
+import interfaces.CommandWithoutParameters;
 import managers.FileManager;
 
 public class Save extends Command implements CommandWithoutParameters, CommandWithParameters {

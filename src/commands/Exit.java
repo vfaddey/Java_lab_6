@@ -1,6 +1,6 @@
 package commands;
 
-import commands.interfaces.CommandWithoutParameters;
+import interfaces.CommandWithoutParameters;
 
 public class Exit extends Command implements CommandWithoutParameters {
     public Exit(String consoleName) {

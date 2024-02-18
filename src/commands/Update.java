@@ -2,7 +2,7 @@ package commands;
 
 import exceptions.ElementNotFoundException;
 import exceptions.WrongParameterException;
-import commands.interfaces.CommandWithParameters;
+import interfaces.CommandWithParameters;
 import managers.Validator;
 import model.Address;
 import model.Coordinates;

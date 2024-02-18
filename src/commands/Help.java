@@ -1,6 +1,6 @@
 package commands;
 
-import commands.interfaces.CommandWithoutParameters;
+import interfaces.CommandWithoutParameters;
 
 import java.util.HashSet;
 

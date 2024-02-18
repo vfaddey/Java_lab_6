@@ -1,6 +1,6 @@
 package commands;
 
-import commands.interfaces.CommandWithoutParameters;
+import interfaces.CommandWithoutParameters;
 
 public class Clear extends Command implements CommandWithoutParameters {
     public Clear(String consoleName) {

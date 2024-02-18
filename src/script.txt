@@ -1,2 +1,2 @@
 info
-execute_script src/script.txt
+execute_script src/script2.txt

@@ -1,6 +1,6 @@
 package commands;
 
-import commands.interfaces.CommandWithoutParameters;
+import interfaces.CommandWithoutParameters;
 
 public class Info extends Command implements CommandWithoutParameters {
     public Info(String consoleName) {

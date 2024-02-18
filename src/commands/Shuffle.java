@@ -1,6 +1,6 @@
 package commands;
 
-import commands.interfaces.CommandWithoutParameters;
+import interfaces.CommandWithoutParameters;
 
 public class Shuffle extends Command implements CommandWithoutParameters {
     public Shuffle(String nameInConsole) {

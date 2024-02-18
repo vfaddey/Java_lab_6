@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.WrongParameterException;
-import commands.interfaces.CommandWithParameters;
+import interfaces.CommandWithParameters;
 import managers.Validator;
 import model.Organization;
 
