@@ -3,6 +3,7 @@ package managers;
 import exceptions.ElementNotFoundException;
 import exceptions.NullUserRequestException;
 import exceptions.WrongParameterException;
+import interfaces.Dao;
 import model.*;
 
 
@@ -13,7 +14,7 @@ import java.util.*;
 /**
  * Class, that manage the collection, makes requests to user
  */
-public class CollectionManager {
+public class CollectionManager implements Dao {
 
     private LinkedList<Organization> collection;
     private String collectionFilename;
@@ -314,5 +315,35 @@ public class CollectionManager {
 
     public String getInformation() {
         return information;
+    }
+
+    @Override
+    public Optional<Organization> get(long id) throws ElementNotFoundException {
+        return Optional.ofNullable(getElementById(id));
+    }
+
+    @Override
+    public LinkedList<Organization> getAll() {
+        return collection;
+    }
+
+    @Override
+    public void save(Object object) {
+        if (object instanceof Organization) {
+            collection.add((Organization) object);
+        }
+        updateInformation();
+    }
+
+    @Override
+    public void update(Object object, String[] params) {
+
+    }
+
+    @Override
+    public void delete(Object object) {
+        if (object instanceof Organization) {
+            collection.remove(object);
+        }
     }
 }
