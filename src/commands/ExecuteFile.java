@@ -18,7 +18,7 @@ public class ExecuteFile extends Command implements CommandWithParameters {
         try {
             if (!filenamesStack.contains(parameters[0])) {
                 filenamesStack.push(parameters[0]);
-                ConsoleHandler.ScriptHandler.readCommands(parameters[0], collectionManager.getConsoleHandler().getCommandManager());
+                ConsoleHandler.ScriptHandler.readCommands(parameters[0], collectionManager.getSender().getConsoleHandler().getCommandManager());
                 printSuccess();
             } else {
                 throw new RecursionExecutionException("Файл " + parameters[0] + " уже был вызван.");
@@ -27,7 +27,7 @@ public class ExecuteFile extends Command implements CommandWithParameters {
         } catch (IOException | WrongParameterException | IncorrectFilenameException | ElementNotFoundException | CommandNotExistsException | NullUserRequestException e) {
             throw new WrongParameterException("Файл не найден или нет доступа к файлу.");
         } catch (RecursionExecutionException e) {
-            collectionManager.getConsoleHandler().printError(e.toString());
+            collectionManager.getSender().getConsoleHandler().printError(e.toString());
         }
     }
 }

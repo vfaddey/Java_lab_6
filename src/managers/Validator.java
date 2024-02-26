@@ -71,13 +71,4 @@ public class Validator {
         }
         return true;
     }
-
-    public static boolean isCorrectDate(String string) {
-        try {
-            LocalDate.parse(string);
-        } catch (DateTimeException e) {
-            return false;
-        }
-        return true;
-    }
 }

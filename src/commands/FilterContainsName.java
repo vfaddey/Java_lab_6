@@ -11,6 +11,6 @@ public class FilterContainsName extends Command implements CommandWithParameters
     @Override
     public void execute(String... parameters) {
         Organization[] elements = collectionManager.getElementsByName(parameters[0]);
-        for (Organization el : elements) collectionManager.getConsoleHandler().println(el);
+        for (Organization el : elements) collectionManager.getSender().getConsoleHandler().println(el);
     }
 }

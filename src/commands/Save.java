@@ -3,7 +3,6 @@ package commands;
 import exceptions.IncorrectFilenameException;
 import interfaces.CommandWithParameters;
 import interfaces.CommandWithoutParameters;
-import managers.CSVHandler;
 
 public class Save extends Command implements CommandWithoutParameters, CommandWithParameters {
     public Save(String consoleName) {
@@ -28,7 +27,7 @@ public class Save extends Command implements CommandWithoutParameters, CommandWi
                     } else throw new IncorrectFilenameException("Расширение файла должно быть .csv");
                 } else throw new IncorrectFilenameException("Строка не должна начинаться с числа");
             } catch (IncorrectFilenameException e) {
-                collectionManager.getConsoleHandler().printError(e.toString());
+                collectionManager.getSender().getConsoleHandler().printError(e.toString());
             }
         }
     }

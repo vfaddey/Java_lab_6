@@ -34,7 +34,7 @@ public abstract class Command {
     }
 
     protected void printSuccess() {
-        collectionManager.getConsoleHandler().println(successPhrase);
+        collectionManager.getSender().getConsoleHandler().println(successPhrase);
     }
 
     public String getNameInConsole() {

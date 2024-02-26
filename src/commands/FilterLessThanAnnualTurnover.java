@@ -16,7 +16,7 @@ public class FilterLessThanAnnualTurnover extends Command implements CommandWith
             long annualTurnover = Long.parseLong(parameters[0]);
             Organization[] elements = collectionManager.getElementsLessThanAnnualTurnover(annualTurnover);
             for (Organization el : elements) {
-                collectionManager.getConsoleHandler().println(el);
+                collectionManager.getSender().getConsoleHandler().println(el);
             }
         } else {
             throw new WrongParameterException("Неверно введен параметр!");

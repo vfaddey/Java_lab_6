@@ -6,7 +6,6 @@ import interfaces.CommandWithParameters;
 import interfaces.CommandWithoutParameters;
 import interfaces.FileManager;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -18,7 +17,7 @@ import java.util.HashSet;
 public class CommandManager {
     private final HashSet<Command> commands = new HashSet<>();
     private CollectionManager collectionManager;
-    private FileManager fileManager;
+    private final FileManager fileManager;
 
     public CommandManager(FileManager fileManager) {
         this.fileManager = fileManager;
@@ -55,8 +54,8 @@ public class CommandManager {
                 }
             }
         } catch (CommandNotExistsException | WrongParameterException | NullUserRequestException e) {
-            collectionManager.getConsoleHandler().printError(e.toString());
-            collectionManager.getConsoleHandler().listen();
+            collectionManager.getSender().getConsoleHandler().printError(e.toString());
+            collectionManager.getSender().getConsoleHandler().listen();
         }
 
     }

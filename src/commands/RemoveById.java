@@ -18,7 +18,7 @@ public class RemoveById extends Command implements CommandWithParameters {
         } catch (NumberFormatException e) {
             throw new WrongParameterException("Параметр введен неверно.");
         } catch (ElementNotFoundException e) {
-            collectionManager.getConsoleHandler().printError(e.toString());
+            collectionManager.getSender().getConsoleHandler().printError(e.toString());
         }
     }
 }

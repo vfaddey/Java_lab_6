@@ -29,7 +29,7 @@ public class Update extends Command implements CommandWithParameters {
             Address officialAddress = element.getOfficialAddress();
 
 
-            String answer = collectionManager.getConsoleHandler().askWhatToChange();
+            String answer = collectionManager.getSender().getConsoleHandler().askWhatToChange();
             if (Validator.isStringWithIntegers(answer)) {
                 String[] splitted = answer.split(" ");
                 int[] fieldsNumbers = new int[splitted.length];
@@ -64,10 +64,10 @@ public class Update extends Command implements CommandWithParameters {
         } catch (NumberFormatException e) {
             throw new WrongParameterException("Неправильно введен параметр.");
         } catch (ElementNotFoundException e) {
-            collectionManager.getConsoleHandler().printError(e.toString());
-            collectionManager.getConsoleHandler().printAdvice("Введите id существующего элемента. Используйте команду show для просмотра коллекции.");
+            collectionManager.getSender().getConsoleHandler().printError(e.toString());
+            collectionManager.getSender().getConsoleHandler().printAdvice("Введите id существующего элемента. Используйте команду show для просмотра коллекции.");
         } catch (WrongParameterException e) {
-            collectionManager.getConsoleHandler().printError(e.toString());
+            collectionManager.getSender().getConsoleHandler().printError(e.toString());
             execute(parameters);
         }
     }

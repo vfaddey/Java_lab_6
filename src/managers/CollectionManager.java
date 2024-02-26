@@ -1,8 +1,6 @@
 package managers;
 
 import exceptions.ElementNotFoundException;
-import exceptions.NullUserRequestException;
-import exceptions.WrongParameterException;
 import interfaces.FileManager;
 import model.*;
 
@@ -33,7 +31,7 @@ public class CollectionManager{
 
     public void loadCollectionFromCSV() {
         String fileName = sender.getConsoleHandler().collectionFilenameRequest();
-        this.collection = ((CSVHandler)fileManager).read(fileName, sender.getConsoleHandler());
+        this.collection = fileManager.read(fileName, sender.getConsoleHandler());
         if (collection == null) {
             loadCollectionFromCSV();
         }
