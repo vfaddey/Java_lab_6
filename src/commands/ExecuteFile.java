@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Stack;
 
 public class ExecuteFile extends Command implements CommandWithParameters {
-    private Stack<String> filenamesStack = new Stack<>();
+    private final Stack<String> filenamesStack = new Stack<>();
     public ExecuteFile(String nameInConsole) {
         super(nameInConsole, "<Путь к файлу> Выполняет содержимое скрипта", "Код скрипта выполнен!");
     }
