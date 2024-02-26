@@ -41,12 +41,12 @@ public class Update extends Command implements CommandWithParameters {
                         throw new WrongParameterException("Число " + num + " не соответствует ни одному из полей");
                     }
                     switch (num) {
-                        case 1 -> name = collectionManager.nameRequest();
-                        case 2 -> coordinates = collectionManager.coordinatesRequest();
-                        case 3 -> annualTurnover = collectionManager.annualTurnoverRequest();
-                        case 4 -> employeesCount = collectionManager.employeesCountRequest();
-                        case 5 -> type = collectionManager.organizationTypeRequest();
-                        case 6 -> officialAddress = collectionManager.officialAddressRequest();
+                        case 1 -> name = collectionManager.getSender().nameRequest();
+                        case 2 -> coordinates = collectionManager.getSender().coordinatesRequest();
+                        case 3 -> annualTurnover = collectionManager.getSender().annualTurnoverRequest();
+                        case 4 -> employeesCount = collectionManager.getSender().employeesCountRequest();
+                        case 5 -> type = collectionManager.getSender().organizationTypeRequest();
+                        case 6 -> officialAddress = collectionManager.getSender().officialAddressRequest();
                     }
                 }
                 Organization updatedElement = new Organization(

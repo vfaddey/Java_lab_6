@@ -13,7 +13,8 @@ public class Main {
         FileManager fileManager = new CSVHandler();
         CommandManager commandManager = new CommandManager(fileManager);
         ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager);
-        CollectionManager collectionManager = new CollectionManager(consoleHandler, fileManager);
+        Sender sender = new Sender(consoleHandler);
+        CollectionManager collectionManager = new CollectionManager(consoleHandler, fileManager, sender);
         commandManager.setCollectionManager(collectionManager);
         commandManager.addCommands(
                 new Add("add"),
