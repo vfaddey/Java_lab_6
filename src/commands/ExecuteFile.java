@@ -17,11 +17,11 @@ public class ExecuteFile extends Command implements CommandWithParameters {
     public void execute(String... parameters) throws WrongParameterException {
         try {
             if (!filenamesStack.contains(parameters[0])) {
-                ConsoleHandler.ScriptHandler.readCommands(parameters[0], collectionManager.getConsoleHandler().getCommandManager());
                 filenamesStack.push(parameters[0]);
+                ConsoleHandler.ScriptHandler.readCommands(parameters[0], collectionManager.getConsoleHandler().getCommandManager());
                 printSuccess();
             } else {
-                throw new RecursionExecutionException("Файл " + parameters[0] + "уже был вызван.");
+                throw new RecursionExecutionException("Файл " + parameters[0] + " уже был вызван.");
             }
 
         } catch (IOException | WrongParameterException | IncorrectFilenameException | ElementNotFoundException | CommandNotExistsException | NullUserRequestException e) {
