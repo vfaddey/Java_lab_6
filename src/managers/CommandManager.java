@@ -4,7 +4,9 @@ import commands.Command;
 import exceptions.*;
 import interfaces.CommandWithParameters;
 import interfaces.CommandWithoutParameters;
+import interfaces.FileManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -16,11 +18,18 @@ import java.util.HashSet;
 public class CommandManager {
     private final HashSet<Command> commands = new HashSet<>();
     private CollectionManager collectionManager;
+    private FileManager fileManager;
+
+    public CommandManager(FileManager fileManager) {
+        this.fileManager = fileManager;
+    }
 
     public void setCollectionManager(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
+        this.collectionManager.setFileManager(fileManager);
         for (Command command : commands) {
             command.setCollectionManager(collectionManager);
+            command.setFileManager(fileManager);
         }
     }
 

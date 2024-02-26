@@ -3,6 +3,7 @@ package managers;
 import exceptions.ElementNotFoundException;
 import exceptions.NullUserRequestException;
 import exceptions.WrongParameterException;
+import interfaces.FileManager;
 import model.*;
 
 
@@ -20,19 +21,21 @@ public class CollectionManager{
     private final ConsoleHandler consoleHandler;
     private String information;
     private LocalDate lastUpdateDate;
+    private FileManager fileManager;
 
-    public CollectionManager(ConsoleHandler consoleHandler) {
+    public CollectionManager(ConsoleHandler consoleHandler, FileManager fileManager) {
+        this.fileManager = fileManager;
         this.consoleHandler = consoleHandler;
         lastUpdateDate = LocalDate.now();
-        loadCollection();
+        loadCollectionFromCSV();
         updateInformation();
     }
 
-    public void loadCollection() {
+    public void loadCollectionFromCSV() {
         String fileName = consoleHandler.collectionFilenameRequest();
-        this.collection = FileManager.readCollectionFromCSV(fileName, consoleHandler);
+        this.collection = ((CSVHandler)fileManager).read(fileName, consoleHandler);
         if (collection == null) {
-            loadCollection();
+            loadCollectionFromCSV();
         }
         this.collectionFilename = fileName;
         if (collection != null) {
@@ -314,5 +317,9 @@ public class CollectionManager{
 
     public String getInformation() {
         return information;
+    }
+
+    public void setFileManager(FileManager fileManager) {
+        this.fileManager = fileManager;
     }
 }

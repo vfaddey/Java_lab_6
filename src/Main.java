@@ -1,5 +1,6 @@
 import commands.*;
 import exceptions.*;
+import interfaces.FileManager;
 import managers.*;
 
 import java.io.IOException;
@@ -9,9 +10,10 @@ public class Main {
     public static void main(String[] args) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException, IOException, NullUserRequestException {
 
         Scanner scanner = new Scanner(System.in);
-        CommandManager commandManager = new CommandManager();
+        FileManager fileManager = new CSVHandler();
+        CommandManager commandManager = new CommandManager(fileManager);
         ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager);
-        CollectionManager collectionManager = new CollectionManager(consoleHandler);
+        CollectionManager collectionManager = new CollectionManager(consoleHandler, fileManager);
         commandManager.setCollectionManager(collectionManager);
         commandManager.addCommands(
                 new Add("add"),

@@ -1,5 +1,6 @@
 package managers;
 
+import interfaces.FileManager;
 import model.*;
 
 import java.io.*;
@@ -10,8 +11,10 @@ import java.util.LinkedList;
 /**
  * Class for working with files
  */
-public class FileManager {
-    public static LinkedList<Organization> readCollectionFromCSV(String filename, ConsoleHandler consoleHandler) {
+public class CSVHandler implements FileManager {
+
+    @Override
+    public LinkedList<Organization> read(String filename, ConsoleHandler consoleHandler) {
         LinkedList<Organization> collection = new LinkedList<>();
         try {
             File file = new File(filename);
@@ -36,7 +39,8 @@ public class FileManager {
         }
     }
 
-    public static void writeCollectionToCSV(LinkedList<Organization> collection, String filename) {
+    @Override
+    public void write(LinkedList<Organization> collection, String filename) {
         String line;
         try {
             PrintWriter writer = new PrintWriter(new FileWriter(filename));
@@ -62,10 +66,7 @@ public class FileManager {
         }
     }
 
-
-
-
-    private static Organization parseOrganizationFromStrings(String[] data) {
+    private Organization parseOrganizationFromStrings(String[] data) {
         Long id = Long.parseLong(data[0]); //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
         String name = data[1]; //Поле не может быть null, Строка не может быть пустой
         Coordinates coordinates = new Coordinates(Integer.parseInt(data[2]), Long.parseLong(data[3])); //Поле не может быть null
