@@ -14,7 +14,7 @@ public class Main {
         CommandManager commandManager = new CommandManager(fileManager);
         ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager);
         Sender sender = new Sender(consoleHandler);
-        CollectionManager collectionManager = new CollectionManager(consoleHandler, fileManager, sender);
+        CollectionManager collectionManager = new CollectionManager(fileManager, sender);
         commandManager.setCollectionManager(collectionManager);
         commandManager.addCommands(
                 new Add("add"),

@@ -18,24 +18,22 @@ public class CollectionManager{
 
     private LinkedList<Organization> collection;
     private String collectionFilename;
-    private final ConsoleHandler consoleHandler;
     private String information;
     private LocalDate lastUpdateDate;
     private FileManager fileManager;
-    private Sender sender;
+    private final Sender sender;
 
-    public CollectionManager(ConsoleHandler consoleHandler, FileManager fileManager, Sender sender) {
+    public CollectionManager(FileManager fileManager, Sender sender) {
         this.sender = sender;
         this.fileManager = fileManager;
-        this.consoleHandler = consoleHandler;
         lastUpdateDate = LocalDate.now();
         loadCollectionFromCSV();
         updateInformation();
     }
 
     public void loadCollectionFromCSV() {
-        String fileName = consoleHandler.collectionFilenameRequest();
-        this.collection = ((CSVHandler)fileManager).read(fileName, consoleHandler);
+        String fileName = sender.getConsoleHandler().collectionFilenameRequest();
+        this.collection = ((CSVHandler)fileManager).read(fileName, sender.getConsoleHandler());
         if (collection == null) {
             loadCollectionFromCSV();
         }
@@ -161,9 +159,6 @@ public class CollectionManager{
         }
     }
 
-    public ConsoleHandler getConsoleHandler() {
-        return consoleHandler;
-    }
 
     public String getInformation() {
         return information;
