@@ -7,7 +7,7 @@ import interfaces.CommandWithoutParameters;
 import interfaces.FileManager;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 
@@ -15,7 +15,7 @@ import java.util.HashSet;
  * Handles console requests, executes commands
  */
 public class CommandManager {
-    private final HashSet<Command> commands = new HashSet<>();
+    private final HashMap<String, Command> commands = new HashMap<>();
     private CollectionManager collectionManager;
     private final FileManager fileManager;
 
@@ -26,9 +26,9 @@ public class CommandManager {
     public void setCollectionManager(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
         this.collectionManager.setFileManager(fileManager);
-        for (Command command : commands) {
-            command.setCollectionManager(collectionManager);
-            command.setFileManager(fileManager);
+        for (String key : commands.keySet()) {
+            commands.get(key).setCollectionManager(collectionManager);
+            commands.get(key).setFileManager(fileManager);
         }
     }
 
@@ -36,22 +36,19 @@ public class CommandManager {
         try {
             String[] splitted = splitUserRequest(userInput);
             String commandName = splitted[0];
-            if (!getConsoleCommandsNames().contains(commandName)) throw new CommandNotExistsException("Такой команды нет");
+            if (!commands.containsKey(commandName)) throw new CommandNotExistsException("Такой команды нет");
 
-            for (Command command : commands) {
-                if (command.getNameInConsole().equals(commandName)) {
-                    String[] parameters = new String[splitted.length-1];
-                    for (int i = 1; i < splitted.length; i++) {
-                        parameters[i-1] = splitted[i];
-                    }
-                    if (command instanceof CommandWithParameters && parameters.length != 0) {
-                        ((CommandWithParameters) command).execute(parameters);
-                    } else if (command instanceof CommandWithoutParameters) {
-                        ((CommandWithoutParameters) command).execute();
-                    } else if (parameters.length == 0 && command instanceof CommandWithParameters) {
-                            throw new WrongParameterException("Вы не ввели параметр.");
-                    }
-                }
+            Command command = this.commands.get(commandName);
+            String[] parameters = new String[splitted.length-1];
+            for (int i = 1; i < splitted.length; i++) {
+                parameters[i-1] = splitted[i];
+            }
+            if (command instanceof CommandWithParameters && parameters.length != 0) {
+                ((CommandWithParameters) command).execute(parameters);
+            } else if (command instanceof CommandWithoutParameters) {
+                ((CommandWithoutParameters) command).execute();
+            } else if (parameters.length == 0 && command instanceof CommandWithParameters) {
+                throw new WrongParameterException("Вы не ввели параметр.");
             }
         } catch (CommandNotExistsException | WrongParameterException | NullUserRequestException e) {
             collectionManager.getSender().getConsoleHandler().printError(e.toString());
@@ -73,7 +70,6 @@ public class CommandManager {
             }
         }
 
-
         String[] processed;
         if (Validator.isArrayConsistsOfOnlyNull(parameters)) {
             processed = new String[]{command};
@@ -94,22 +90,15 @@ public class CommandManager {
         }
     }
 
-    public HashSet<String> getConsoleCommandsNames() {
-        HashSet<String> names = new HashSet<>();
-        for (Command command : commands) {
-            names.add(command.getNameInConsole());
-        }
-        return names;
-    }
-
     public void addCommands(Command... commands) {
-        this.commands.addAll(Arrays.asList(commands));
         for (Command command : commands) {
+            this.commands.put(command.getNameInConsole(), command);
             command.setCollectionManager(collectionManager);
+            command.setFileManager(fileManager);
         }
     }
 
     public HashSet<Command> getCommands() {
-        return commands;
+        return new HashSet<>(commands.values());
     }
 }
