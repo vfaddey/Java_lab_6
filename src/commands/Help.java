@@ -2,7 +2,6 @@ package commands;
 
 import interfaces.CommandWithoutParameters;
 
-import java.util.Collection;
 import java.util.HashSet;
 
 public class Help extends Command implements CommandWithoutParameters {
