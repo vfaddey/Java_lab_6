@@ -13,13 +13,22 @@ import java.util.*;
  * Class, that manage the collection, makes requests to user
  */
 public class CollectionManager{
-
+    private String fileName;
     private LinkedList<Organization> collection;
     private String collectionFilename;
     private String information;
     private LocalDate lastUpdateDate;
     private FileManager fileManager;
     private final Sender sender;
+
+    public CollectionManager(FileManager fileManager, Sender sender, String fileName) {
+        this.sender = sender;
+        this.fileManager = fileManager;
+        this.fileName = fileName;
+        lastUpdateDate = LocalDate.now();
+        loadCollectionFromCSV(fileName);
+        updateInformation();
+    }
 
     public CollectionManager(FileManager fileManager, Sender sender) {
         this.sender = sender;
@@ -41,9 +50,21 @@ public class CollectionManager{
         }
     }
 
+    public void loadCollectionFromCSV(String fileName) {
+        this.collection = fileManager.read(fileName, sender.getConsoleHandler());
+        if (collection == null) {
+            loadCollectionFromCSV();
+        }
+        this.collectionFilename = fileName;
+        if (collection != null) {
+            Collections.sort(collection);
+        }
+    }
+
     private void updateInformation() {
         information = "Тип коллекции: " + LinkedList.class.getName() + "\n"
-                + "Хранит объекты типа: " + getCollectionClassName() + "\n"
+                + "Хранит объекты типа: " + Organization.class.getName() + "\n"
+                + "Количество элементов коллекции: " + collection.size() + "\n"
                 + "Последнее обновление коллекции: " + lastUpdateDate;
     }
 
