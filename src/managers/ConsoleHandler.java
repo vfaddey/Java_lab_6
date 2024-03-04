@@ -13,10 +13,9 @@ import java.util.*;
  * Class that handles users' inputs and sends them to CommandManager
  */
 public class ConsoleHandler {
-    private final Scanner scanner;
+    private final Scanner scanner = new Scanner(System.in);
     private final CommandManager commandManager;
-    public ConsoleHandler(Scanner scanner, CommandManager commandManager) {
-        this.scanner = scanner;
+    public ConsoleHandler(CommandManager commandManager) {
         this.commandManager = commandManager;
 
     }

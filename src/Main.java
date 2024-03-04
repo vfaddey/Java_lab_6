@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws CommandNotExistsException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException, IOException, NullUserRequestException {
 
-        Scanner scanner = new Scanner(System.in);
+
         FileManager fileManager = new CSVHandler();
         CommandManager commandManager = new CommandManager(fileManager);
-        ConsoleHandler consoleHandler = new ConsoleHandler(scanner, commandManager);
+        ConsoleHandler consoleHandler = new ConsoleHandler(commandManager);
         Sender sender = new Sender(consoleHandler);
         CollectionManager collectionManager = new CollectionManager(fileManager, sender, "src/collection.csv");
         commandManager.setCollectionManager(collectionManager);

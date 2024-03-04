@@ -1,14 +1,20 @@
 package client;
 
+import interfaces.FileManager;
+import managers.CSVHandler;
+import managers.CollectionManager;
+import managers.CommandManager;
+import managers.ConsoleHandler;
+
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Client {
     private static final String SERVER_ADDRESS = "127.0.0.1";
     private static final int SERVER_PORT = 8888;
 
     public static void main(String[] args) {
+
         try (Socket serverSocket = new Socket(SERVER_ADDRESS, SERVER_PORT)) {
             OutputStream output = serverSocket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);

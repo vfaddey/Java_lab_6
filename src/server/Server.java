@@ -1,5 +1,9 @@
 package server;
 
+import commands.*;
+import interfaces.FileManager;
+import managers.*;
+
 import javax.net.ssl.SSLServerSocket;
 import java.io.*;
 import java.net.ServerSocket;
@@ -10,6 +14,31 @@ public class Server {
 
     public static void main(String[] args) {
         String response;
+
+        FileManager fileManager = new CSVHandler();
+        CommandManager commandManager = new CommandManager(fileManager);
+//        Sender sender = new Sender(new ConsoleHandler(commandManager));
+//        CollectionManager collectionManager = new CollectionManager(fileManager, sender, "src/collection.csv");
+//        commandManager.setCollectionManager(collectionManager);
+        commandManager.addCommands(
+                new Add("add"),
+                new Clear("clear"),
+                new Save("save"),
+                new Show("show"),
+                new Help("help"),
+                new Exit("exit"),
+                new RemoveById("remove_by_id"),
+                new Update("update"),
+                new Shuffle("shuffle"),
+                new FilterContainsName("filter_contains_name"),
+                new FilterLessThanAnnualTurnover("filter_less_than_annual_turnover"),
+                new RemoveAnyByAnnualTurnover("remove_any_by_annual_turnover"),
+                new ExecuteFile("execute_script"),
+                new Info("info"),
+                new RemoveGreater("remove_greater"),
+                new RemoveLower("remove_lower"));
+
+
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Сервер запущен! Порт: " + PORT);
 
