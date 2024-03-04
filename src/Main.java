@@ -12,7 +12,7 @@ public class Main {
 
         FileManager fileManager = new CSVHandler();
         CommandManager commandManager = new CommandManager(fileManager);
-        ConsoleHandler consoleHandler = new ConsoleHandler(commandManager);
+        ConsoleHandler consoleHandler = new ConsoleHandler(new Reciever("127.0.0.1", 8888));
         Sender sender = new Sender(consoleHandler);
         CollectionManager collectionManager = new CollectionManager(fileManager, sender, "src/collection.csv");
         commandManager.setCollectionManager(collectionManager);

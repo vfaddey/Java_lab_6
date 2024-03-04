@@ -12,7 +12,7 @@ public class Help extends Command implements CommandWithoutParameters {
     @Override
     public void execute() {
         int padding = 35;
-        HashSet<Command> commands = collectionManager.getSender().getConsoleHandler().getCommandManager().getCommands();
+        HashSet<Command> commands = commandManager.getCommands();
         StringBuilder output = new StringBuilder("Все доступные команды:\n");
         for (Command command : commands) {
             output.append(String.format("%-" + padding + "s | %s\n", command.getNameInConsole(), command.getDescription()));

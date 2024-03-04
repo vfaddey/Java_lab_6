@@ -1,6 +1,7 @@
 package managers;
 
 import exceptions.ConnectionFailedException;
+import exceptions.NoConnectionException;
 
 import java.io.*;
 import java.net.Socket;
@@ -37,12 +38,24 @@ public class Reciever {
         }
     }
 
+    public void listen() throws IOException {
+        while (true) {
+            if (this.reader != null) {
+                String response = this.reader.readLine();
+                processServerResponse(response);
+            } else {
+                throw new NoConnectionException("Нет подключения к серверу!");
+            }
+        }
+
+    }
+
     public void write(String request) {
         this.writer.println(request);
     }
 
     public void processServerResponse(String response) {
-
+        consoleHandler.println(response);
     }
 
     public void execute(String command) {

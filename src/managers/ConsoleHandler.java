@@ -14,10 +14,10 @@ import java.util.*;
  */
 public class ConsoleHandler {
     private final Scanner scanner = new Scanner(System.in);
-    private final CommandManager commandManager;
-    public ConsoleHandler(CommandManager commandManager) {
-        this.commandManager = commandManager;
+    private final Reciever reciever;
 
+    public ConsoleHandler(Reciever reciever) {
+        this.reciever = reciever;
     }
 
     public String collectionFilenameRequest() {
@@ -55,12 +55,12 @@ public class ConsoleHandler {
         }
     }
 
-    public void listen() throws IncorrectFilenameException, ElementNotFoundException, IOException, WrongParameterException, CommandNotExistsException, NullUserRequestException {
+    public void listen() throws WrongParameterException, CommandNotExistsException, NullUserRequestException {
         while (true) {
             try {
                 print(">>> ");
                 String request = scanner.nextLine();
-                commandManager.exec(request);
+                reciever.write(request);
             } catch (NoSuchElementException e) {
                 System.exit(0);
                 break;
@@ -112,10 +112,6 @@ public class ConsoleHandler {
 
     public void printError(String message) {
         System.out.println("Ошибка: " + message);
-    }
-
-    public CommandManager getCommandManager() {
-        return commandManager;
     }
 
 }

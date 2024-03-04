@@ -3,6 +3,7 @@ package commands;
 
 import interfaces.FileManager;
 import managers.CollectionManager;
+import managers.CommandManager;
 
 /**
  * Abstract class of command
@@ -13,6 +14,7 @@ public abstract class Command {
     protected String successPhrase;
     protected CollectionManager collectionManager;
     protected FileManager fileManager;
+    protected CommandManager commandManager;
 
     public Command(String nameInConsole, String description) {
         this.nameInConsole = nameInConsole;
@@ -27,6 +29,10 @@ public abstract class Command {
 
     public void setCollectionManager(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
+    }
+
+    public void setCommandManager(CommandManager commandManager) {
+        this.commandManager = commandManager;
     }
 
     public void setFileManager(FileManager fileManager) {

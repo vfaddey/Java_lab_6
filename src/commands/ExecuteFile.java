@@ -18,7 +18,7 @@ public class ExecuteFile extends Command implements CommandWithParameters {
         try {
             if (!filenamesStack.contains(parameters[0])) {
                 filenamesStack.push(parameters[0]);
-                ConsoleHandler.ScriptHandler.readCommands(parameters[0], collectionManager.getSender().getConsoleHandler().getCommandManager());
+                ConsoleHandler.ScriptHandler.readCommands(parameters[0], commandManager);
                 printSuccess();
             } else {
                 throw new RecursionExecutionException("Файл " + parameters[0] + " уже был вызван.");

@@ -95,6 +95,7 @@ public class CommandManager {
             this.commands.put(command.getNameInConsole(), command);
             command.setCollectionManager(collectionManager);
             command.setFileManager(fileManager);
+            command.setCommandManager(this);
         }
     }
 
