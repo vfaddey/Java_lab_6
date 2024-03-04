@@ -68,11 +68,6 @@ public class CollectionManager{
                 + "Последнее обновление коллекции: " + lastUpdateDate;
     }
 
-    private String getCollectionClassName() {
-        Class<? extends LinkedList> dataType = collection.getClass();
-        return dataType.getName();
-    }
-
     public void addNewElement(Organization organization) {
         collection.add(organization);
         lastUpdateDate = LocalDate.now();
@@ -113,8 +108,6 @@ public class CollectionManager{
         collection.remove(getElementById(id));
         lastUpdateDate = LocalDate.now();
     }
-
-
 
     public LinkedList<Organization> getCollection() {
         return collection;
