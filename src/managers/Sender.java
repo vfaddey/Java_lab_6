@@ -7,15 +7,30 @@ import model.Coordinates;
 import model.Location;
 import model.OrganizationType;
 
-public class Sender {
-    private final ConsoleHandler consoleHandler;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
 
-    public Sender(ConsoleHandler consoleHandler) {
-        this.consoleHandler = consoleHandler;
+public class Sender {
+    private final int port;
+    private PrintWriter writer;
+    private BufferedReader reader;
+
+    public Sender(int port) {
+        this.port = port;
     }
 
-    public String nameRequest() {
-        String name = consoleHandler.ask("Введите название организации: ");
+    public void launch() {
+
+    }
+
+    public void setWriter(PrintWriter writer) {
+        this.writer = writer;
+    }
+
+    public String nameRequest() throws IOException {
+        String name = ask("Введите название организации: ");
         try {
             if (Validator.isValidName(name)) {
                 return name;
@@ -23,13 +38,13 @@ public class Sender {
                 throw new WrongParameterException("Имя не может быть пустым");
             }
         } catch (WrongParameterException e) {
-            consoleHandler.printError(e.toString());
+            send(e.toString());
             return nameRequest();
         }
     }
 
-    public Coordinates coordinatesRequest() {
-        String response = consoleHandler.ask("Введите через пробел координаты x и y (числа целые): ");
+    public Coordinates coordinatesRequest() throws IOException {
+        String response = ask("Введите через пробел координаты x и y (числа целые): ");
         int x;
         long y;
         try {
@@ -48,15 +63,15 @@ public class Sender {
                 throw new WrongParameterException("Неверно введены числа.");
             }
         } catch (WrongParameterException e) {
-            consoleHandler.printError(e.toString());
+            send(e.toString());
             return coordinatesRequest();
         }
 
     }
 
-    public long annualTurnoverRequest() {
+    public long annualTurnoverRequest() throws IOException {
         long result = -1;
-        String response = consoleHandler.ask("Введите годовой оборот компании (целое число): ");
+        String response = ask("Введите годовой оборот компании (целое число): ");
 
         try {
             if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
@@ -78,14 +93,14 @@ public class Sender {
                 throw new WrongParameterException("Годовой оборот не может быть меньше нуля.");
             }
         } catch (WrongParameterException | NullUserRequestException e) {
-            consoleHandler.printError(e.toString());
+            send(e.toString());
             return annualTurnoverRequest();
         }
     }
 
-    public int employeesCountRequest()  {
+    public int employeesCountRequest() throws IOException {
         int result = -1;
-        String response = consoleHandler.ask("Введите количество сотрудников: ");
+        String response = ask("Введите количество сотрудников: ");
 
         try {
             if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
@@ -107,14 +122,14 @@ public class Sender {
                 throw new WrongParameterException("Число сотрудников не может быть меньше одного.");
             }
         } catch (WrongParameterException | NullUserRequestException e) {
-            consoleHandler.printError(e.toString());
+            send(e.toString());
             return employeesCountRequest();
         }
     }
 
 
-    public OrganizationType organizationTypeRequest() {
-        String response = consoleHandler.askOrganizationType(OrganizationType.values());
+    public OrganizationType organizationTypeRequest() throws IOException {
+        String response = ask("ORG_TYPE_REQUEST " + Arrays.toString(OrganizationType.values()));
         String num;
         try {
             if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
@@ -140,14 +155,14 @@ public class Sender {
             }
 
         } catch (WrongParameterException | NumberFormatException | NullUserRequestException e) {
-            consoleHandler.printError(e.toString());
+            send(e.toString());
             return organizationTypeRequest();
         }
     }
 
-    public Address officialAddressRequest() {
-        String zipCode = consoleHandler.ask("Введите город(?): ");
-        String loc = consoleHandler.ask("Введите координаты локации x, y, z через пробел (x и y - вещественные, z - целое): ");
+    public Address officialAddressRequest() throws IOException {
+        String zipCode = ask("Введите город(?): ");
+        String loc = ask("Введите координаты локации x, y, z через пробел (x и y - вещественные, z - целое): ");
         try {
             if (loc.split(" ").length < 3) {
                 throw new WrongParameterException("Неверно введены координаты локации");
@@ -163,12 +178,27 @@ public class Sender {
                 }
             } throw new WrongParameterException("Неверно введены параметры. Попробуйте снова.");
         } catch (WrongParameterException e) {
-            consoleHandler.printError(e.toString());
+            send(e.toString());
             return officialAddressRequest();
         }
     }
 
-    public ConsoleHandler getConsoleHandler() {
-        return consoleHandler;
+    public String ask(String question) throws IOException {
+        String response = null;
+        try {
+            this.writer.println(question);
+            response = this.reader.readLine();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        return response;
+    }
+
+    public void send(Object response) {
+        this.writer.println(response.toString());
+    }
+
+    public void setReader(BufferedReader reader) {
+        this.reader = reader;
     }
 }

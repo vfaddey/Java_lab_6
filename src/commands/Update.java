@@ -9,6 +9,8 @@ import model.Coordinates;
 import model.Organization;
 import model.OrganizationType;
 
+import java.io.IOException;
+
 /**
  * Command, needs to update element of collection by its id. Offers user to write required fields
  */
@@ -29,7 +31,7 @@ public class Update extends Command implements CommandWithParameters {
             Address officialAddress = element.getOfficialAddress();
 
 
-            String answer = collectionManager.getSender().getConsoleHandler().askWhatToChange();
+            String answer = collectionManager.getSender().ask("WTC");
             if (Validator.isStringWithIntegers(answer)) {
                 String[] splitted = answer.split(" ");
                 int[] fieldsNumbers = new int[splitted.length];
@@ -64,11 +66,13 @@ public class Update extends Command implements CommandWithParameters {
         } catch (NumberFormatException e) {
             throw new WrongParameterException("Неправильно введен параметр.");
         } catch (ElementNotFoundException e) {
-            collectionManager.getSender().getConsoleHandler().printError(e.toString());
-            collectionManager.getSender().getConsoleHandler().printAdvice("Введите id существующего элемента. Используйте команду show для просмотра коллекции.");
+            collectionManager.getSender().send(e.toString());
+            collectionManager.getSender().send("Введите id существующего элемента. Используйте команду show для просмотра коллекции.");
         } catch (WrongParameterException e) {
-            collectionManager.getSender().getConsoleHandler().printError(e.toString());
+            collectionManager.getSender().send(e.toString());
             execute(parameters);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

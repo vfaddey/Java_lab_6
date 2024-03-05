@@ -27,7 +27,7 @@ public class Save extends Command implements CommandWithoutParameters, CommandWi
                     } else throw new IncorrectFilenameException("Расширение файла должно быть .csv");
                 } else throw new IncorrectFilenameException("Строка не должна начинаться с числа");
             } catch (IncorrectFilenameException e) {
-                collectionManager.getSender().getConsoleHandler().printError(e.toString());
+                collectionManager.getSender().send(e.toString());
             }
         }
     }

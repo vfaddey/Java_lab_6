@@ -22,16 +22,13 @@ public class Reciever {
     }
 
     public void connect() {
-        try (Socket serverSocket = new Socket(serverAddress, port)) {
-
+        try {
+            Socket serverSocket = new Socket(serverAddress, port);
             this.output = serverSocket.getOutputStream();
             this.input = serverSocket.getInputStream();
 
             this.writer = new PrintWriter(output, true);
             this.reader = new BufferedReader(new InputStreamReader(input));
-
-            String response = reader.readLine();
-            System.out.println("Ответ сервера: " + response);
 
         } catch (IOException e) {
             throw new ConnectionFailedException("Подключение не удалось!");
@@ -47,11 +44,20 @@ public class Reciever {
                 throw new NoConnectionException("Нет подключения к серверу!");
             }
         }
-
     }
 
-    public void write(String request) {
+    public void recieve() throws IOException {
+        if (this.reader != null) {
+            String response = this.reader.readLine();
+            processServerResponse(response);
+        } else {
+            throw new NoConnectionException("Нет подключения к серверу!");
+        }
+    }
+
+    public void write(String request) throws IOException {
         this.writer.println(request);
+        recieve();
     }
 
     public void processServerResponse(String response) {
@@ -62,4 +68,7 @@ public class Reciever {
 
     }
 
+    public void setConsoleHandler(ConsoleHandler consoleHandler) {
+        this.consoleHandler = consoleHandler;
+    }
 }

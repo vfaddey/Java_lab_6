@@ -5,6 +5,8 @@ import interfaces.FileManager;
 import managers.CollectionManager;
 import managers.CommandManager;
 
+import java.io.IOException;
+
 /**
  * Abstract class of command
  */
@@ -40,7 +42,7 @@ public abstract class Command {
     }
 
     protected void printSuccess() {
-        collectionManager.getSender().getConsoleHandler().println(successPhrase);
+        collectionManager.getSender().send(successPhrase);
     }
 
     public String getNameInConsole() {
@@ -51,7 +53,7 @@ public abstract class Command {
         return description;
     }
 
-    public void execute() {
+    public void execute() throws IOException {
 
     }
 

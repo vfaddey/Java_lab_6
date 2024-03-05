@@ -51,8 +51,8 @@ public class CommandManager {
                 throw new WrongParameterException("Вы не ввели параметр.");
             }
         } catch (CommandNotExistsException | WrongParameterException | NullUserRequestException e) {
-            collectionManager.getSender().getConsoleHandler().printError(e.toString());
-            collectionManager.getSender().getConsoleHandler().listen();
+            collectionManager.getSender().send(e.toString());
+            collectionManager.getSender().send("listen");
         }
 
     }
@@ -102,4 +102,6 @@ public class CommandManager {
     public HashSet<Command> getCommands() {
         return new HashSet<>(commands.values());
     }
+
+
 }

@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class CSVHandler implements FileManager {
 
     @Override
-    public LinkedList<Organization> read(String filename, ConsoleHandler consoleHandler) {
+    public LinkedList<Organization> read(String filename, Sender sender) {
         LinkedList<Organization> collection = new LinkedList<>();
         try {
             File file = new File(filename);
@@ -27,14 +27,13 @@ public class CSVHandler implements FileManager {
                 String[] values = line.split(",");
                 collection.add(parseOrganizationFromStrings(values));
             }
-            consoleHandler.println("Коллекция загружена!");
-            consoleHandler.printAdvice("Напишите help для просмотра списка команд");
+            System.out.println("Коллекция загружена!");
             return collection;
         } catch (IOException e) {
-            consoleHandler.printError("Файл с таким именем не найден. Попробуйте еще раз.");
+            System.out.println("Файл с таким именем не найден. Попробуйте еще раз.");
             return null;
         } catch (NullPointerException e) {
-            consoleHandler.printError(e.toString());
+            System.out.println(e.toString());
             return null;
         }
     }

@@ -55,15 +55,15 @@ public class ConsoleHandler {
         }
     }
 
-    public void listen() throws WrongParameterException, CommandNotExistsException, NullUserRequestException {
+    public void listen() {
         while (true) {
             try {
                 print(">>> ");
                 String request = scanner.nextLine();
+                System.out.println("klkl");
                 reciever.write(request);
-            } catch (NoSuchElementException e) {
-                System.exit(0);
-                break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }

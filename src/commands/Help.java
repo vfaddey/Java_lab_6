@@ -17,6 +17,6 @@ public class Help extends Command implements CommandWithoutParameters {
         for (Command command : commands) {
             output.append(String.format("%-" + padding + "s | %s\n", command.getNameInConsole(), command.getDescription()));
         }
-        collectionManager.getSender().getConsoleHandler().println(output);
+        collectionManager.getSender().send(output);
     }
 }

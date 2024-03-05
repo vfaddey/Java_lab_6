@@ -3,6 +3,8 @@ package commands;
 import interfaces.CommandWithoutParameters;
 import model.Organization;
 
+import java.io.IOException;
+
 /**
  * Adds a new element to collection
  */
@@ -12,7 +14,7 @@ public class Add extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         Organization newElement = collectionManager.interactiveOrganizationCreation();
         collectionManager.addNewElement(newElement);
         printSuccess();

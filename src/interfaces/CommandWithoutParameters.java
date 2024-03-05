@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.io.IOException;
+
 public interface CommandWithoutParameters {
-    void execute();
+    void execute() throws IOException;
 }

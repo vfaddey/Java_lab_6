@@ -5,6 +5,7 @@ import interfaces.FileManager;
 import model.*;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -21,7 +22,7 @@ public class CollectionManager{
     private FileManager fileManager;
     private final Sender sender;
 
-    public CollectionManager(FileManager fileManager, Sender sender, String fileName) {
+    public CollectionManager(FileManager fileManager, Sender sender, String fileName) throws IOException {
         this.sender = sender;
         this.fileManager = fileManager;
         this.fileName = fileName;
@@ -30,7 +31,7 @@ public class CollectionManager{
         updateInformation();
     }
 
-    public CollectionManager(FileManager fileManager, Sender sender) {
+    public CollectionManager(FileManager fileManager, Sender sender) throws IOException {
         this.sender = sender;
         this.fileManager = fileManager;
         lastUpdateDate = LocalDate.now();
@@ -38,9 +39,9 @@ public class CollectionManager{
         updateInformation();
     }
 
-    public void loadCollectionFromCSV() {
-        String fileName = sender.getConsoleHandler().collectionFilenameRequest();
-        this.collection = fileManager.read(fileName, sender.getConsoleHandler());
+    public void loadCollectionFromCSV() throws IOException {
+        String fileName = sender.ask("ASK_FILENAME");
+        this.collection = fileManager.read(fileName, sender);
         if (collection == null) {
             loadCollectionFromCSV();
         }
@@ -50,8 +51,8 @@ public class CollectionManager{
         }
     }
 
-    public void loadCollectionFromCSV(String fileName) {
-        this.collection = fileManager.read(fileName, sender.getConsoleHandler());
+    public void loadCollectionFromCSV(String fileName) throws IOException {
+        this.collection = fileManager.read(fileName, sender);
         if (collection == null) {
             loadCollectionFromCSV();
         }
@@ -73,7 +74,7 @@ public class CollectionManager{
         lastUpdateDate = LocalDate.now();
     }
 
-    public Organization interactiveOrganizationCreation() {
+    public Organization interactiveOrganizationCreation() throws IOException {
         return new Organization(
                 (long) (Math.random() * Long.MAX_VALUE),
                 sender.nameRequest(),

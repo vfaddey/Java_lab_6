@@ -27,7 +27,7 @@ public class ExecuteFile extends Command implements CommandWithParameters {
         } catch (IOException | WrongParameterException | IncorrectFilenameException | ElementNotFoundException | CommandNotExistsException | NullUserRequestException e) {
             throw new WrongParameterException("Файл не найден или нет доступа к файлу.");
         } catch (RecursionExecutionException e) {
-            collectionManager.getSender().getConsoleHandler().printError(e.toString());
+            collectionManager.getSender().send(e.toString());
         }
     }
 }

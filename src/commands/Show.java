@@ -17,10 +17,10 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
     public void execute() {
         if (!collectionManager.getCollection().isEmpty()) {
             for (Organization organization : collectionManager.getCollection()) {
-                collectionManager.getSender().getConsoleHandler().println(organization);
+                collectionManager.getSender().send(organization);
             }
         } else {
-            collectionManager.getSender().getConsoleHandler().println("В коллекции пока нет элементов(");
+            collectionManager.getSender().send("В коллекции пока нет элементов(");
         }
 
     }
@@ -37,7 +37,7 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
                 int quantity = Integer.parseInt(parameter);
                 if (quantity > 0 && quantity <= collectionManager.getCollection().size()) {
                     for (int i = 0; i < quantity; i++) {
-                        collectionManager.getSender().getConsoleHandler().println(collectionManager.getCollection().get(i));
+                        collectionManager.getSender().send(collectionManager.getCollection().get(i));
                     }
                 } else if (quantity < 0) {
                     throw new WrongParameterException("Нельзя вывести <= 0 элементов.");
