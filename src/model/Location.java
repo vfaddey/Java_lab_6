@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Location {
+public class Location implements Serializable {
 
     private final double x;
     private final double y;

@@ -10,6 +10,7 @@ import model.OrganizationType;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Arrays;
 
 public class Sender {
@@ -194,7 +195,7 @@ public class Sender {
         return response;
     }
 
-    public void send(Object response) {
+    public <T extends Serializable> void send(T response) {
         this.writer.println(response.toString());
     }
 

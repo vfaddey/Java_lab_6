@@ -14,10 +14,10 @@ import java.util.*;
  */
 public class ConsoleHandler {
     private final Scanner scanner = new Scanner(System.in);
-    private final Reciever reciever;
+    private final Receiver receiver;
 
-    public ConsoleHandler(Reciever reciever) {
-        this.reciever = reciever;
+    public ConsoleHandler(Receiver receiver) {
+        this.receiver = receiver;
     }
 
     public String collectionFilenameRequest() {
@@ -60,8 +60,9 @@ public class ConsoleHandler {
             try {
                 print(">>> ");
                 String request = scanner.nextLine();
-                System.out.println("klkl");
-                reciever.write(request);
+                if (!request.isEmpty()) {
+                    receiver.write(request);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

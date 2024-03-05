@@ -5,9 +5,8 @@ import exceptions.NoConnectionException;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ConcurrentModificationException;
 
-public class Reciever {
+public class Receiver {
     private ConsoleHandler consoleHandler;
     private final int port;
     private final String serverAddress;
@@ -15,15 +14,16 @@ public class Reciever {
     private InputStream input;
     private PrintWriter writer;
     private BufferedReader reader;
+    private Socket serverSocket;
 
-    public Reciever(String address, int port) {
+    public Receiver(String address, int port) {
         this.port = port;
         this.serverAddress = address;
     }
 
     public void connect() {
         try {
-            Socket serverSocket = new Socket(serverAddress, port);
+            this.serverSocket = new Socket(serverAddress, port);
             this.output = serverSocket.getOutputStream();
             this.input = serverSocket.getInputStream();
 
@@ -35,18 +35,7 @@ public class Reciever {
         }
     }
 
-    public void listen() throws IOException {
-        while (true) {
-            if (this.reader != null) {
-                String response = this.reader.readLine();
-                processServerResponse(response);
-            } else {
-                throw new NoConnectionException("Нет подключения к серверу!");
-            }
-        }
-    }
-
-    public void recieve() throws IOException {
+    public void receive() throws IOException {
         if (this.reader != null) {
             String response = this.reader.readLine();
             processServerResponse(response);
@@ -57,7 +46,7 @@ public class Reciever {
 
     public void write(String request) throws IOException {
         this.writer.println(request);
-        recieve();
+        receive();
     }
 
     public void processServerResponse(String response) {

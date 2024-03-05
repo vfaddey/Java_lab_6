@@ -1,6 +1,8 @@
 package model;
 
-public enum OrganizationType {
+import java.io.Serializable;
+
+public enum OrganizationType implements Serializable {
     COMMERCIAL("Коммерческая"),
     PUBLIC("Публичная"),
     GOVERNMENT("Государственная"),

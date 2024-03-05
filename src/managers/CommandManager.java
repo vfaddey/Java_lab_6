@@ -52,7 +52,6 @@ public class CommandManager {
             }
         } catch (CommandNotExistsException | WrongParameterException | NullUserRequestException e) {
             collectionManager.getSender().send(e.toString());
-            collectionManager.getSender().send("listen");
         }
 
     }

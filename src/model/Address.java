@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Address {
+public class Address implements Serializable {
 
     private final String zipCode; //Поле не может быть null
     private final Location town; //Поле не может быть null

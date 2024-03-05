@@ -16,9 +16,12 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
     @Override
     public void execute() {
         if (!collectionManager.getCollection().isEmpty()) {
+            StringBuilder response = new StringBuilder();
             for (Organization organization : collectionManager.getCollection()) {
-                collectionManager.getSender().send(organization);
+                //response.append(organization).append("\n");
+                collectionManager.getSender().send(response);
             }
+            //collectionManager.getSender().send(response);
         } else {
             collectionManager.getSender().send("В коллекции пока нет элементов(");
         }
@@ -27,6 +30,7 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
 
     @Override
     public void execute(String... parameters) throws WrongParameterException {
+        StringBuilder response = new StringBuilder();
         if (parameters.length == 0) {
             execute();
         } else {
@@ -37,8 +41,14 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
                 int quantity = Integer.parseInt(parameter);
                 if (quantity > 0 && quantity <= collectionManager.getCollection().size()) {
                     for (int i = 0; i < quantity; i++) {
-                        collectionManager.getSender().send(collectionManager.getCollection().get(i));
+                        if (i != quantity-1) {
+                            response.append(collectionManager.getCollection().get(i)).append("\n");
+                        } else {
+                            response.append(collectionManager.getCollection().get(i));
+                        }
                     }
+                    collectionManager.getSender().send(response.toString());
+                    System.out.println(response.toString());
                 } else if (quantity < 0) {
                     throw new WrongParameterException("Нельзя вывести <= 0 элементов.");
                 } else if (quantity > collectionManager.getCollection().size()) {
