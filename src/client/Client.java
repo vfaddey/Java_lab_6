@@ -1,6 +1,6 @@
 package client;
 
-import managers.*;
+import client.managers.*;
 
 import java.io.IOException;
 

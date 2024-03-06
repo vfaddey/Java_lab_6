@@ -1,11 +1,13 @@
 package server;
 
-import commands.*;
+import server.commands.*;
 import exceptions.*;
-import interfaces.FileManager;
-import managers.*;
+import server.interfaces.FileManager;
+import server.managers.CSVHandler;
+import server.managers.CollectionManager;
+import server.managers.CommandManager;
+import server.managers.Sender;
 
-import javax.net.ssl.SSLServerSocket;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,7 +21,7 @@ public class Server {
             FileManager fileManager = new CSVHandler();
             CommandManager commandManager = new CommandManager(fileManager);
             Sender sender = new Sender(PORT);
-            CollectionManager collectionManager = new CollectionManager(fileManager, sender, "src/collection.csv");
+            CollectionManager collectionManager = new CollectionManager(fileManager, sender, "src/server/collection.csv");
             commandManager.setCollectionManager(collectionManager);
             commandManager.addCommands(
                     new Add("add"),
