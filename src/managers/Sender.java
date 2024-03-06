@@ -7,15 +7,12 @@ import model.Coordinates;
 import model.Location;
 import model.OrganizationType;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Arrays;
 
 public class Sender {
     private final int port;
-    private PrintWriter writer;
+    private BufferedWriter writer;
     private BufferedReader reader;
 
     public Sender(int port) {
@@ -26,7 +23,7 @@ public class Sender {
 
     }
 
-    public void setWriter(PrintWriter writer) {
+    public void setWriter(BufferedWriter writer) {
         this.writer = writer;
     }
 
@@ -187,7 +184,7 @@ public class Sender {
     public String ask(String question) throws IOException {
         String response = null;
         try {
-            this.writer.println(question);
+            send(question);
             response = this.reader.readLine();
         } catch (IOException e) {
             System.out.println(e.toString());
@@ -195,8 +192,10 @@ public class Sender {
         return response;
     }
 
-    public <T extends Serializable> void send(T response) {
-        this.writer.println(response.toString());
+    public <T extends Serializable> void send(T response) throws IOException {
+        this.writer.write(response.toString());
+        this.writer.newLine();
+        this.writer.flush();
     }
 
     public void setReader(BufferedReader reader) {

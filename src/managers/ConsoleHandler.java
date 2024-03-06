@@ -63,7 +63,7 @@ public class ConsoleHandler {
                 if (!request.isEmpty()) {
                     receiver.write(request);
                 }
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }

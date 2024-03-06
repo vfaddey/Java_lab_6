@@ -14,7 +14,7 @@ public class ExecuteFile extends Command implements CommandWithParameters {
     }
 
     @Override
-    public void execute(String... parameters) throws WrongParameterException {
+    public void execute(String... parameters) throws WrongParameterException, IOException {
         try {
             if (!filenamesStack.contains(parameters[0])) {
                 filenamesStack.push(parameters[0]);

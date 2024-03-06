@@ -13,8 +13,7 @@ import java.net.Socket;
 public class Server {
     private static final int PORT = 8888;
 
-    public static void main(String[] args) throws IOException {
-        String response;
+    public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
 
             FileManager fileManager = new CSVHandler();
@@ -42,24 +41,29 @@ public class Server {
             System.out.println("Сервер запущен! Порт: " + PORT);
 
             while (true) {
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Подключился клиент: " + serverSocket);
+                try {
+                    Socket clientSocket = serverSocket.accept();
+                    System.out.println("Подключился клиент: " + serverSocket);
 
-                InputStream input = clientSocket.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    InputStream input = clientSocket.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
-                OutputStream output = clientSocket.getOutputStream();
-                PrintWriter writer = new PrintWriter(output, true);
+                    OutputStream output = clientSocket.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output));
 
-                sender.setWriter(writer);
-                sender.setReader(reader);
+                    sender.setWriter(writer);
+                    sender.setReader(reader);
 
-                while (true) {
-                    String request = reader.readLine();
-                    System.out.println(request);
-                    if (request != null) {
-                        commandManager.exec(request);
+                    while (true) {
+                        String request = reader.readLine();
+                        System.out.println(request);
+                        if (request != null) {
+                            commandManager.exec(request);
+                        }
                     }
+                } catch (IOException e) {
+                    System.out.println("closed");
+                    throw new RuntimeException(e);
                 }
             }
         } catch (IOException | IncorrectFilenameException | ElementNotFoundException | NullUserRequestException |

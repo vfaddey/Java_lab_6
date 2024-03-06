@@ -20,7 +20,7 @@ public class Update extends Command implements CommandWithParameters {
     }
 
     @Override
-    public void execute(String... parameters) throws WrongParameterException {
+    public void execute(String... parameters) throws WrongParameterException, IOException {
         try {
             Organization element = collectionManager.getElementById(Long.parseLong(parameters[0]));
             String name = element.getName();

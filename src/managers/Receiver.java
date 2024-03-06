@@ -10,9 +10,7 @@ public class Receiver {
     private ConsoleHandler consoleHandler;
     private final int port;
     private final String serverAddress;
-    private OutputStream output;
-    private InputStream input;
-    private PrintWriter writer;
+    private BufferedWriter writer;
     private BufferedReader reader;
     private Socket serverSocket;
 
@@ -21,31 +19,47 @@ public class Receiver {
         this.serverAddress = address;
     }
 
-    public void connect() {
+    public void connect() throws IOException {
         try {
             this.serverSocket = new Socket(serverAddress, port);
-            this.output = serverSocket.getOutputStream();
-            this.input = serverSocket.getInputStream();
 
-            this.writer = new PrintWriter(output, true);
-            this.reader = new BufferedReader(new InputStreamReader(input));
+            OutputStreamWriter writer = new OutputStreamWriter(serverSocket.getOutputStream());
+            InputStreamReader reader = new InputStreamReader(serverSocket.getInputStream());
+
+            this.reader = new BufferedReader(reader);
+            this.writer = new BufferedWriter(writer);
 
         } catch (IOException e) {
             throw new ConnectionFailedException("Подключение не удалось!");
         }
     }
 
+    public void close() {
+        try {
+            if (serverSocket != null) serverSocket.close();
+            if (writer != null) writer.close();
+            if (reader != null) reader.close();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
     public void receive() throws IOException {
+        String response;
         if (this.reader != null) {
-            String response = this.reader.readLine();
-            processServerResponse(response);
+            while ((response = this.reader.readLine()) != null) {
+                processServerResponse(response);
+                if (!this.reader.ready()) break;
+            }
         } else {
             throw new NoConnectionException("Нет подключения к серверу!");
         }
     }
 
-    public void write(String request) throws IOException {
-        this.writer.println(request);
+    public void write(String request) throws IOException, InterruptedException {
+        this.writer.write(request);
+        this.writer.newLine();
+        this.writer.flush();
         receive();
     }
 

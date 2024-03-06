@@ -20,7 +20,7 @@ public class Add extends Command implements CommandWithoutParameters {
         printSuccess();
     }
 
-    public void executeFromScript(String... parameters) {
+    public void executeFromScript(String... parameters) throws IOException {
         collectionManager.organizationCreationFromFile(parameters);
         printSuccess();
     }

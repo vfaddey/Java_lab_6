@@ -4,19 +4,21 @@ import exceptions.IncorrectFilenameException;
 import interfaces.CommandWithParameters;
 import interfaces.CommandWithoutParameters;
 
+import java.io.IOException;
+
 public class Save extends Command implements CommandWithoutParameters, CommandWithParameters {
     public Save(String consoleName) {
         super(consoleName, "(необязательно <Путь к файлу>) Сохранить коллекцию (в тот же файл)", "Коллекция сохранена!");
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         fileManager.write(collectionManager.getCollection(), collectionManager.getCollectionFilename());
         printSuccess();
     }
 
     @Override
-    public void execute(String... parameters) {
+    public void execute(String... parameters) throws IOException {
         if (parameters.length == 0) execute();
         else {
             try {

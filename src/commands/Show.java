@@ -6,6 +6,8 @@ import interfaces.CommandWithoutParameters;
 import managers.Validator;
 import model.Organization;
 
+import java.io.IOException;
+
 
 public class Show extends Command implements CommandWithoutParameters, CommandWithParameters {
 
@@ -14,7 +16,7 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         if (!collectionManager.getCollection().isEmpty()) {
             StringBuilder response = new StringBuilder();
             for (Organization organization : collectionManager.getCollection()) {
@@ -29,7 +31,7 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
     }
 
     @Override
-    public void execute(String... parameters) throws WrongParameterException {
+    public void execute(String... parameters) throws WrongParameterException, IOException {
         StringBuilder response = new StringBuilder();
         if (parameters.length == 0) {
             execute();

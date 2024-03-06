@@ -2,6 +2,7 @@ package commands;
 
 import interfaces.CommandWithoutParameters;
 
+import java.io.IOException;
 import java.util.HashSet;
 
 public class Help extends Command implements CommandWithoutParameters {
@@ -10,7 +11,7 @@ public class Help extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
         int padding = 35;
         HashSet<Command> commands = commandManager.getCommands();
         StringBuilder output = new StringBuilder("Все доступные команды:\n");
