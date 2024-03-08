@@ -15,9 +15,18 @@ import java.net.Socket;
 public class Server {
     private static final int PORT = 8888;
 
-    public static void main(String[] args) {
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = null;
+        Socket clientSocket = null;
+        InputStream input = null;
+        BufferedReader reader = null;
 
+        OutputStream output = null;
+        BufferedWriter writer = null;
+
+
+        try {
+            serverSocket = new ServerSocket(PORT);
             FileManager fileManager = new CSVHandler();
             CommandManager commandManager = new CommandManager(fileManager);
             Sender sender = new Sender(PORT);
@@ -44,14 +53,14 @@ public class Server {
 
             while (true) {
                 try {
-                    Socket clientSocket = serverSocket.accept();
+                    clientSocket = serverSocket.accept();
                     System.out.println("Подключился клиент: " + serverSocket);
 
-                    InputStream input = clientSocket.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    input = clientSocket.getInputStream();
+                    reader = new BufferedReader(new InputStreamReader(input));
 
-                    OutputStream output = clientSocket.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(output));
+                    output = clientSocket.getOutputStream();
+                    writer = new BufferedWriter(new OutputStreamWriter(output));
 
                     sender.setWriter(writer);
                     sender.setReader(reader);
@@ -64,14 +73,19 @@ public class Server {
                         }
                     }
                 } catch (IOException e) {
-                    System.out.println("closed");
-                    throw new RuntimeException(e);
+                    System.out.println(e.toString());
+                } finally {
+                    if (clientSocket != null) clientSocket.close();
+                    if (reader != null) reader.close();
+                    if (writer != null) writer.close();
+                    if (input != null) input.close();
+                    if (output != null) output.close();
                 }
+
             }
-        } catch (IOException | IncorrectFilenameException | ElementNotFoundException | NullUserRequestException |
+        } catch (IncorrectFilenameException | ElementNotFoundException | NullUserRequestException |
                  CommandNotExistsException | WrongParameterException e) {
             System.out.println("closed");
-            throw new RuntimeException(e);
         }
     }
 }

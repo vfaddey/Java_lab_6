@@ -65,6 +65,7 @@ public class ConsoleHandler {
                     receiver.write(request);
                 }
             } catch (IOException | InterruptedException e) {
+                receiver.close();
                 throw new RuntimeException(e);
             }
         }

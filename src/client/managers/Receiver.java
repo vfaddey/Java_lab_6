@@ -10,6 +10,8 @@ public class Receiver {
     private ConsoleHandler consoleHandler;
     private final int port;
     private final String serverAddress;
+    private InputStreamReader inputStreamReader;
+    private OutputStreamWriter outputStreamWriter;
     private BufferedWriter writer;
     private BufferedReader reader;
     private Socket serverSocket;
@@ -23,11 +25,11 @@ public class Receiver {
         try {
             this.serverSocket = new Socket(serverAddress, port);
 
-            OutputStreamWriter writer = new OutputStreamWriter(serverSocket.getOutputStream());
-            InputStreamReader reader = new InputStreamReader(serverSocket.getInputStream());
+            this.outputStreamWriter = new OutputStreamWriter(serverSocket.getOutputStream());
+            this.inputStreamReader = new InputStreamReader(serverSocket.getInputStream());
 
-            this.reader = new BufferedReader(reader);
-            this.writer = new BufferedWriter(writer);
+            this.reader = new BufferedReader(this.inputStreamReader);
+            this.writer = new BufferedWriter(this.outputStreamWriter);
 
         } catch (IOException e) {
             throw new ConnectionFailedException("Подключение не удалось!");
@@ -37,6 +39,8 @@ public class Receiver {
     public void close() {
         try {
             if (serverSocket != null) serverSocket.close();
+            if (outputStreamWriter != null) outputStreamWriter.close();
+            if (inputStreamReader != null) inputStreamReader.close();
             if (writer != null) writer.close();
             if (reader != null) reader.close();
         } catch (IOException e) {
