@@ -1,6 +1,6 @@
 package server.commands;
 
-import exceptions.WrongParameterException;
+import server.exceptions.WrongParameterException;
 import server.interfaces.CommandWithParameters;
 import server.managers.Validator;
 import server.model.Organization;

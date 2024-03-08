@@ -1,6 +1,6 @@
 package server.managers;
 
-import exceptions.ElementNotFoundException;
+import server.exceptions.ElementNotFoundException;
 import server.interfaces.FileManager;
 import server.model.*;
 

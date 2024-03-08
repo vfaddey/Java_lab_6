@@ -1,7 +1,7 @@
 package server.managers;
 
-import exceptions.NullUserRequestException;
-import exceptions.WrongParameterException;
+import server.exceptions.NullUserRequestException;
+import server.exceptions.WrongParameterException;
 import server.model.Address;
 import server.model.Coordinates;
 import server.model.Location;

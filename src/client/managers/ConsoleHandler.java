@@ -1,6 +1,7 @@
 package client.managers;
 
-import exceptions.*;
+
+import server.exceptions.*;
 import server.managers.CommandManager;
 import server.model.*;
 

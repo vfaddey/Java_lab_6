@@ -1,7 +1,7 @@
 package server.commands;
 
-import exceptions.ElementNotFoundException;
-import exceptions.WrongParameterException;
+import server.exceptions.ElementNotFoundException;
+import server.exceptions.WrongParameterException;
 import server.interfaces.CommandWithParameters;
 import server.managers.Validator;
 import server.model.Address;

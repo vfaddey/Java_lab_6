@@ -1,6 +1,6 @@
 package server.commands;
 
-import exceptions.*;
+import server.exceptions.*;
 import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;
 import server.managers.Validator;

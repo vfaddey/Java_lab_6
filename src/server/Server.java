@@ -1,7 +1,7 @@
 package server;
 
 import server.commands.*;
-import exceptions.*;
+import server.exceptions.*;
 import server.interfaces.FileManager;
 import server.managers.CSVHandler;
 import server.managers.CollectionManager;
