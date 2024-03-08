@@ -16,7 +16,7 @@ public class Server {
     private static final int PORT = 8888;
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = null;
+        ServerSocket serverSocket;
         Socket clientSocket = null;
         InputStream input = null;
         BufferedReader reader = null;
@@ -68,9 +68,10 @@ public class Server {
                     while (true) {
                         String request = reader.readLine();
                         System.out.println(request);
-                        if (request != null) {
-                            commandManager.exec(request);
+                        if (request.equalsIgnoreCase("exit")) {
+                            break;
                         }
+                        commandManager.exec(request);
                     }
                 } catch (IOException e) {
                     System.out.println(e.toString());
