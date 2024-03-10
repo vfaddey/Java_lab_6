@@ -11,16 +11,10 @@ import java.io.*;
 import java.util.Arrays;
 
 public class Sender {
-    private final int port;
     private BufferedWriter writer;
     private BufferedReader reader;
 
     public Sender(int port) {
-        this.port = port;
-    }
-
-    public void launch() {
-
     }
 
     public void setWriter(BufferedWriter writer) {
@@ -36,7 +30,7 @@ public class Sender {
                 throw new WrongParameterException("Имя не может быть пустым");
             }
         } catch (WrongParameterException e) {
-            send(e.toString());
+            send(e.toString(), MessageType.ERROR);
             return nameRequest();
         }
     }
@@ -61,7 +55,7 @@ public class Sender {
                 throw new WrongParameterException("Неверно введены числа.");
             }
         } catch (WrongParameterException e) {
-            send(e.toString());
+            send(e.toString(), MessageType.ERROR);
             return coordinatesRequest();
         }
 
@@ -91,7 +85,7 @@ public class Sender {
                 throw new WrongParameterException("Годовой оборот не может быть меньше нуля.");
             }
         } catch (WrongParameterException | NullUserRequestException e) {
-            send(e.toString());
+            send(e.toString(), MessageType.ERROR);
             return annualTurnoverRequest();
         }
     }
@@ -120,14 +114,14 @@ public class Sender {
                 throw new WrongParameterException("Число сотрудников не может быть меньше одного.");
             }
         } catch (WrongParameterException | NullUserRequestException e) {
-            send(e.toString());
+            send(e.toString(), MessageType.ERROR);
             return employeesCountRequest();
         }
     }
 
 
     public OrganizationType organizationTypeRequest() throws IOException {
-        String response = ask("ORG_TYPE_REQUEST " + Arrays.toString(OrganizationType.values()));
+        String response = ask(Arrays.toString(OrganizationType.values()), MessageType.TYPE_REQUEST);
         String num;
         try {
             if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
@@ -153,7 +147,7 @@ public class Sender {
             }
 
         } catch (WrongParameterException | NumberFormatException | NullUserRequestException e) {
-            send(e.toString());
+            send(e.toString(), MessageType.ERROR);
             return organizationTypeRequest();
         }
     }
@@ -176,7 +170,7 @@ public class Sender {
                 }
             } throw new WrongParameterException("Неверно введены параметры. Попробуйте снова.");
         } catch (WrongParameterException e) {
-            send(e.toString());
+            send(e.toString(), MessageType.ERROR);
             return officialAddressRequest();
         }
     }
@@ -184,7 +178,7 @@ public class Sender {
     public String ask(String question) throws IOException {
         String response = null;
         try {
-            send(question);
+            send(question, MessageType.QUESTION);
             response = this.reader.readLine();
         } catch (IOException e) {
             System.out.println(e.toString());
@@ -192,8 +186,19 @@ public class Sender {
         return response;
     }
 
-    public <T extends Serializable> void send(T response) throws IOException {
-        this.writer.write(response.toString());
+    public String ask(String question, MessageType messageType) throws IOException {
+        String response = null;
+        try {
+            send(question, messageType);
+            response = this.reader.readLine();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        return response;
+    }
+
+    public <T extends Serializable> void send(T response, MessageType messageType) throws IOException {
+        this.writer.write(messageType.name() + " " + response.toString());
         this.writer.newLine();
         this.writer.flush();
     }

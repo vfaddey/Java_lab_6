@@ -4,6 +4,7 @@ package server.commands;
 import server.interfaces.FileManager;
 import server.managers.CollectionManager;
 import server.managers.CommandManager;
+import server.managers.MessageType;
 
 import java.io.IOException;
 
@@ -42,7 +43,7 @@ public abstract class Command {
     }
 
     protected void printSuccess() throws IOException {
-        collectionManager.getSender().send(successPhrase);
+        collectionManager.getSender().send(successPhrase, MessageType.SUCCESS);
     }
 
     public String getNameInConsole() {

@@ -2,6 +2,7 @@ package server.commands;
 
 import server.exceptions.WrongParameterException;
 import server.interfaces.CommandWithParameters;
+import server.managers.MessageType;
 import server.managers.Validator;
 import server.model.Organization;
 
@@ -18,7 +19,7 @@ public class FilterLessThanAnnualTurnover extends Command implements CommandWith
             long annualTurnover = Long.parseLong(parameters[0]);
             Organization[] elements = collectionManager.getElementsLessThanAnnualTurnover(annualTurnover);
             for (Organization el : elements) {
-                collectionManager.getSender().send(el);
+                collectionManager.getSender().send(el, MessageType.DEFAULT);
             }
         } else {
             throw new WrongParameterException("Неверно введен параметр!");

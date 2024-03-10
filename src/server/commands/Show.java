@@ -3,6 +3,7 @@ package server.commands;
 import server.exceptions.*;
 import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;
+import server.managers.MessageType;
 import server.managers.Validator;
 import server.model.Organization;
 
@@ -20,12 +21,10 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
         if (!collectionManager.getCollection().isEmpty()) {
             StringBuilder response = new StringBuilder();
             for (Organization organization : collectionManager.getCollection()) {
-                //response.append(organization).append("\n");
-                collectionManager.getSender().send(response);
+                collectionManager.getSender().send(response, MessageType.DEFAULT);
             }
-            //collectionManager.getSender().send(response);
         } else {
-            collectionManager.getSender().send("В коллекции пока нет элементов(");
+            collectionManager.getSender().send("В коллекции пока нет элементов(", MessageType.DEFAULT);
         }
 
     }
@@ -49,7 +48,7 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
                             response.append(collectionManager.getCollection().get(i));
                         }
                     }
-                    collectionManager.getSender().send(response.toString());
+                    collectionManager.getSender().send(response.toString(), MessageType.DEFAULT);
                     System.out.println(response.toString());
                 } else if (quantity < 0) {
                     throw new WrongParameterException("Нельзя вывести <= 0 элементов.");

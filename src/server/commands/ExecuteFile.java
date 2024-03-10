@@ -3,6 +3,7 @@ package server.commands;
 import server.exceptions.*;
 import server.interfaces.CommandWithParameters;
 import client.managers.ConsoleHandler;
+import server.managers.MessageType;
 
 import java.io.IOException;
 import java.util.Stack;
@@ -27,7 +28,7 @@ public class ExecuteFile extends Command implements CommandWithParameters {
         } catch (IOException | WrongParameterException | IncorrectFilenameException | ElementNotFoundException | CommandNotExistsException | NullUserRequestException e) {
             throw new WrongParameterException("Файл не найден или нет доступа к файлу.");
         } catch (RecursionExecutionException e) {
-            collectionManager.getSender().send(e.toString());
+            collectionManager.getSender().send(e.toString(), MessageType.ERROR);
         }
     }
 }

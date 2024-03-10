@@ -3,6 +3,7 @@ package server.commands;
 import server.exceptions.ElementNotFoundException;
 import server.exceptions.WrongParameterException;
 import server.interfaces.CommandWithParameters;
+import server.managers.MessageType;
 import server.managers.Validator;
 import server.model.Address;
 import server.model.Coordinates;
@@ -66,10 +67,10 @@ public class Update extends Command implements CommandWithParameters {
         } catch (NumberFormatException e) {
             throw new WrongParameterException("Неправильно введен параметр.");
         } catch (ElementNotFoundException e) {
-            collectionManager.getSender().send(e.toString());
-            collectionManager.getSender().send("Введите id существующего элемента. Используйте команду show для просмотра коллекции.");
+            collectionManager.getSender().send(e.toString(), MessageType.ERROR);
+            collectionManager.getSender().send("Введите id существующего элемента. Используйте команду show для просмотра коллекции.", MessageType.ADVICE);
         } catch (WrongParameterException e) {
-            collectionManager.getSender().send(e.toString());
+            collectionManager.getSender().send(e.toString(), MessageType.ERROR);
             execute(parameters);
         } catch (IOException e) {
             throw new RuntimeException(e);

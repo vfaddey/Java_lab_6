@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.interfaces.CommandWithoutParameters;
+import server.managers.MessageType;
 
 import java.io.IOException;
 
@@ -11,6 +12,6 @@ public class Info extends Command implements CommandWithoutParameters {
 
     @Override
     public void execute() throws IOException {
-        collectionManager.getSender().send(collectionManager.getInformation());
+        collectionManager.getSender().send(collectionManager.getInformation(), MessageType.DEFAULT);
     }
 }

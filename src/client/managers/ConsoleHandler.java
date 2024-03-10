@@ -22,11 +22,6 @@ public class ConsoleHandler {
         this.receiver = receiver;
     }
 
-    public String collectionFilenameRequest() {
-        System.out.print("Введите путь к файлу коллекции: ");
-        return scanner.nextLine();
-    }
-
     public static class ScriptHandler {
         public static void readCommands(String filename, CommandManager commandManager) throws IOException, WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException, NullUserRequestException {
             try {

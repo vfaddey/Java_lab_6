@@ -51,7 +51,7 @@ public class CommandManager {
                 throw new WrongParameterException("Вы не ввели параметр.");
             }
         } catch (CommandNotExistsException | WrongParameterException | NullUserRequestException e) {
-            collectionManager.getSender().send(e.toString());
+            collectionManager.getSender().send(e.toString(), MessageType.ERROR);
         }
 
     }

@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.interfaces.CommandWithParameters;
+import server.managers.MessageType;
 import server.model.Organization;
 
 import java.io.IOException;
@@ -13,6 +14,6 @@ public class FilterContainsName extends Command implements CommandWithParameters
     @Override
     public void execute(String... parameters) throws IOException {
         Organization[] elements = collectionManager.getElementsByName(parameters[0]);
-        for (Organization el : elements) collectionManager.getSender().send(String.valueOf(el));
+        for (Organization el : elements) collectionManager.getSender().send(String.valueOf(el), MessageType.DEFAULT);
     }
 }

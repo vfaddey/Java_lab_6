@@ -1,6 +1,7 @@
 package server.commands;
 
 import server.interfaces.CommandWithoutParameters;
+import server.managers.MessageType;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -18,6 +19,6 @@ public class Help extends Command implements CommandWithoutParameters {
         for (Command command : commands) {
             output.append(String.format("%-" + padding + "s | %s\n", command.getNameInConsole(), command.getDescription()));
         }
-        collectionManager.getSender().send(output);
+        collectionManager.getSender().send(output, MessageType.DEFAULT);
     }
 }
