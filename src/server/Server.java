@@ -27,6 +27,7 @@ public class Server {
 
         try {
             serverSocket = new ServerSocket(PORT);
+            
             FileManager fileManager = new CSVHandler();
             CommandManager commandManager = new CommandManager(fileManager);
             Sender sender = new Sender(PORT);

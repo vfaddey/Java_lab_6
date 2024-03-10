@@ -32,7 +32,7 @@ public class Update extends Command implements CommandWithParameters {
             Address officialAddress = element.getOfficialAddress();
 
 
-            String answer = collectionManager.getSender().ask("WTC");
+            String answer = collectionManager.getSender().ask("", MessageType.WHAT_TO_CHANGE);
             if (Validator.isStringWithIntegers(answer)) {
                 String[] splitted = answer.split(" ");
                 int[] fieldsNumbers = new int[splitted.length];

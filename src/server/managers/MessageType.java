@@ -6,6 +6,7 @@ public enum MessageType {
     ADVICE,
     QUESTION,
     SUCCESS,
-    DEFAULT;
+    DEFAULT,
+    WHAT_TO_CHANGE;
 
 }
