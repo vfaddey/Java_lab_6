@@ -2,31 +2,34 @@ package client.managers;
 
 public enum MessageType {
     ERROR {
-        public void execute(ConsoleHandler consoleHandler, String param) {
+        public String execute(ConsoleHandler consoleHandler, String param) {
             consoleHandler.printError(param);
+            return null;
         }
     },
     TYPE_REQUEST {
-        public void execute(ConsoleHandler consoleHandler, String param) {
-            consoleHandler.println(param);
+        public String execute(ConsoleHandler consoleHandler, String param) {
+            return consoleHandler.ask(param);
         }
     },
     ADVICE {
-        public void execute(ConsoleHandler consoleHandler, String param) {
+        public String execute(ConsoleHandler consoleHandler, String param) {
             consoleHandler.printAdvice(param);
+            return null;
         }
     },
     QUESTION {
-        public void execute(ConsoleHandler consoleHandler, String param) {
-            consoleHandler.ask(param);
+        public String execute(ConsoleHandler consoleHandler, String param) {
+            return consoleHandler.ask(param);
         }
     },
     DEFAULT {
-        public void execute(ConsoleHandler consoleHandler, String param) {
+        public String execute(ConsoleHandler consoleHandler, String param) {
             consoleHandler.println(param);
+            return null;
         }
     };
 
-    public abstract void execute(ConsoleHandler consoleHandler, String param);
+    public abstract String execute(ConsoleHandler consoleHandler, String param);
 
 }

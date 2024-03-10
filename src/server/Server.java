@@ -65,15 +65,15 @@ public class Server {
                     sender.setWriter(writer);
                     sender.setReader(reader);
 
-                    while (true) {
-                        String request = reader.readLine();
+
+                    String request;
+
+                    while ((request = reader.readLine()) != null) {
                         System.out.println(request);
                         if (request.equalsIgnoreCase("exit")) {
                             break;
                         }
-                        if (request != null) {
-                            commandManager.exec(request);
-                        }
+                        commandManager.exec(request);
                     }
                 } catch (IOException e) {
                     System.out.println(e.toString());

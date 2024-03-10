@@ -12,13 +12,6 @@ public class Client {
         Receiver receiver = new Receiver(SERVER_ADDRESS, SERVER_PORT);
         ConsoleHandler consoleHandler = new ConsoleHandler(receiver);
         receiver.setConsoleHandler(consoleHandler);
-        try {
-            receiver.connect();
-            consoleHandler.listen();
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        } finally {
-            receiver.close();
-        }
+        consoleHandler.listen();
     }
 }

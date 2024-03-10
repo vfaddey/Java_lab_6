@@ -48,7 +48,7 @@ public class Receiver {
         }
     }
 
-    public void receive() throws IOException {
+    public void receive() throws IOException, InterruptedException {
         String response;
         if (this.reader != null) {
             while ((response = this.reader.readLine()) != null) {
@@ -67,7 +67,7 @@ public class Receiver {
         receive();
     }
 
-    public void processServerResponse(String response) {
+    public void processServerResponse(String response) throws IOException, InterruptedException {
         MessageType messageType;
         String message;
         try {
@@ -77,10 +77,11 @@ public class Receiver {
             messageType = MessageType.DEFAULT;
             message = response;
         }
-        messageType.execute(this.consoleHandler, message);
-    }
-
-    public void execute(String command) {
+        if (messageType == MessageType.QUESTION || messageType == MessageType.TYPE_REQUEST) {
+            write(messageType.execute(this.consoleHandler, message));
+        } else {
+            messageType.execute(this.consoleHandler, message);
+        }
 
     }
 

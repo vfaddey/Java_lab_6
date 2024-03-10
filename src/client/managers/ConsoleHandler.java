@@ -60,7 +60,9 @@ public class ConsoleHandler {
                 print(">>> ");
                 String request = scanner.nextLine();
                 if (!request.isEmpty()) {
+                    receiver.connect();
                     receiver.write(request);
+                    receiver.close();
                 }
             } catch (IOException | InterruptedException e) {
                 receiver.close();
