@@ -121,6 +121,7 @@ public class Sender {
 
 
     public OrganizationType organizationTypeRequest() throws IOException {
+        String question = " ";
         String response = ask(Arrays.toString(OrganizationType.values()), MessageType.TYPE_REQUEST);
         String num;
         try {

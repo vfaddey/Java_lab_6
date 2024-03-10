@@ -68,7 +68,16 @@ public class Receiver {
     }
 
     public void processServerResponse(String response) {
-        consoleHandler.println(response);
+        MessageType messageType;
+        String message;
+        try {
+            messageType = MessageType.valueOf(response.split(" ", 2)[0]);
+            message = response.split(" ", 2)[1];
+        } catch (IllegalArgumentException e) {
+            messageType = MessageType.DEFAULT;
+            message = response;
+        }
+        messageType.execute(this.consoleHandler, message);
     }
 
     public void execute(String command) {

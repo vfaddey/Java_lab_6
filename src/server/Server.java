@@ -71,7 +71,9 @@ public class Server {
                         if (request.equalsIgnoreCase("exit")) {
                             break;
                         }
-                        commandManager.exec(request);
+                        if (request != null) {
+                            commandManager.exec(request);
+                        }
                     }
                 } catch (IOException e) {
                     System.out.println(e.toString());
