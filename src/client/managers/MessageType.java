@@ -1,54 +1,63 @@
 package client.managers;
 
 public enum MessageType {
-    ERROR {
+    ERROR(false) {
         @Override
         public String execute(ConsoleHandler consoleHandler, String param) {
             consoleHandler.printError(param);
             return null;
         }
     },
-    TYPE_REQUEST {
+    TYPE_REQUEST(true) {
         @Override
         public String execute(ConsoleHandler consoleHandler, String param) {
             return consoleHandler.ask(param);
         }
     },
-    ADVICE {
+    ADVICE(false) {
         @Override
         public String execute(ConsoleHandler consoleHandler, String param) {
             consoleHandler.printAdvice(param);
             return null;
         }
     },
-    QUESTION {
+    QUESTION(true) {
         @Override
         public String execute(ConsoleHandler consoleHandler, String param) {
             return consoleHandler.ask(param);
         }
     },
 
-    SUCCESS {
+    SUCCESS(false) {
         @Override
         public String execute(ConsoleHandler consoleHandler, String param) {
             consoleHandler.println(param);
             return null;
         }
     },
-    DEFAULT {
+    DEFAULT(false) {
         @Override
         public String execute(ConsoleHandler consoleHandler, String param) {
             consoleHandler.println(param);
             return null;
         }
     },
-    WHAT_TO_CHANGE {
+    WHAT_TO_CHANGE(true) {
         @Override
         public String execute(ConsoleHandler consoleHandler, String param) {
             return consoleHandler.askWhatToChange();
         }
     };
 
+    private final boolean isRequest;
     public abstract String execute(ConsoleHandler consoleHandler, String param);
+
+    MessageType(boolean isRequest) {
+        this.isRequest = isRequest;
+    }
+
+    public boolean isRequest() {
+        return isRequest;
+    }
 
 }

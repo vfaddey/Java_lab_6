@@ -77,12 +77,11 @@ public class Receiver {
             messageType = MessageType.DEFAULT;
             message = response;
         }
-        if (messageType == MessageType.QUESTION || messageType == MessageType.TYPE_REQUEST) {
+        if (messageType.isRequest()) {
             write(messageType.execute(this.consoleHandler, message));
         } else {
             messageType.execute(this.consoleHandler, message);
         }
-
     }
 
     public void setConsoleHandler(ConsoleHandler consoleHandler) {
