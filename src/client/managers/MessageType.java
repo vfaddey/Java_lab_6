@@ -47,6 +47,13 @@ public enum MessageType {
         public String execute(ConsoleHandler consoleHandler, String param) {
             return consoleHandler.askWhatToChange();
         }
+    },
+
+    VALIDATE(true) {
+        @Override
+        public String execute(ConsoleHandler consoleHandler, String param) {
+            return null;
+        }
     };
 
     private final boolean isRequest;
