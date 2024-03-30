@@ -13,11 +13,9 @@ import java.io.ObjectOutputStream;
 
 public class Sender {
     private final TCPClient client;
-    private final ResponseHandler responseHandler;
 
-    public Sender(TCPClient client, ResponseHandler responseHandler) {
+    public Sender(TCPClient client) {
         this.client = client;
-        this.responseHandler = responseHandler;
     }
 
 
@@ -29,7 +27,6 @@ public class Sender {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public <T extends Request> void sendObject(T request) throws IOException {

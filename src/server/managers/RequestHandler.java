@@ -22,8 +22,7 @@ public class RequestHandler {
         try {
             request = Serializer.deserializeObject(buffer);
             Command command = commandManager.getCommands().get(request.getCommandName());
-//            response = command.execute(request);
-            response = (T) new EmptyResponse();
+            response = (T) command.execute(request);
             return response;
         } catch (Exception e) {
             throw new RuntimeException(e);

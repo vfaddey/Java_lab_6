@@ -1,6 +1,9 @@
 package server.commands;
 
 
+import common.Requests.Request;
+import common.Responses.EmptyResponse;
+import common.Responses.Response;
 import server.interfaces.FileManager;
 import server.managers.CollectionManager;
 import server.managers.CommandManager;
@@ -56,6 +59,10 @@ public abstract class Command {
 
     public void execute() throws IOException {
 
+    }
+
+    public Response execute(Request request) throws IOException {
+        return new EmptyResponse();
     }
 
 }

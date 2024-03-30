@@ -1,5 +1,9 @@
 package server.commands;
 
+import common.Requests.Request;
+import common.Requests.SaveRequest;
+import common.Responses.Response;
+import common.Responses.SuccessResponse;
 import common.exceptions.IncorrectFilenameException;
 import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;
@@ -7,9 +11,9 @@ import server.managers.MessageType;
 
 import java.io.IOException;
 
-public class Save extends Command implements CommandWithoutParameters, CommandWithParameters {
+public class Save extends Command implements CommandWithoutParameters {
     public Save(String consoleName) {
-        super(consoleName, "(необязательно <Путь к файлу>) Сохранить коллекцию (в тот же файл)", "Коллекция сохранена!");
+        super(consoleName, "Сохранить коллекцию (в тот же файл)", "Коллекция сохранена!");
     }
 
     @Override
@@ -18,20 +22,12 @@ public class Save extends Command implements CommandWithoutParameters, CommandWi
         printSuccess();
     }
 
+
     @Override
-    public void execute(String... parameters) throws IOException {
-        if (parameters.length == 0) execute();
-        else {
-            try {
-                if (parameters[0].matches("^\\D.*")) {
-                    if (parameters[0].matches(".*\\.csv$")) {
-                        String filename = parameters[0];
-                        fileManager.write(collectionManager.getCollection(), filename);
-                    } else throw new IncorrectFilenameException("Расширение файла должно быть .csv");
-                } else throw new IncorrectFilenameException("Строка не должна начинаться с числа");
-            } catch (IncorrectFilenameException e) {
-                collectionManager.getSender().send(e.toString(), MessageType.ERROR);
-            }
+    public Response execute(Request request) throws IOException {
+        if (request instanceof SaveRequest) {
+            execute();
         }
+        return new SuccessResponse(getNameInConsole(), successPhrase);
     }
 }

@@ -21,7 +21,7 @@ public class Client {
         TCPClient tcpClient = new TCPClient(SERVER_ADDRESS, SERVER_PORT);
         ConsoleHandler consoleHandler = new ConsoleHandler(receiver);
         ResponseHandler responseHandler = new ResponseHandler(consoleHandler);
-        Sender sender = new Sender(tcpClient, responseHandler);
+        Sender sender = new Sender(tcpClient);
         tcpClient.run();
         Response response = sender.sendRequest(new HelpRequest("help"));
         System.out.println(response);
