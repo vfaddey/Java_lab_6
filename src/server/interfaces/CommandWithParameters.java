@@ -1,6 +1,6 @@
 package server.interfaces;
 
-import server.exceptions.*;
+import common.exceptions.*;
 
 import java.io.IOException;
 

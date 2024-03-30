@@ -1,11 +1,9 @@
 package client.managers;
 
 
-import com.sun.jdi.Method;
-import server.exceptions.*;
+import common.exceptions.*;
 import server.managers.CommandManager;
-import server.managers.MessageType;
-import server.model.*;
+import common.model.*;
 
 import java.io.*;
 import java.lang.reflect.Field;

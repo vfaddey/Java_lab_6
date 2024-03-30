@@ -2,7 +2,7 @@ package server.commands;
 
 import server.interfaces.CommandWithParameters;
 import server.managers.MessageType;
-import server.model.Organization;
+import common.model.Organization;
 
 import java.io.IOException;
 

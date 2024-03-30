@@ -1,6 +1,6 @@
 package server.commands;
 
-import server.exceptions.IncorrectFilenameException;
+import common.exceptions.IncorrectFilenameException;
 import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;
 import server.managers.MessageType;

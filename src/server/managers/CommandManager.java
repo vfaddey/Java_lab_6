@@ -1,7 +1,7 @@
 package server.managers;
 
 import server.commands.Command;
-import server.exceptions.*;
+import common.exceptions.*;
 import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;
 import server.interfaces.FileManager;

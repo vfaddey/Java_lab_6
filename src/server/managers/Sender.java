@@ -1,11 +1,11 @@
 package server.managers;
 
-import server.exceptions.NullUserRequestException;
-import server.exceptions.WrongParameterException;
-import server.model.Address;
-import server.model.Coordinates;
-import server.model.Location;
-import server.model.OrganizationType;
+import common.exceptions.NullUserRequestException;
+import common.exceptions.WrongParameterException;
+import common.model.Address;
+import common.model.Coordinates;
+import common.model.Location;
+import common.model.OrganizationType;
 
 import java.io.*;
 import java.util.Arrays;

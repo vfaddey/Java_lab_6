@@ -1,10 +1,10 @@
 package server.commands;
 
-import server.exceptions.WrongParameterException;
+import common.exceptions.WrongParameterException;
 import server.interfaces.CommandWithParameters;
 import server.managers.MessageType;
 import server.managers.Validator;
-import server.model.Organization;
+import common.model.Organization;
 
 import java.io.IOException;
 

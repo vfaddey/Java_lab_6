@@ -1,7 +1,7 @@
 package server.interfaces;
 
 import server.managers.Sender;
-import server.model.Organization;
+import common.model.Organization;
 
 import java.util.LinkedList;
 

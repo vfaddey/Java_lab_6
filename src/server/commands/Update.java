@@ -1,14 +1,14 @@
 package server.commands;
 
-import server.exceptions.ElementNotFoundException;
-import server.exceptions.WrongParameterException;
+import common.exceptions.ElementNotFoundException;
+import common.exceptions.WrongParameterException;
 import server.interfaces.CommandWithParameters;
 import server.managers.MessageType;
 import server.managers.Validator;
-import server.model.Address;
-import server.model.Coordinates;
-import server.model.Organization;
-import server.model.OrganizationType;
+import common.model.Address;
+import common.model.Coordinates;
+import common.model.Organization;
+import common.model.OrganizationType;
 
 import java.io.IOException;
 

@@ -1,8 +1,8 @@
 package server.managers;
 
-import server.exceptions.ElementNotFoundException;
+import common.exceptions.ElementNotFoundException;
 import server.interfaces.FileManager;
-import server.model.*;
+import common.model.*;
 
 
 import java.io.IOException;

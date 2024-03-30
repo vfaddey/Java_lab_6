@@ -1,7 +1,7 @@
 package client.managers;
 
-import client.exceptions.ConnectionFailedException;
-import client.exceptions.NoConnectionException;
+import common.exceptions.*;
+
 
 import java.io.*;
 import java.net.Socket;

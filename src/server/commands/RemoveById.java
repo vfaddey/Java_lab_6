@@ -1,7 +1,7 @@
 package server.commands;
 
-import server.exceptions.ElementNotFoundException;
-import server.exceptions.WrongParameterException;
+import common.exceptions.ElementNotFoundException;
+import common.exceptions.WrongParameterException;
 import server.interfaces.CommandWithParameters;
 import server.managers.MessageType;
 

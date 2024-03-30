@@ -1,7 +1,7 @@
 package server.managers;
 
 import server.interfaces.FileManager;
-import server.model.*;
+import common.model.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

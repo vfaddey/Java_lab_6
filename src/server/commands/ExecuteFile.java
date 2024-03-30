@@ -1,6 +1,6 @@
 package server.commands;
 
-import server.exceptions.*;
+import common.exceptions.*;
 import server.interfaces.CommandWithParameters;
 import client.managers.ConsoleHandler;
 import server.managers.MessageType;

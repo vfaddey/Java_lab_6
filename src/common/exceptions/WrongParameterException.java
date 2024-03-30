@@ -1,4 +1,4 @@
-package server.exceptions;
+package common.exceptions;
 
 public class WrongParameterException extends Exception {
 

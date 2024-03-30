@@ -1,11 +1,11 @@
 package server.commands;
 
-import server.exceptions.*;
+import common.exceptions.*;
 import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;
 import server.managers.MessageType;
 import server.managers.Validator;
-import server.model.Organization;
+import common.model.Organization;
 
 import java.io.IOException;
 

@@ -1,7 +1,7 @@
 package server.commands;
 
 import server.interfaces.CommandWithoutParameters;
-import server.model.Organization;
+import common.model.Organization;
 
 import java.io.IOException;
 
