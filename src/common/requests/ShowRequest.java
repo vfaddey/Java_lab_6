@@ -1,4 +1,4 @@
-package common.Requests;
+package common.requests;
 
 public class ShowRequest extends Request {
     private int quantity = -1;

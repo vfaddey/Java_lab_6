@@ -1,4 +1,4 @@
-package common.Requests;
+package common.requests;
 
 import java.io.Serializable;
 

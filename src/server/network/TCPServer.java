@@ -1,6 +1,6 @@
 package server.network;
 
-import common.Responses.Response;
+import common.responses.Response;
 import common.network.NetworkApp;
 import common.network.Serializer;
 import server.managers.CommandManager;

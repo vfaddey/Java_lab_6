@@ -1,8 +1,8 @@
 package server.commands;
 
-import common.Requests.Request;
-import common.Responses.HelpResponse;
-import common.Responses.Response;
+import common.requests.Request;
+import common.responses.HelpResponse;
+import common.responses.Response;
 import server.interfaces.CommandWithoutParameters;
 import server.managers.MessageType;
 

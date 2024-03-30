@@ -1,9 +1,6 @@
-package common.Requests;
-
-import common.model.Organization;
+package common.requests;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public abstract class Request implements Serializable {
     protected String commandName;

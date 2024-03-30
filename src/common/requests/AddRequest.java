@@ -1,4 +1,4 @@
-package common.Requests;
+package common.requests;
 
 import common.model.Address;
 import common.model.Coordinates;

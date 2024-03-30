@@ -1,6 +1,6 @@
 package client.managers;
 
-import common.Responses.Response;
+import common.responses.Response;
 
 public class ResponseHandler {
     private final ConsoleHandler consoleHandler;

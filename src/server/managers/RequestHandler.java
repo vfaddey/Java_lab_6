@@ -1,9 +1,8 @@
 package server.managers;
 
-import common.Responses.EmptyResponse;
 import common.network.Serializer;
-import common.Requests.Request;
-import common.Responses.Response;
+import common.requests.Request;
+import common.responses.Response;
 import server.commands.Command;
 
 import java.nio.ByteBuffer;

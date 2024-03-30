@@ -1,4 +1,4 @@
-package common.Responses;
+package common.responses;
 
 public class InfoResponse extends Response{
 

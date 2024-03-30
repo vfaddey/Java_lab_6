@@ -1,8 +1,5 @@
 package client.managers;
 
-import common.Requests.Request;
-import common.Requests.RequestDTO;
-import common.Responses.Response;
 import common.exceptions.*;
 
 

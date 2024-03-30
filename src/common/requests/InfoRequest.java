@@ -1,4 +1,4 @@
-package common.Requests;
+package common.requests;
 
 public class InfoRequest extends Request{
 

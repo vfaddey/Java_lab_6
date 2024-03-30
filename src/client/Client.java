@@ -2,10 +2,8 @@ package client;
 
 import client.managers.*;
 import client.network.TCPClient;
-import common.Requests.HelpRequest;
-import common.Requests.ShowRequest;
-import common.Responses.Response;
-import server.managers.RequestHandler;
+import common.requests.ShowRequest;
+import common.responses.Response;
 
 import java.io.IOException;
 

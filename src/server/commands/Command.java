@@ -1,9 +1,9 @@
 package server.commands;
 
 
-import common.Requests.Request;
-import common.Responses.EmptyResponse;
-import common.Responses.Response;
+import common.requests.Request;
+import common.responses.EmptyResponse;
+import common.responses.Response;
 import server.interfaces.FileManager;
 import server.managers.CollectionManager;
 import server.managers.CommandManager;

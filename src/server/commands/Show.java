@@ -1,11 +1,11 @@
 package server.commands;
 
-import common.Requests.Request;
-import common.Requests.ShowRequest;
-import common.Responses.EmptyResponse;
-import common.Responses.ErrorResponse;
-import common.Responses.Response;
-import common.Responses.ShowResponse;
+import common.requests.Request;
+import common.requests.ShowRequest;
+import common.responses.EmptyResponse;
+import common.responses.ErrorResponse;
+import common.responses.Response;
+import common.responses.ShowResponse;
 import common.exceptions.*;
 import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;

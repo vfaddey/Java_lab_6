@@ -1,10 +1,10 @@
 package client.managers;
 
 import client.network.TCPClient;
-import common.Requests.Request;
-import common.Requests.RequestDTO;
-import common.Responses.Response;
-import common.Responses.ResponseDTO;
+import common.requests.Request;
+import common.requests.RequestDTO;
+import common.responses.Response;
+import common.responses.ResponseDTO;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

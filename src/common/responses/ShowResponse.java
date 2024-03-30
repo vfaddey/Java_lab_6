@@ -1,4 +1,4 @@
-package common.Responses;
+package common.responses;
 
 import common.model.Organization;
 
