@@ -24,8 +24,8 @@ public class TCPClient implements NetworkApp {
     }
 
     @Override
-    public void run() {
-
+    public void run() throws IOException {
+        connect();
     }
 
     @Override

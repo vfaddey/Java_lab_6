@@ -18,4 +18,12 @@ public abstract class Response implements Serializable {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "commandName='" + commandName + '\'' +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

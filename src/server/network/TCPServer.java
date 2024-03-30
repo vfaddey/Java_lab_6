@@ -28,8 +28,7 @@ public class TCPServer implements NetworkApp {
     private CommandManager commandManager;
     private RequestHandler requestHandler;
 
-    public TCPServer(ServerSocketChannel serverSocketChannel, CommandManager commandManager, RequestHandler requestHandler) {
-        this.serverSocketChannel = serverSocketChannel;
+    public TCPServer(CommandManager commandManager, RequestHandler requestHandler) {
         this.commandManager = commandManager;
         this.requestHandler = requestHandler;
         this.buffer = ByteBuffer.allocate(BUFFER_SIZE);
@@ -54,7 +53,6 @@ public class TCPServer implements NetworkApp {
                 while (selectedKeys.hasNext()) {
                     SelectionKey key = takeKey(selectedKeys);
                     handleKey(key);
-
                 }
             }
         } catch (IOException e) {
@@ -90,6 +88,7 @@ public class TCPServer implements NetworkApp {
         ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
         SocketChannel socketChannel = ssc.accept();
         socketChannel.configureBlocking(false);
+        System.out.println("Подключенно");
         socketChannel.register(selector, SelectionKey.OP_READ);
     }
 
@@ -109,10 +108,12 @@ public class TCPServer implements NetworkApp {
             key.cancel();
             return;
         }
+        this.buffer.flip();
 
         Response response = requestHandler.handleRequest(buffer);
+        System.out.println(response);
 
-        this.serverSocketChannel.register(this.selector, SelectionKey.OP_WRITE, response);
+        socketChannel.register(this.selector, SelectionKey.OP_WRITE, response);
     }
 
     private void write(SelectionKey key) throws IOException {

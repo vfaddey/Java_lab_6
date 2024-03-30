@@ -24,4 +24,12 @@ public abstract class Request implements Serializable {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "commandName='" + commandName + '\'' +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }
