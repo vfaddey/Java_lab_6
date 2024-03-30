@@ -1,5 +1,6 @@
 package server.network;
 
+import common.network.NetworkApp;
 import jdk.net.ExtendedSocketOptions;
 import server.managers.CommandManager;
 
@@ -13,7 +14,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.channels.spi.SelectorProvider;
 import java.util.Iterator;
 
-public class TCPServer implements NetworkServer {
+public class TCPServer implements NetworkApp {
     private static final int BUFFER_SIZE = 4096;
     ByteBuffer buffer;
 

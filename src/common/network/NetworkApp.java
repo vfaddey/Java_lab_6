@@ -1,8 +1,8 @@
-package server.network;
+package common.network;
 
 import java.io.IOException;
 
-public interface NetworkServer {
+public interface NetworkApp {
     void openConnection() throws IOException;
     void run();
 }
