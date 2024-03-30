@@ -1,8 +1,10 @@
 package server.network;
 
+import common.Responses.Response;
 import common.network.NetworkApp;
-import jdk.net.ExtendedSocketOptions;
+import common.network.Serializer;
 import server.managers.CommandManager;
+import server.managers.RequestHandler;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -16,7 +18,7 @@ import java.util.Iterator;
 
 public class TCPServer implements NetworkApp {
     private static final int BUFFER_SIZE = 4096;
-    ByteBuffer buffer;
+    private ByteBuffer buffer;
 
     private static final String HOST = "localhost";
     private static final int PORT = 8080;
@@ -24,10 +26,12 @@ public class TCPServer implements NetworkApp {
     private ServerSocketChannel serverSocketChannel;
     private Selector selector;
     private CommandManager commandManager;
+    private RequestHandler requestHandler;
 
-    public TCPServer(ServerSocketChannel serverSocketChannel, CommandManager commandManager) {
+    public TCPServer(ServerSocketChannel serverSocketChannel, CommandManager commandManager, RequestHandler requestHandler) {
         this.serverSocketChannel = serverSocketChannel;
         this.commandManager = commandManager;
+        this.requestHandler = requestHandler;
         this.buffer = ByteBuffer.allocate(BUFFER_SIZE);
     }
 
@@ -91,6 +95,7 @@ public class TCPServer implements NetworkApp {
 
     private void read(SelectionKey key) throws IOException {
         SocketChannel socketChannel = (SocketChannel) key.channel();
+        this.buffer.clear();
         int bytesRead;
         try {
             bytesRead = socketChannel.read(this.buffer);
@@ -104,10 +109,23 @@ public class TCPServer implements NetworkApp {
             key.cancel();
             return;
         }
+
+        Response response = requestHandler.handleRequest(buffer);
+
+        this.serverSocketChannel.register(this.selector, SelectionKey.OP_WRITE, response);
     }
 
-    private void write(SelectionKey key) {
+    private void write(SelectionKey key) throws IOException {
+        SocketChannel socketChannel = (SocketChannel) key.channel();
+        Response response = (Response) key.attachment();
 
+        ByteBuffer writeBuffer = Serializer.serializeObject(response);
+        writeBuffer.flip();
+        while (writeBuffer.hasRemaining()) {
+            socketChannel.write(writeBuffer);
+        }
+
+        socketChannel.register(selector, SelectionKey.OP_READ);
     }
 
 }

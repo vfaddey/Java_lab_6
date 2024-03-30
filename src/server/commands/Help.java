@@ -14,7 +14,7 @@ public class Help extends Command implements CommandWithoutParameters {
     @Override
     public void execute() throws IOException {
         int padding = 35;
-        HashSet<Command> commands = commandManager.getCommands();
+        HashSet<Command> commands = (HashSet<Command>) commandManager.getCommands().values();
         StringBuilder output = new StringBuilder("Все доступные команды:\n");
         for (Command command : commands) {
             output.append(String.format("%-" + padding + "s | %s\n", command.getNameInConsole(), command.getDescription()));

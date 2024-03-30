@@ -98,9 +98,12 @@ public class CommandManager {
         }
     }
 
-    public HashSet<Command> getCommands() {
-        return new HashSet<>(commands.values());
+    public HashMap<String, Command> getCommands() {
+        return commands;
     }
 
+//    public HashSet<Command> getCommands() {
+//        return new HashSet<>(commands.values());
+//    }
 
 }

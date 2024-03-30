@@ -1,5 +1,7 @@
-package client.managers;
+package common.network;
 
+import common.Requests.Request;
+import common.Requests.RequestDTO;
 import common.Responses.Response;
 import common.Responses.ResponseDTO;
 
@@ -18,11 +20,11 @@ public class Serializer {
         return buffer;
     }
 
-    public static Response deserializeObject(ByteBuffer buffer) {
+    public static Request deserializeObject(ByteBuffer buffer) {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(buffer.array());
              ObjectInputStream ois = new ObjectInputStream(bais)) {
-            ResponseDTO responseDTO = (ResponseDTO) ois.readObject();
-            return responseDTO.getResponse();
+            RequestDTO requestDTO = (RequestDTO) ois.readObject();
+            return requestDTO.getRequest();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
