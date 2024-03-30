@@ -103,9 +103,6 @@ public class TCPServer implements NetworkServer {
             key.cancel();
             return;
         }
-
-        
-
     }
 
     private void write(SelectionKey key) {
