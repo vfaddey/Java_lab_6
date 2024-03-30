@@ -54,4 +54,12 @@ public class TCPClient implements NetworkApp {
             throw new ClosureFailedException("Не удалось закрыть соединение");
         }
     }
+
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public OutputStream getOutputStream() {
+        return outputStream;
+    }
 }
