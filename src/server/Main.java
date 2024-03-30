@@ -2,16 +2,17 @@ package server;
 
 import server.commands.*;
 import server.interfaces.FileManager;
-import server.managers.CSVHandler;
-import server.managers.CommandManager;
-import server.managers.RequestHandler;
+import server.managers.*;
 import server.network.TCPServer;
 
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        CommandManager commandManager = new CommandManager(new CSVHandler());
+        FileManager csvHandler = new CSVHandler();
+        CollectionManager collectionManager = new CollectionManager(csvHandler, new Sender(8080), "src/server/collection.csv");
+        CommandManager commandManager = new CommandManager(csvHandler);
+        commandManager.setCollectionManager(collectionManager);
         commandManager.addCommands(
                 new Add("add"),
                 new Clear("clear"),

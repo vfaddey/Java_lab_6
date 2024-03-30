@@ -3,6 +3,7 @@ package client;
 import client.managers.*;
 import client.network.TCPClient;
 import common.Requests.HelpRequest;
+import common.Requests.ShowRequest;
 import common.Responses.Response;
 import server.managers.RequestHandler;
 
@@ -23,7 +24,7 @@ public class Client {
         ResponseHandler responseHandler = new ResponseHandler(consoleHandler);
         Sender sender = new Sender(tcpClient);
         tcpClient.run();
-        Response response = sender.sendRequest(new HelpRequest("help"));
+        Response response = sender.sendRequest(new ShowRequest("show"));
         System.out.println(response);
     }
 }

@@ -1,5 +1,11 @@
 package server.commands;
 
+import common.Requests.Request;
+import common.Requests.ShowRequest;
+import common.Responses.EmptyResponse;
+import common.Responses.ErrorResponse;
+import common.Responses.Response;
+import common.Responses.ShowResponse;
 import common.exceptions.*;
 import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;
@@ -8,6 +14,7 @@ import server.managers.Validator;
 import common.model.Organization;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 
 public class Show extends Command implements CommandWithoutParameters, CommandWithParameters {
@@ -58,6 +65,31 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
             } else {
                 throw new WrongParameterException("Неверно введено число.");
             }
+        }
+    }
+
+    @Override
+    public Response execute(Request request) {
+        if (request instanceof ShowRequest) {
+            if (((ShowRequest) request).getQuantity() < 0) {
+                ShowResponse response = new ShowResponse(getNameInConsole(), successPhrase);
+                response.setOrganizations(collectionManager.getCollection());
+                return response;
+            } else {
+                LinkedList<Organization> organizationsToSend = new LinkedList<>();
+                if (((ShowRequest) request).getQuantity() <= collectionManager.getCollection().size()) {
+                    for (int i = 0; i < ((ShowRequest) request).getQuantity(); i++) {
+                        organizationsToSend.add(collectionManager.getCollection().get(i));
+                    }
+                    ShowResponse response = new ShowResponse(getNameInConsole(), successPhrase);
+                    response.setOrganizations(organizationsToSend);
+                    return response;
+                } else {
+                    return new ErrorResponse("error", "В коллекции нет столько элементов");
+                }
+            }
+        } else {
+            return new EmptyResponse();
         }
     }
 }
