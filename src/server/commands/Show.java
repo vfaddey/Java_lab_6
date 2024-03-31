@@ -85,7 +85,7 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
                     response.setOrganizations(organizationsToSend);
                     return response;
                 } else {
-                    return new ErrorResponse("error", "В коллекции нет столько элементов");
+                    return new ErrorResponse("В коллекции нет столько элементов");
                 }
             }
         } else {

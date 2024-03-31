@@ -92,8 +92,8 @@ public class ConsoleHandler {
             }
             return this.sender.sendRequest(requestToServer);
 
-        } catch (NullUserRequestException | CommandNotExistsException e) {
-            return new ErrorResponse("error", e.toString());
+        } catch (NullUserRequestException | CommandNotExistsException | WrongParameterException e) {
+            return new ErrorResponse(e.toString());
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

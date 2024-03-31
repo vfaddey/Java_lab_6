@@ -1,7 +1,7 @@
 package common.responses;
 
 public class ErrorResponse extends Response{
-    public ErrorResponse(String commandName, String message) {
-        super(commandName, message);
+    public ErrorResponse(String message) {
+        super("error", message);
     }
 }

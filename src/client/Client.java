@@ -2,10 +2,7 @@ package client;
 
 import client.managers.*;
 import client.network.TCPClient;
-import common.requests.HelpRequest;
-import common.requests.InfoRequest;
-import common.requests.SaveRequest;
-import common.requests.ShowRequest;
+import common.requests.*;
 import common.responses.Response;
 
 import java.io.IOException;
@@ -24,7 +21,8 @@ public class Client {
                 new ShowRequest("show"),
                 new HelpRequest("help"),
                 new InfoRequest("info"),
-                new SaveRequest("save"));
+                new SaveRequest("save"),
+                new RemoveByIdRequest("remove_by_id"));
 
         TCPClient tcpClient = new TCPClient(SERVER_ADDRESS, SERVER_PORT);
         Sender sender = new Sender(tcpClient);
