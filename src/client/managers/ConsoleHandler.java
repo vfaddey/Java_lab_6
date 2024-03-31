@@ -25,15 +25,17 @@ public class ConsoleHandler {
     private final Receiver receiver;
     private RequestManager requestManager;
     private Sender sender;
+    private ResponseHandler responseHandler;
 
     public ConsoleHandler(Receiver receiver) {
         this.receiver = receiver;
     }
 
-    public ConsoleHandler(Receiver receiver, RequestManager requestManager, Sender sender) {
+    public ConsoleHandler(Receiver receiver, RequestManager requestManager, Sender sender, ResponseHandler responseHandler) {
         this.receiver = receiver;
         this.requestManager = requestManager;
         this.sender = sender;
+        this.responseHandler = responseHandler;
     }
 
     public static class ScriptHandler {
@@ -69,10 +71,10 @@ public class ConsoleHandler {
     public void listen() {
         while (true) {
             try {
-                print(">>>");
+                print(">>> ");
                 String request = scanner.nextLine();
                 Response response = processUserRequest(request);
-                println(response);
+                println(this.responseHandler.handleResponse(response));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

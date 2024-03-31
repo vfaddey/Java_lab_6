@@ -26,10 +26,9 @@ public class Client {
 
         TCPClient tcpClient = new TCPClient(SERVER_ADDRESS, SERVER_PORT);
         Sender sender = new Sender(tcpClient);
-        ConsoleHandler consoleHandler = new ConsoleHandler(receiver, requestManager, sender);
+        ResponseHandler responseHandler = new ResponseHandler();
+        ConsoleHandler consoleHandler = new ConsoleHandler(receiver, requestManager, sender, responseHandler);
         tcpClient.run();
         consoleHandler.listen();
-//        Response response = sender.sendRequest(new ShowRequest("show"));
-//        System.out.println(response);
     }
 }
