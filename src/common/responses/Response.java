@@ -21,9 +21,6 @@ public abstract class Response implements Serializable {
 
     @Override
     public String toString() {
-        return "Response{" +
-                "commandName='" + commandName + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+        return this.message;
     }
 }

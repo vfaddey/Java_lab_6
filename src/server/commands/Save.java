@@ -16,7 +16,7 @@ public class Save extends Command implements CommandWithoutParameters {
     @Override
     public void execute() throws IOException {
         fileManager.write(collectionManager.getCollection(), collectionManager.getCollectionFilename());
-        printSuccess();
+//        printSuccess();
     }
 
 

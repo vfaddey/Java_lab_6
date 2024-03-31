@@ -5,12 +5,12 @@ import common.model.Coordinates;
 import common.model.OrganizationType;
 
 public class AddRequest extends Request {
-    public String name;
-    public Coordinates coordinates;
-    public long annualTurnover;
-    public int employeesCount;
-    public OrganizationType organizationType;
-    public Address address;
+    private String name;
+    private Coordinates coordinates;
+    private long annualTurnover;
+    private int employeesCount;
+    private OrganizationType organizationType;
+    private Address address;
 
     public AddRequest(String name, Coordinates coordinates, long annualTurnover, int employeesCount, OrganizationType organizationType, Address address) {
         super("add");
@@ -19,6 +19,58 @@ public class AddRequest extends Request {
         this.annualTurnover = annualTurnover;
         this.employeesCount = employeesCount;
         this.organizationType = organizationType;
+        this.address = address;
+    }
+
+    public AddRequest(String commandName) {
+        super(commandName);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public long getAnnualTurnover() {
+        return annualTurnover;
+    }
+
+    public int getEmployeesCount() {
+        return employeesCount;
+    }
+
+    public OrganizationType getOrganizationType() {
+        return organizationType;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public void setAnnualTurnover(long annualTurnover) {
+        this.annualTurnover = annualTurnover;
+    }
+
+    public void setEmployeesCount(int employeesCount) {
+        this.employeesCount = employeesCount;
+    }
+
+    public void setOrganizationType(OrganizationType organizationType) {
+        this.organizationType = organizationType;
+    }
+
+    public void setAddress(Address address) {
         this.address = address;
     }
 }

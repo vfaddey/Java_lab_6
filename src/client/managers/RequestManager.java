@@ -25,6 +25,5 @@ public class RequestManager {
         } else {
             throw new CommandNotExistsException("Такой команды нет или у Вас нет доступа.");
         }
-
     }
 }
