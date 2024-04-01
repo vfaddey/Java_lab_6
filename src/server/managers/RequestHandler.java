@@ -2,6 +2,7 @@ package server.managers;
 
 import common.network.Serializer;
 import common.requests.Request;
+import common.requests.RequestDTO;
 import common.responses.Response;
 import server.commands.Command;
 
@@ -15,13 +16,12 @@ public class RequestHandler {
     }
 
     public <T extends Response> T handleRequest(ByteBuffer buffer) {
-        Request request;
         T response;
-
+        RequestDTO requestDTO;
         try {
-            request = Serializer.deserializeObject(buffer);
-            Command command = commandManager.getCommands().get(request.getCommandName());
-            response = (T) command.execute(request);
+            requestDTO = Serializer.deserializeObject(buffer);
+            Command command = commandManager.getCommands().get(requestDTO.getRequest().getCommandName());
+            response = (T) command.execute(requestDTO);
             return response;
         } catch (Exception e) {
             throw new RuntimeException(e);

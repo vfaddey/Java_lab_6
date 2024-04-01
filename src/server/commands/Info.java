@@ -1,6 +1,7 @@
 package server.commands;
 
 import common.requests.Request;
+import common.requests.RequestDTO;
 import common.responses.InfoResponse;
 import common.responses.Response;
 import server.interfaces.CommandWithoutParameters;
@@ -19,7 +20,7 @@ public class Info extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public Response execute(Request request) {
+    public Response execute(RequestDTO requestDTO) {
         return new InfoResponse(getNameInConsole(), collectionManager.getInformation());
     }
 }

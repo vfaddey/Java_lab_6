@@ -2,6 +2,7 @@ package server.commands;
 
 
 import common.requests.Request;
+import common.requests.RequestDTO;
 import common.responses.EmptyResponse;
 import common.responses.Response;
 import server.interfaces.FileManager;
@@ -61,7 +62,7 @@ public abstract class Command {
 
     }
 
-    public Response execute(Request request) throws IOException {
+    public Response execute(RequestDTO requestDTO) throws IOException {
         return new EmptyResponse();
     }
 

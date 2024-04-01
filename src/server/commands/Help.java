@@ -1,6 +1,8 @@
 package server.commands;
 
+import common.requests.HelpRequest;
 import common.requests.Request;
+import common.requests.RequestDTO;
 import common.responses.HelpResponse;
 import common.responses.Response;
 import server.interfaces.CommandWithoutParameters;
@@ -26,7 +28,7 @@ public class Help extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public Response execute(Request request) {
+    public Response execute(RequestDTO requestDTO) {
         int padding = 35;
         HashSet<Command> commands = new HashSet<>(commandManager.getCommands().values());
         StringBuilder output = new StringBuilder("Все доступные команды:\n");

@@ -1,6 +1,7 @@
 package server.commands;
 
 import common.requests.Request;
+import common.requests.RequestDTO;
 import common.requests.ShowRequest;
 import common.responses.EmptyResponse;
 import common.responses.ErrorResponse;
@@ -69,16 +70,17 @@ public class Show extends Command implements CommandWithoutParameters, CommandWi
     }
 
     @Override
-    public Response execute(Request request) {
-        if (request instanceof ShowRequest) {
+    public Response execute(RequestDTO requestDTO) {
+        ShowRequest request = (ShowRequest) requestDTO.getRequest();
+        if (request != null) {
             if (((ShowRequest) request).getQuantity() < 0) {
                 ShowResponse response = new ShowResponse(getNameInConsole(), successPhrase);
                 response.setOrganizations(collectionManager.getCollection());
                 return response;
             } else {
                 LinkedList<Organization> organizationsToSend = new LinkedList<>();
-                if (((ShowRequest) request).getQuantity() <= collectionManager.getCollection().size()) {
-                    for (int i = 0; i < ((ShowRequest) request).getQuantity(); i++) {
+                if (request.getQuantity() <= collectionManager.getCollection().size()) {
+                    for (int i = 0; i < request.getQuantity(); i++) {
                         organizationsToSend.add(collectionManager.getCollection().get(i));
                     }
                     ShowResponse response = new ShowResponse(getNameInConsole(), successPhrase);

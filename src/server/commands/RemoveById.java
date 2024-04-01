@@ -4,6 +4,7 @@ import common.exceptions.ElementNotFoundException;
 import common.exceptions.WrongParameterException;
 import common.requests.RemoveByIdRequest;
 import common.requests.Request;
+import common.requests.RequestDTO;
 import common.responses.EmptyResponse;
 import common.responses.ErrorResponse;
 import common.responses.Response;
@@ -34,10 +35,11 @@ public class RemoveById extends Command implements CommandWithParameters {
     }
 
     @Override
-    public Response execute(Request request) throws IOException {
-        if (request instanceof RemoveByIdRequest) {
+    public Response execute(RequestDTO requestDTO) throws IOException {
+        RemoveByIdRequest request = (RemoveByIdRequest) requestDTO.getRequest();
+        if (request != null) {
             try {
-                collectionManager.removeById(((RemoveByIdRequest) request).getId());
+                collectionManager.removeById(request.getId());
                 return new SuccessResponse(getNameInConsole(), successPhrase);
             } catch (ElementNotFoundException e) {
                 return new ErrorResponse(e.toString());

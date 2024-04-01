@@ -20,11 +20,11 @@ public class Serializer {
         return buffer;
     }
 
-    public static Request deserializeObject(ByteBuffer buffer) {
+    public static RequestDTO deserializeObject(ByteBuffer buffer) {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(buffer.array());
              ObjectInputStream ois = new ObjectInputStream(bais)) {
             RequestDTO requestDTO = (RequestDTO) ois.readObject();
-            return requestDTO.getRequest();
+            return requestDTO;
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

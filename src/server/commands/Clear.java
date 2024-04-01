@@ -1,6 +1,7 @@
 package server.commands;
 
 import common.requests.Request;
+import common.requests.RequestDTO;
 import common.responses.Response;
 import common.responses.SuccessResponse;
 import server.interfaces.CommandWithoutParameters;
@@ -19,7 +20,7 @@ public class Clear extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public Response execute(Request request) throws IOException {
+    public Response execute(RequestDTO requestDTO) throws IOException {
         collectionManager.clearCollection();
         return new SuccessResponse(getNameInConsole(), successPhrase);
     }

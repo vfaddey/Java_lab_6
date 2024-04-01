@@ -1,6 +1,7 @@
 package server.commands;
 
 import common.requests.Request;
+import common.requests.RequestDTO;
 import common.requests.SaveRequest;
 import common.responses.Response;
 import common.responses.SuccessResponse;
@@ -21,10 +22,8 @@ public class Save extends Command implements CommandWithoutParameters {
 
 
     @Override
-    public Response execute(Request request) throws IOException {
-        if (request instanceof SaveRequest) {
-            execute();
-        }
+    public Response execute(RequestDTO requestDTO) throws IOException {
+        execute();
         return new SuccessResponse(getNameInConsole(), successPhrase);
     }
 }
