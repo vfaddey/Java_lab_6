@@ -23,7 +23,9 @@ public class Client {
                 new InfoRequest("info"),
                 new SaveRequest("save"),
                 new RemoveByIdRequest("remove_by_id"),
-                new FilterLessThanAnnualTurnoverRequest("filter_less_than_annual_turnover"));
+                new FilterLessThanAnnualTurnoverRequest("filter_less_than_annual_turnover"),
+                new ClearRequest("clear"),
+                new ShuffleRequest("shuffle"));
 
         TCPClient tcpClient = new TCPClient(SERVER_ADDRESS, SERVER_PORT);
         Sender sender = new Sender(tcpClient);
