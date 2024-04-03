@@ -26,6 +26,7 @@ public class ConsoleHandler {
     private RequestManager requestManager;
     private Sender sender;
     private ResponseHandler responseHandler;
+    private final Asker asker = new Asker();
 
     public ConsoleHandler(Receiver receiver) {
         this.receiver = receiver;
@@ -148,7 +149,7 @@ public class ConsoleHandler {
         public OrganizationType askType() {
             OrganizationType[] values = OrganizationType.values();
             StringBuilder question = new StringBuilder();
-            question.append("Введите ноnullмер типа Вашей организации: ");
+            question.append("Введите номер типа Вашей организации: \n");
             for (OrganizationType type : values) {
                 question.append(type.ordinal() + 1).append(") ").append(type.name()).append("\n");
             }
@@ -255,6 +256,9 @@ public class ConsoleHandler {
         try {
             String[] processed = splitUserRequest(request);
             Request requestToServer = this.requestManager.get(processed[0]);
+            if (requestToServer instanceof AddRequest) {
+                this.asker.interactiveOrganizationCreation((AddRequest) requestToServer);
+            }
             if (requestToServer instanceof RequestWithParameters) {
                 String[] parameters = new String[processed.length-1];
                 for (int i = 1; i < processed.length; i++) {

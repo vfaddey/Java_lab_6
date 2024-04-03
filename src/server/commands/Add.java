@@ -49,7 +49,6 @@ public class Add extends Command implements CommandWithoutParameters {
             collectionManager.addNewElement(organization);
             return new SuccessResponse(getNameInConsole(), successPhrase);
         }
-
         return new EmptyResponse();
     }
 }
