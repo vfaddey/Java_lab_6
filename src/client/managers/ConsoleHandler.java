@@ -2,13 +2,13 @@ package client.managers;
 
 
 import common.exceptions.*;
+import common.requests.AddRequest;
 import common.requests.Request;
 import common.requests.RequestWithParameters;
 import common.responses.ErrorResponse;
 import common.responses.Response;
 import server.managers.CommandManager;
 import common.model.*;
-import client.managers.Sender;
 import server.managers.Validator;
 
 import java.io.*;
@@ -36,6 +36,176 @@ public class ConsoleHandler {
         this.requestManager = requestManager;
         this.sender = sender;
         this.responseHandler = responseHandler;
+    }
+
+    public class Asker {
+        public void interactiveOrganizationCreation(AddRequest request) {
+            request.setName(askName());
+            request.setCoordinates(askCoordinates());
+            request.setAnnualTurnover(askAnnualTurnover());
+            request.setEmployeesCount(askEmployeesCount());
+            request.setOrganizationType(askType());
+            request.setAddress(askAddress());
+        }
+
+        public String askName() {
+            String name = ask("Введите название организации: ");
+            try {
+                if (Validator.isValidName(name)) {
+                    return name;
+                } else {
+                    throw new WrongParameterException("Имя не может быть пустым");
+                }
+            } catch (WrongParameterException e) {
+                printError(e.toString());
+                return askName();
+            }
+        }
+
+        public Coordinates askCoordinates() {
+            String response = ask("Введите через пробел координаты x и y (числа целые): ");
+            int x;
+            long y;
+            try {
+                if (response.split(" ").length < 2) {
+                    throw new WrongParameterException("Введены не все параметры.");
+                }
+                if (Validator.isCorrectNumber(response.split(" ")[0], Integer.class) && Validator.isCorrectNumber(response.split(" ")[1], Long.class)) {
+                    if (!Validator.isNull(response.split(" ")[0])) {
+                        x = Integer.parseInt(response.split(" ")[0]);
+                        y = Long.parseLong(response.split(" ")[1]);
+                        return new Coordinates(x,y);
+                    } else {
+                        throw new WrongParameterException("x не может быть null.");
+                    }
+                } else {
+                    throw new WrongParameterException("Неверно введены числа.");
+                }
+            } catch (WrongParameterException e) {
+                printError(e.toString());
+                return askCoordinates();
+            }
+        }
+
+        public long askAnnualTurnover() {
+            long result = -1;
+            String response = ask("Введите годовой оборот компании (целое число): ");
+
+            try {
+                if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
+                    throw new NullUserRequestException("Введена пустая строка");
+                }
+                if (response.contains(" ")) {
+                    String[] splitted = response.split(" ");
+                    if (Validator.isCorrectNumber(splitted[0], Long.class)) {
+                        result = Long.parseLong(splitted[0]);
+                    }
+                } else if (Validator.isCorrectNumber(response, Long.class)) {
+                    result = Long.parseLong(response);
+                } else {
+                    throw new WrongParameterException("Неверно введено число.");
+                }
+                if (result > 0) {
+                    return result;
+                } else {
+                    throw new WrongParameterException("Годовой оборот не может быть меньше нуля.");
+                }
+            } catch (WrongParameterException | NullUserRequestException e) {
+                printError(e.toString());
+                return askAnnualTurnover();
+            }
+        }
+
+        public int askEmployeesCount() {
+            int result = -1;
+            String response = ask("Введите количество сотрудников: ");
+
+            try {
+                if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
+                    throw new NullUserRequestException("Введена пустая строка");
+                }
+                if (response.contains(" ")) {
+                    String[] splitted = response.split(" ");
+                    if (Validator.isCorrectNumber(splitted[0], Integer.class)) {
+                        result = Integer.parseInt(splitted[0]);
+                    }
+                } else if (Validator.isCorrectNumber(response, Integer.class)) {
+                    result = Integer.parseInt(response);
+                } else {
+                    throw new WrongParameterException("Неверно введено число.");
+                }
+                if (result > 0) {
+                    return result;
+                } else {
+                    throw new WrongParameterException("Число сотрудников не может быть меньше одного.");
+                }
+            } catch (WrongParameterException | NullUserRequestException e) {
+                printError(e.toString());
+                return askEmployeesCount();
+            }
+        }
+
+        public OrganizationType askType() {
+            OrganizationType[] values = OrganizationType.values();
+            StringBuilder question = new StringBuilder();
+            question.append("Введите ноnullмер типа Вашей организации: ");
+            for (OrganizationType type : values) {
+                question.append(type.ordinal() + 1).append(") ").append(type.name()).append("\n");
+            }
+            String response = ask(question.toString());
+
+            String num;
+            try {
+                if (Validator.isNull(response) || Validator.isEmptyArray(response.split(" "))) {
+                    throw new NullUserRequestException("Поле не может быть пустым.");
+                }
+                if (response.contains(" ")) {
+                    num = response.split(" ")[0];
+                    if (Validator.isNull(num)) {
+                        throw new WrongParameterException("Строка введена неверно.");
+                    }
+
+                } else {
+                    num = response;
+                }
+                if (Validator.isCorrectNumber(num, Integer.class)) {
+                    if (Integer.parseInt(num) <= OrganizationType.values().length && Integer.parseInt(num) >= 1) {
+                        return OrganizationType.values()[Integer.parseInt(num)-1];
+                    } else {
+                        throw new WrongParameterException("Введено неверный номер.");
+                    }
+                } else {
+                    throw new WrongParameterException("Неправильно введено число.");
+                }
+
+            } catch (WrongParameterException | NumberFormatException | NullUserRequestException e) {
+                printError(e.toString());
+                return askType();
+            }
+        }
+
+        public Address askAddress() {
+            String zipCode = ask("Введите город(?): ");
+            String loc = ask("Введите координаты локации x, y, z через пробел (x и y - вещественные, z - целое): ");
+            try {
+                if (loc.split(" ").length < 3) {
+                    throw new WrongParameterException("Неверно введены координаты локации");
+                }
+                if (Validator.isStringWithNumbers(loc) && Validator.isValidName(zipCode)) {
+                    if (Validator.areCorrectLocationParams(loc.split(" ")[0], loc.split(" ")[1], loc.split(" ")[2])) {
+                        double x = Double.parseDouble(loc.split(" ")[0]);
+                        double y = Double.parseDouble(loc.split(" ")[1]);
+                        long z = Long.parseLong(loc.split(" ")[2]);
+                        return new Address(zipCode, new Location(x,y,z));
+                    } else {
+                        throw new WrongParameterException("Неверно введены координаты локации.");
+                    }
+                } throw new WrongParameterException("Неверно введены параметры. Попробуйте снова.");
+            } catch (WrongParameterException e) {
+                printError(e.toString());
+                return askAddress();
+            }
+        }
     }
 
     public static class ScriptHandler {
@@ -146,14 +316,6 @@ public class ConsoleHandler {
 
     public String ask(String message) {
         print(message);
-        return scanner.nextLine();
-    }
-
-    public String askOrganizationType(OrganizationType[] values) {
-        println("Введите номер типа Вашей организации: ");
-        for (OrganizationType type : values) {
-            println(type.ordinal() + 1 + ") " + type.name());
-        }
         return scanner.nextLine();
     }
 
