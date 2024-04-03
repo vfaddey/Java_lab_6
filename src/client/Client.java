@@ -26,7 +26,8 @@ public class Client {
                 new FilterLessThanAnnualTurnoverRequest("filter_less_than_annual_turnover"),
                 new ClearRequest("clear"),
                 new ShuffleRequest("shuffle"),
-                new AddRequest("add"));
+                new AddRequest("add"),
+                new UpdateRequest("update"));
 
         TCPClient tcpClient = new TCPClient(SERVER_ADDRESS, SERVER_PORT);
         Sender sender = new Sender(tcpClient);

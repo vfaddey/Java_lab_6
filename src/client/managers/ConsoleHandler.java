@@ -5,6 +5,7 @@ import common.exceptions.*;
 import common.requests.AddRequest;
 import common.requests.Request;
 import common.requests.RequestWithParameters;
+import common.requests.UpdateRequest;
 import common.responses.ErrorResponse;
 import common.responses.Response;
 import server.managers.CommandManager;
@@ -47,6 +48,35 @@ public class ConsoleHandler {
             request.setEmployeesCount(askEmployeesCount());
             request.setOrganizationType(askType());
             request.setAddress(askAddress());
+        }
+
+        public void updateElement(UpdateRequest request) {
+            String answer = askWhatToChange();
+            try {
+                if (Validator.isStringWithIntegers(answer)) {
+                    String[] splitted = answer.split(" ");
+                    int[] fieldsNumbers = new int[splitted.length];
+                    for (int i = 0; i < fieldsNumbers.length; i++) {
+                        fieldsNumbers[i] = Integer.parseInt(splitted[i]);
+                    }
+                    for (int num : fieldsNumbers) {
+                        if (num > 6) {
+                            throw new WrongParameterException("Число " + num + " не соответствует ни одному из полей");
+                        }
+                        switch (num) {
+                            case 1 -> request.setName(askName());
+                            case 2 -> request.setCoordinates(askCoordinates());
+                            case 3 -> request.setAnnualTurnover(askAnnualTurnover());
+                            case 4 -> request.setEmployeesCount(askEmployeesCount());
+                            case 5 -> request.setOrganizationType(askType());
+                            case 6 -> request.setAddress(askAddress());
+                        }
+                    }
+                } else throw new WrongParameterException("Строка должна состоять только из чисел и пробелов.");
+            } catch (WrongParameterException e) {
+                printError(e.toString());
+            }
+
         }
 
         public String askName() {
@@ -256,15 +286,18 @@ public class ConsoleHandler {
         try {
             String[] processed = splitUserRequest(request);
             Request requestToServer = this.requestManager.get(processed[0]);
-            if (requestToServer instanceof AddRequest) {
-                this.asker.interactiveOrganizationCreation((AddRequest) requestToServer);
-            }
             if (requestToServer instanceof RequestWithParameters) {
                 String[] parameters = new String[processed.length-1];
                 for (int i = 1; i < processed.length; i++) {
                     parameters[i-1] = processed[i];
                 }
                 ((RequestWithParameters) requestToServer).setParameters(parameters);
+            }
+            if (requestToServer instanceof AddRequest) {
+                this.asker.interactiveOrganizationCreation((AddRequest) requestToServer);
+            }
+            if (requestToServer instanceof UpdateRequest) {
+                this.asker.updateElement((UpdateRequest) requestToServer);
             }
             return this.sender.sendRequest(requestToServer);
 
