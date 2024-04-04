@@ -5,6 +5,7 @@ import common.exceptions.*;
 import common.requests.*;
 import common.responses.ErrorResponse;
 import common.responses.Response;
+import common.responses.SuccessResponse;
 import server.managers.CommandManager;
 import common.model.*;
 import server.managers.Validator;
@@ -23,8 +24,10 @@ public class ConsoleHandler {
     private final Receiver receiver;
     private RequestManager requestManager;
     private Sender sender;
+    private ConsoleMode consoleMode;
     private ResponseHandler responseHandler;
     private final Asker asker = new Asker();
+    private final ScriptHandler scriptHandler = new ScriptHandler();
 
     public ConsoleHandler(Receiver receiver) {
         this.receiver = receiver;
@@ -35,6 +38,7 @@ public class ConsoleHandler {
         this.requestManager = requestManager;
         this.sender = sender;
         this.responseHandler = responseHandler;
+        this.consoleMode = ConsoleMode.INTERACTIVE;
     }
 
     public class Asker {
@@ -236,19 +240,27 @@ public class ConsoleHandler {
         }
     }
 
-    public static class ScriptHandler {
-        public static void readCommands(String filename, CommandManager commandManager) throws IOException, WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException, NullUserRequestException {
+    public class ScriptHandler {
+        private Stack<String> filenames = new Stack<>();
+        private Queue<String> commands = new ArrayDeque<>();
+
+        public String nextLine() {
             try {
-                String[] commands = readScript(filename);
-                commandManager.processFileCommands(commands);
-            } catch (WrongParameterException e) {
-                throw new WrongParameterException(e.toString());
+                return this.commands.poll();
+            } finally {
+                if (commands.isEmpty()) {
+                    consoleMode = ConsoleMode.INTERACTIVE;
+                    commands = new ArrayDeque<>();
+                }
             }
         }
 
-        private static String[] readScript(String filename) throws WrongParameterException {
+        private void readScript(String filename) throws WrongParameterException {
             try {
-                List<String> commands = new ArrayList<>();
+                if (filenames.contains(filename)) {
+                    throw new RecursionExecutionException("Рекурсивный вызов файла.");
+                }
+                filenames.push(filename);
                 File file = new File(filename);
                 InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -257,9 +269,8 @@ public class ConsoleHandler {
                     if (line.equals("execute_script " + filename)) {
                         throw new RecursionExecutionException("Рекурсивный вызов файла.");
                     }
-                    commands.add(line);
+                    this.commands.add(line);
                 }
-                return commands.toArray(new String[0]);
             } catch (IOException e) {
                 throw new WrongParameterException("Файл не найден или нет доступа к нему.");
             }
@@ -270,13 +281,22 @@ public class ConsoleHandler {
         while (true) {
             try {
                 print(">>> ");
-                String request = scanner.nextLine();
+                String request = next();
                 Response response = processUserRequest(request);
                 println(this.responseHandler.handleResponse(response));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public String next() {
+        if (this.consoleMode == ConsoleMode.INTERACTIVE) {
+            return scanner.nextLine();
+        } else if (this.consoleMode == ConsoleMode.FILE_READER) {
+            return scriptHandler.nextLine();
+        }
+        return scanner.nextLine();
     }
 
     public Response processUserRequest(String request) {
@@ -295,6 +315,11 @@ public class ConsoleHandler {
             }
             if (requestToServer instanceof UpdateRequest) {
                 this.asker.updateElement((UpdateRequest) requestToServer);
+            }
+            if (requestToServer instanceof ExecuteScriptRequest) {
+                this.consoleMode = ConsoleMode.FILE_READER;
+                scriptHandler.readScript(((ExecuteScriptRequest) requestToServer).getFilename());
+                return new SuccessResponse(requestToServer.getCommandName(), "Началось выполнение скрипта...");
             }
             return this.sender.sendRequest(requestToServer);
 
@@ -350,7 +375,7 @@ public class ConsoleHandler {
 
     public String ask(String message) {
         print(message);
-        return scanner.nextLine();
+        return next();
     }
 
     public String askWhatToChange() {
@@ -367,19 +392,25 @@ public class ConsoleHandler {
         for (int i = 1; i <= resultingArray.length; i++) {
             println(i + ") " + resultingArray[i-1].getName());
         }
-        return scanner.nextLine();
+        return next();
     }
 
     public void println(Object obj) {
-        System.out.println(obj.toString());
+        if (consoleMode == ConsoleMode.INTERACTIVE) {
+            System.out.println(obj.toString());
+        }
     }
 
     public void print(Object obj) {
-        System.out.print(obj.toString());
+        if (consoleMode == ConsoleMode.INTERACTIVE) {
+            System.out.print(obj.toString());
+        }
     }
 
     public void printAdvice(String advice) {
-        System.out.println("Совет: " + advice);
+        if (consoleMode == ConsoleMode.INTERACTIVE) {
+            System.out.println("Совет: " + advice);
+        }
     }
 
     public void printError(String message) {

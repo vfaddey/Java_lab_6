@@ -1,1 +1,0 @@
-execute_script src/script2.txt
