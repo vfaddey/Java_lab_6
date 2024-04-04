@@ -28,7 +28,8 @@ public class Client {
                 new AddRequest("add"),
                 new UpdateRequest("update"),
                 new AddRequest("remove_greater"),
-                new AddRequest("remove_lower"));
+                new AddRequest("remove_lower"),
+                new RemoveAnyByAnnualTurnoverRequest("remove_by_annual_turnover"));
 
         TCPClient tcpClient = new TCPClient(SERVER_ADDRESS, SERVER_PORT);
         Sender sender = new Sender(tcpClient);
