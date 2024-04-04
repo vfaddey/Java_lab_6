@@ -3,7 +3,6 @@ package client;
 import client.managers.*;
 import client.network.TCPClient;
 import common.requests.*;
-import common.responses.Response;
 
 import java.io.IOException;
 
@@ -11,7 +10,7 @@ public class Client {
     private static final String SERVER_ADDRESS = "127.0.0.1";
     private static final int SERVER_PORT = 8080;
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException {
         Receiver receiver = new Receiver(SERVER_ADDRESS, SERVER_PORT);
 //        ConsoleHandler consoleHandler = new ConsoleHandler(receiver);
 //        receiver.setConsoleHandler(consoleHandler);
@@ -27,7 +26,9 @@ public class Client {
                 new ClearRequest("clear"),
                 new ShuffleRequest("shuffle"),
                 new AddRequest("add"),
-                new UpdateRequest("update"));
+                new UpdateRequest("update"),
+                new AddRequest("remove_greater"),
+                new AddRequest("remove_lower"));
 
         TCPClient tcpClient = new TCPClient(SERVER_ADDRESS, SERVER_PORT);
         Sender sender = new Sender(tcpClient);

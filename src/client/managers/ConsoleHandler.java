@@ -2,10 +2,7 @@ package client.managers;
 
 
 import common.exceptions.*;
-import common.requests.AddRequest;
-import common.requests.Request;
-import common.requests.RequestWithParameters;
-import common.requests.UpdateRequest;
+import common.requests.*;
 import common.responses.ErrorResponse;
 import common.responses.Response;
 import server.managers.CommandManager;
