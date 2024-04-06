@@ -1,9 +1,6 @@
 package client.managers;
 
-import common.responses.EmptyResponse;
-import common.responses.ErrorResponse;
-import common.responses.Response;
-import common.responses.SuccessResponse;
+import common.responses.*;
 
 public class ResponseHandler {
     public String handleResponse(Response response) {
@@ -13,6 +10,8 @@ public class ResponseHandler {
             return null;
         } else if (response instanceof SuccessResponse) {
             return "Успешно: " + response;
+        } else if (response instanceof ExitResponse) {
+            System.exit(0);
         }
         return response.toString();
     }

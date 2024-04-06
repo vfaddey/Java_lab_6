@@ -396,7 +396,7 @@ public class ConsoleHandler {
     }
 
     public void println(Object obj) {
-        if (consoleMode == ConsoleMode.INTERACTIVE) {
+        if (consoleMode == ConsoleMode.INTERACTIVE || obj != null) {
             System.out.println(obj.toString());
         }
     }

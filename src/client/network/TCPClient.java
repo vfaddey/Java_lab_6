@@ -45,7 +45,7 @@ public class TCPClient implements NetworkApp {
         this.outputStream = socket.getOutputStream();
     }
 
-    private void close() throws ClosureFailedException {
+    public void close() throws ClosureFailedException {
         try {
             if (this.socket != null) {
                 this.socket.close();

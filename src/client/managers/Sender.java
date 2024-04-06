@@ -1,10 +1,11 @@
 package client.managers;
 
 import client.network.TCPClient;
+import common.exceptions.ClosureFailedException;
+import common.requests.ExitRequest;
 import common.requests.Request;
 import common.requests.RequestDTO;
-import common.responses.Response;
-import common.responses.ResponseDTO;
+import common.responses.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,6 +21,14 @@ public class Sender {
 
 
     public <T extends Request> Response sendRequest(T request) throws IOException, ClassNotFoundException {
+        if (request instanceof ExitRequest) {
+            try {
+                client.close();
+                return new ExitResponse("exit", "exit");
+            } catch (ClosureFailedException e) {
+                return new ErrorResponse(e.toString());
+            }
+        }
         sendObject(request);
         try {
             ResponseDTO responseDTO = (ResponseDTO) recieveObject();
