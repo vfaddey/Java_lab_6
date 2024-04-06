@@ -88,7 +88,7 @@ public class TCPServer implements NetworkApp {
         ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
         SocketChannel socketChannel = ssc.accept();
         socketChannel.configureBlocking(false);
-        System.out.println("Подключенно");
+        System.out.println("Подключенно: " + socketChannel.getRemoteAddress());
         socketChannel.register(selector, SelectionKey.OP_READ);
     }
 
@@ -114,6 +114,12 @@ public class TCPServer implements NetworkApp {
         System.out.println(response);
 
         socketChannel.register(this.selector, SelectionKey.OP_WRITE, response);
+    }
+
+    public void close() throws IOException {
+        if (serverSocketChannel != null) {
+            serverSocketChannel.close();
+        }
     }
 
     private void write(SelectionKey key) throws IOException {

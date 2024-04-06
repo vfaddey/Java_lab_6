@@ -32,7 +32,11 @@ public class Main {
                 new RemoveLower("remove_lower"));
         RequestHandler requestHandler = new RequestHandler(commandManager);
         TCPServer server = new TCPServer(commandManager, requestHandler);
-        server.openConnection();
-        server.run();
+        try {
+            server.openConnection();
+            server.run();
+        } finally {
+            server.close();
+        }
     }
 }

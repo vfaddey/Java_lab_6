@@ -12,6 +12,7 @@ import server.managers.Validator;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -285,7 +286,8 @@ public class ConsoleHandler {
                 Response response = processUserRequest(request);
                 println(this.responseHandler.handleResponse(response));
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                printError(e.toString());
+                break;
             }
         }
     }

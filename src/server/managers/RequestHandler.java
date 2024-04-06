@@ -21,7 +21,7 @@ public class RequestHandler {
         try {
             requestDTO = Serializer.deserializeObject(buffer);
             Command command = commandManager.getCommands().get(requestDTO.getRequest().getCommandName());
-            System.out.println(requestDTO.getRequest());
+            System.out.println("Получено: " + requestDTO.getRequest());
             response = (T) command.execute(requestDTO);
             return response;
         } catch (Exception e) {

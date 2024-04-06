@@ -5,6 +5,10 @@ import client.network.TCPClient;
 import common.requests.*;
 
 import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 public class Client {
     private static final String SERVER_ADDRESS = "127.0.0.1";
@@ -12,9 +16,7 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
         Receiver receiver = new Receiver(SERVER_ADDRESS, SERVER_PORT);
-//        ConsoleHandler consoleHandler = new ConsoleHandler(receiver);
-//        receiver.setConsoleHandler(consoleHandler);
-//        consoleHandler.listen();
+
 
         RequestManager requestManager = new RequestManager(
                 new ShowRequest("show"),
@@ -37,7 +39,13 @@ public class Client {
         Sender sender = new Sender(tcpClient);
         ResponseHandler responseHandler = new ResponseHandler();
         ConsoleHandler consoleHandler = new ConsoleHandler(receiver, requestManager, sender, responseHandler);
-        tcpClient.run();
-        consoleHandler.listen();
+        try {
+            tcpClient.run();
+            consoleHandler.listen();
+        } catch (ConnectException e) {
+            consoleHandler.printError("Сервер не запущен!");
+        } catch (SocketTimeoutException e) {
+            consoleHandler.printError(e.toString());
+        }
     }
 }
