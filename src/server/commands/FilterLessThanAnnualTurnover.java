@@ -3,15 +3,13 @@ package server.commands;
 import common.exceptions.WrongParameterException;
 import common.requests.FilterLessThanAnnualTurnoverRequest;
 import common.requests.RequestDTO;
-import common.requests.ShowRequest;
 import common.responses.Response;
 import common.responses.ShowResponse;
 import server.interfaces.CommandWithParameters;
 import server.managers.MessageType;
-import server.managers.Validator;
+import client.managers.Validator;
 import common.model.Organization;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;

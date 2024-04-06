@@ -1,5 +1,6 @@
 package server.managers;
 
+import client.managers.Validator;
 import common.exceptions.ElementNotFoundException;
 import server.interfaces.FileManager;
 import common.model.*;

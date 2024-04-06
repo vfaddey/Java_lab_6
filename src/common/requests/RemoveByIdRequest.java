@@ -1,7 +1,7 @@
 package common.requests;
 
 import common.exceptions.WrongParameterException;
-import server.managers.Validator;
+import client.managers.Validator;
 
 public class RemoveByIdRequest extends Request implements RequestWithParameters{
     private long id;

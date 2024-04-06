@@ -6,7 +6,7 @@ import common.requests.RequestDTO;
 import common.responses.Response;
 import common.responses.SuccessResponse;
 import server.interfaces.CommandWithParameters;
-import server.managers.Validator;
+import client.managers.Validator;
 import common.model.Organization;
 
 import java.io.IOException;

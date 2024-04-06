@@ -4,7 +4,7 @@ import common.exceptions.WrongParameterException;
 import common.model.Address;
 import common.model.Coordinates;
 import common.model.OrganizationType;
-import server.managers.Validator;
+import client.managers.Validator;
 
 public class UpdateRequest extends Request implements RequestWithParameters {
     private long id;

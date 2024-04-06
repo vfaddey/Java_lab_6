@@ -1,5 +1,6 @@
 package server.managers;
 
+import client.managers.Validator;
 import common.exceptions.NullUserRequestException;
 import common.exceptions.WrongParameterException;
 import common.model.Address;

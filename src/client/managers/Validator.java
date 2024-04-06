@@ -1,4 +1,4 @@
-package server.managers;
+package client.managers;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;

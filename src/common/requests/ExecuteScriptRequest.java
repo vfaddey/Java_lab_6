@@ -1,7 +1,6 @@
 package common.requests;
 
-import common.exceptions.WrongParameterException;
-import server.managers.Validator;
+import client.managers.Validator;
 
 public class ExecuteScriptRequest extends Request implements RequestWithParameters{
     String filename;

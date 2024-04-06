@@ -1,5 +1,7 @@
 package server.managers;
 
+import client.managers.Validator;
+
 public enum MessageType {
     ERROR,
     TYPE_REQUEST,

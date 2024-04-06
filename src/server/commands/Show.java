@@ -1,6 +1,5 @@
 package server.commands;
 
-import common.requests.Request;
 import common.requests.RequestDTO;
 import common.requests.ShowRequest;
 import common.responses.EmptyResponse;
@@ -11,7 +10,7 @@ import common.exceptions.*;
 import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;
 import server.managers.MessageType;
-import server.managers.Validator;
+import client.managers.Validator;
 import common.model.Organization;
 
 import java.io.IOException;

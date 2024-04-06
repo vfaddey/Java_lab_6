@@ -9,14 +9,13 @@ import common.responses.Response;
 import common.responses.SuccessResponse;
 import server.interfaces.CommandWithParameters;
 import server.managers.MessageType;
-import server.managers.Validator;
+import client.managers.Validator;
 import common.model.Address;
 import common.model.Coordinates;
 import common.model.Organization;
 import common.model.OrganizationType;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
 
 /**
  * Command, needs to update element of collection by its id. Offers user to write required fields

@@ -1,5 +1,6 @@
 package server.managers;
 
+import client.managers.Validator;
 import server.commands.Command;
 import common.exceptions.*;
 import server.interfaces.CommandWithParameters;
@@ -8,7 +9,6 @@ import server.interfaces.FileManager;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 
 
 /**

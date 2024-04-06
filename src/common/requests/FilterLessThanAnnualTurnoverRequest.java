@@ -2,8 +2,7 @@ package common.requests;
 
 import common.exceptions.NullUserRequestException;
 import common.exceptions.WrongParameterException;
-import server.managers.MessageType;
-import server.managers.Validator;
+import client.managers.Validator;
 
 public class FilterLessThanAnnualTurnoverRequest extends Request implements RequestWithParameters{
     private long annualTurnover;
