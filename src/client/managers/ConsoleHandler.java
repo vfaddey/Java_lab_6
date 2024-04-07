@@ -19,7 +19,6 @@ import java.util.*;
  */
 public class ConsoleHandler {
     private final Scanner scanner = new Scanner(System.in);
-    private final Receiver receiver;
     private RequestManager requestManager;
     private Sender sender;
     private ConsoleMode consoleMode;
@@ -27,12 +26,8 @@ public class ConsoleHandler {
     private final Asker asker = new Asker();
     private final ScriptHandler scriptHandler = new ScriptHandler();
 
-    public ConsoleHandler(Receiver receiver) {
-        this.receiver = receiver;
-    }
 
-    public ConsoleHandler(Receiver receiver, RequestManager requestManager, Sender sender, ResponseHandler responseHandler) {
-        this.receiver = receiver;
+    public ConsoleHandler(RequestManager requestManager, Sender sender, ResponseHandler responseHandler) {
         this.requestManager = requestManager;
         this.sender = sender;
         this.responseHandler = responseHandler;

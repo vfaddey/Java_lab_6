@@ -15,8 +15,6 @@ public class Client {
     private static final int SERVER_PORT = 8080;
 
     public static void main(String[] args) throws IOException {
-        Receiver receiver = new Receiver(SERVER_ADDRESS, SERVER_PORT);
-
 
         RequestManager requestManager = new RequestManager(
                 new ShowRequest("show"),
@@ -38,7 +36,7 @@ public class Client {
         TCPClient tcpClient = new TCPClient(SERVER_ADDRESS, SERVER_PORT);
         Sender sender = new Sender(tcpClient);
         ResponseHandler responseHandler = new ResponseHandler();
-        ConsoleHandler consoleHandler = new ConsoleHandler(receiver, requestManager, sender, responseHandler);
+        ConsoleHandler consoleHandler = new ConsoleHandler(requestManager, sender, responseHandler);
         try {
             tcpClient.run();
             consoleHandler.listen();
