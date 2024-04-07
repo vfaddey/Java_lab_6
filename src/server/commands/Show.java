@@ -6,14 +6,9 @@ import common.responses.EmptyResponse;
 import common.responses.ErrorResponse;
 import common.responses.Response;
 import common.responses.ShowResponse;
-import common.exceptions.*;
-import server.interfaces.CommandWithParameters;
 import server.interfaces.CommandWithoutParameters;
-import server.managers.MessageType;
-import client.managers.Validator;
 import common.model.Organization;
 
-import java.io.IOException;
 import java.util.LinkedList;
 
 

@@ -1,14 +1,10 @@
 package server.commands;
 
-import common.requests.HelpRequest;
-import common.requests.Request;
 import common.requests.RequestDTO;
 import common.responses.HelpResponse;
 import common.responses.Response;
 import server.interfaces.CommandWithoutParameters;
-import server.managers.MessageType;
 
-import java.io.IOException;
 import java.util.HashSet;
 
 public class Help extends Command implements CommandWithoutParameters {

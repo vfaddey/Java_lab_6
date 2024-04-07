@@ -1,13 +1,9 @@
 package server.commands;
 
-import common.exceptions.WrongParameterException;
 import common.requests.FilterLessThanAnnualTurnoverRequest;
 import common.requests.RequestDTO;
 import common.responses.Response;
 import common.responses.ShowResponse;
-import server.interfaces.CommandWithParameters;
-import server.managers.MessageType;
-import client.managers.Validator;
 import common.model.Organization;
 
 import java.io.IOException;

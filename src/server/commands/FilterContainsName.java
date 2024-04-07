@@ -2,9 +2,6 @@ package server.commands;
 
 import common.requests.RequestDTO;
 import common.responses.Response;
-import server.interfaces.CommandWithParameters;
-import server.managers.MessageType;
-import common.model.Organization;
 
 import java.io.IOException;
 

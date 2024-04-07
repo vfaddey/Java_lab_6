@@ -1,16 +1,12 @@
 package server.commands;
 
 import common.exceptions.ElementNotFoundException;
-import common.exceptions.WrongParameterException;
 import common.requests.RemoveByIdRequest;
-import common.requests.Request;
 import common.requests.RequestDTO;
 import common.responses.EmptyResponse;
 import common.responses.ErrorResponse;
 import common.responses.Response;
 import common.responses.SuccessResponse;
-import server.interfaces.CommandWithParameters;
-import server.managers.MessageType;
 
 import java.io.IOException;
 

@@ -1,15 +1,11 @@
 package server.commands;
 
 import common.exceptions.ElementNotFoundException;
-import common.exceptions.WrongParameterException;
 import common.requests.RequestDTO;
 import common.requests.UpdateRequest;
 import common.responses.ErrorResponse;
 import common.responses.Response;
 import common.responses.SuccessResponse;
-import server.interfaces.CommandWithParameters;
-import server.managers.MessageType;
-import client.managers.Validator;
 import common.model.Address;
 import common.model.Coordinates;
 import common.model.Organization;
