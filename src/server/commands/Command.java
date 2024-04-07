@@ -46,10 +46,6 @@ public abstract class Command {
         this.fileManager = fileManager;
     }
 
-    protected void printSuccess() throws IOException {
-        collectionManager.getSender().send(successPhrase, MessageType.SUCCESS);
-    }
-
     public String getNameInConsole() {
         return nameInConsole;
     }

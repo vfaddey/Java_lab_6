@@ -204,8 +204,4 @@ public class Sender {
         this.writer.newLine();
         this.writer.flush();
     }
-
-    public void setReader(BufferedReader reader) {
-        this.reader = reader;
-    }
 }

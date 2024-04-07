@@ -14,12 +14,6 @@ public class Clear extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() throws IOException {
-        collectionManager.clearCollection();
-        printSuccess();
-    }
-
-    @Override
     public Response execute(RequestDTO requestDTO) throws IOException {
         collectionManager.clearCollection();
         return new SuccessResponse(getNameInConsole(), successPhrase);

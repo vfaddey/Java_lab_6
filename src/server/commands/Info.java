@@ -15,11 +15,6 @@ public class Info extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() throws IOException {
-        collectionManager.getSender().send(collectionManager.getInformation(), MessageType.DEFAULT);
-    }
-
-    @Override
     public Response execute(RequestDTO requestDTO) {
         return new InfoResponse(getNameInConsole(), collectionManager.getInformation());
     }

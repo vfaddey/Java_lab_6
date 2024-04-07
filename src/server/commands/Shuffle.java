@@ -13,14 +13,8 @@ public class Shuffle extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() throws IOException {
-        collectionManager.shuffleCollection();
-        printSuccess();
-    }
-
-    @Override
     public Response execute(RequestDTO requestDTO) throws IOException {
-        execute();
+        collectionManager.shuffleCollection();
         return new SuccessResponse(getNameInConsole(), successPhrase);
     }
 }

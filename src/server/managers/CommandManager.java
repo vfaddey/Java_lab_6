@@ -32,29 +32,28 @@ public class CommandManager {
         }
     }
 
-    public void exec(String userInput) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException, NullUserRequestException, IOException {
-        try {
-            String[] splitted = splitUserRequest(userInput);
-            String commandName = splitted[0];
-            if (!commands.containsKey(commandName)) throw new CommandNotExistsException("Такой команды нет");
-
-            Command command = this.commands.get(commandName);
-            String[] parameters = new String[splitted.length-1];
-            for (int i = 1; i < splitted.length; i++) {
-                parameters[i-1] = splitted[i];
-            }
-            if (command instanceof CommandWithParameters && parameters.length != 0) {
-                ((CommandWithParameters) command).execute(parameters);
-            } else if (command instanceof CommandWithoutParameters) {
-                ((CommandWithoutParameters) command).execute();
-            } else if (parameters.length == 0 && command instanceof CommandWithParameters) {
-                throw new WrongParameterException("Вы не ввели параметр.");
-            }
-        } catch (CommandNotExistsException | WrongParameterException | NullUserRequestException e) {
-            collectionManager.getSender().send(e.toString(), MessageType.ERROR);
-        }
-
-    }
+//    public void exec(String userInput) throws WrongParameterException, IncorrectFilenameException, ElementNotFoundException, CommandNotExistsException, NullUserRequestException, IOException {
+//        try {
+//            String[] splitted = splitUserRequest(userInput);
+//            String commandName = splitted[0];
+//            if (!commands.containsKey(commandName)) throw new CommandNotExistsException("Такой команды нет");
+//
+//            Command command = this.commands.get(commandName);
+//            String[] parameters = new String[splitted.length-1];
+//            for (int i = 1; i < splitted.length; i++) {
+//                parameters[i-1] = splitted[i];
+//            }
+//            if (command instanceof CommandWithParameters && parameters.length != 0) {
+//                ((CommandWithParameters) command).execute(parameters);
+//            } else if (command instanceof CommandWithoutParameters) {
+//                ((CommandWithoutParameters) command).execute();
+//            } else if (parameters.length == 0 && command instanceof CommandWithParameters) {
+//                throw new WrongParameterException("Вы не ввели параметр.");
+//            }
+//        } catch (CommandNotExistsException | WrongParameterException | NullUserRequestException e) {
+//            collectionManager.getSender().send(e.toString(), MessageType.ERROR);
+//        }
+//    }
 
     private String[] splitUserRequest(String request) throws NullUserRequestException {
         if (request.isEmpty()) throw new NullUserRequestException("Введена пустая строка");
@@ -81,14 +80,6 @@ public class CommandManager {
         return processed;
     }
 
-    public void processFileCommands(String[] lines) throws NullUserRequestException, IncorrectFilenameException, ElementNotFoundException, WrongParameterException, CommandNotExistsException, IOException {
-        int i = 0;
-        while (i < lines.length) {
-            exec(lines[i]);
-            i++;
-        }
-    }
-
     public void addCommands(Command... commands) {
         for (Command command : commands) {
             this.commands.put(command.getNameInConsole(), command);
@@ -101,9 +92,4 @@ public class CommandManager {
     public HashMap<String, Command> getCommands() {
         return commands;
     }
-
-//    public HashSet<Command> getCommands() {
-//        return new HashSet<>(commands.values());
-//    }
-
 }

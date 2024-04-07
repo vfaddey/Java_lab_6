@@ -15,15 +15,8 @@ public class Save extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() throws IOException {
-        fileManager.write(collectionManager.getCollection(), collectionManager.getCollectionFilename());
-//        printSuccess();
-    }
-
-
-    @Override
     public Response execute(RequestDTO requestDTO) throws IOException {
-        execute();
+        fileManager.write(collectionManager.getCollection(), collectionManager.getCollectionFilename());
         return new SuccessResponse(getNameInConsole(), successPhrase);
     }
 }

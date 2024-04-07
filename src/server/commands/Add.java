@@ -21,18 +21,6 @@ public class Add extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() throws IOException {
-        Organization newElement = collectionManager.interactiveOrganizationCreation();
-        collectionManager.addNewElement(newElement);
-        printSuccess();
-    }
-
-    public void executeFromScript(String... parameters) throws IOException {
-        collectionManager.organizationCreationFromFile(parameters);
-        printSuccess();
-    }
-
-    @Override
     public Response execute(RequestDTO requestDTO) throws IOException {
         AddRequest request = (AddRequest) requestDTO.getRequest();
         if (request != null) {

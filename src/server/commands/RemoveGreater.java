@@ -17,12 +17,6 @@ public class RemoveGreater extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public void execute() throws IOException {
-        Organization comparator = collectionManager.interactiveOrganizationCreation();
-        collectionManager.getCollection().removeIf(organization -> comparator.compareTo(organization) < 0);
-    }
-
-    @Override
     public Response execute(RequestDTO requestDTO) throws IOException {
         AddRequest request = (AddRequest) requestDTO.getRequest();
         Organization comparator = new Organization(
