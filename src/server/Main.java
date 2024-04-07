@@ -26,7 +26,6 @@ public class Main {
                 new FilterContainsName("filter_contains_name"),
                 new FilterLessThanAnnualTurnover("filter_less_than_annual_turnover"),
                 new RemoveAnyByAnnualTurnover("remove_any_by_annual_turnover"),
-                new ExecuteFile("execute_script"),
                 new Info("info"),
                 new RemoveGreater("remove_greater"),
                 new RemoveLower("remove_lower"));
