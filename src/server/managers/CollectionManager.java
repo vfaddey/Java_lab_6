@@ -107,7 +107,7 @@ public class CollectionManager{
     }
 
     public void removeById(long id) throws ElementNotFoundException {
-        collection.remove(getElementById(id));
+        collection.removeIf(org -> org.getId() == id);
         lastUpdateDate = LocalDate.now();
     }
 
