@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
         FileManager csvHandler = new CSVHandler();
-        CollectionManager collectionManager = new CollectionManager(csvHandler, new Sender(8080), "src/server/collection.csv");
+        CollectionManager collectionManager = new CollectionManager(csvHandler, "src/server/collection.csv");
         CommandManager commandManager = new CommandManager(csvHandler);
         commandManager.setCollectionManager(collectionManager);
         commandManager.addCommands(

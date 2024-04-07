@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class CSVHandler implements FileManager {
 
     @Override
-    public LinkedList<Organization> read(String filename, Sender sender) {
+    public LinkedList<Organization> read(String filename) {
         LinkedList<Organization> collection = new LinkedList<>();
         try {
             File file = new File(filename);

@@ -21,10 +21,8 @@ public class CollectionManager{
     private String information;
     private LocalDate lastUpdateDate;
     private FileManager fileManager;
-    private final Sender sender;
 
-    public CollectionManager(FileManager fileManager, Sender sender, String fileName) throws IOException {
-        this.sender = sender;
+    public CollectionManager(FileManager fileManager, String fileName) throws IOException {
         this.fileManager = fileManager;
         this.fileName = fileName;
         lastUpdateDate = LocalDate.now();
@@ -32,31 +30,9 @@ public class CollectionManager{
         updateInformation();
     }
 
-    public CollectionManager(FileManager fileManager, Sender sender) throws IOException {
-        this.sender = sender;
-        this.fileManager = fileManager;
-        lastUpdateDate = LocalDate.now();
-        loadCollectionFromCSV();
-        updateInformation();
-    }
 
-    public void loadCollectionFromCSV() throws IOException {
-        String fileName = sender.ask("ASK_FILENAME");
-        this.collection = fileManager.read(fileName, sender);
-        if (collection == null) {
-            loadCollectionFromCSV();
-        }
-        this.collectionFilename = fileName;
-        if (collection != null) {
-            Collections.sort(collection);
-        }
-    }
-
-    public void loadCollectionFromCSV(String fileName) throws IOException {
-        this.collection = fileManager.read(fileName, sender);
-        if (collection == null) {
-            loadCollectionFromCSV();
-        }
+    public void loadCollectionFromCSV(String fileName) {
+        this.collection = fileManager.read(fileName);
         this.collectionFilename = fileName;
         if (collection != null) {
             Collections.sort(collection);
@@ -71,37 +47,6 @@ public class CollectionManager{
     }
 
     public void addNewElement(Organization organization) {
-        collection.add(organization);
-        lastUpdateDate = LocalDate.now();
-    }
-
-    public Organization interactiveOrganizationCreation() throws IOException {
-        return new Organization(
-                (long) (Math.random() * Long.MAX_VALUE),
-                sender.nameRequest(),
-                sender.coordinatesRequest(),
-                LocalDate.now(),
-                sender.annualTurnoverRequest(),
-                sender.employeesCountRequest(),
-                sender.organizationTypeRequest(),
-                sender.officialAddressRequest());
-    }
-
-    public void organizationCreationFromFile(String... parameters) {
-        Organization organization = new Organization(
-                (long) (Math.random() * Long.MAX_VALUE),
-                parameters[0],
-                new Coordinates(Integer.parseInt(parameters[1]), Long.parseLong(parameters[2])),
-                LocalDate.now(),
-                Long.parseLong(parameters[3]),
-                Integer.parseInt(parameters[4]),
-                OrganizationType.values()[Integer.parseInt(parameters[5])-1],
-                new Address(
-                        parameters[6],
-                        new Location(
-                                Double.parseDouble(parameters[7]),
-                                Double.parseDouble(parameters[8]),
-                                Long.parseLong(parameters[9]))));
         collection.add(organization);
         lastUpdateDate = LocalDate.now();
     }
@@ -180,9 +125,5 @@ public class CollectionManager{
 
     public void setFileManager(FileManager fileManager) {
         this.fileManager = fileManager;
-    }
-
-    public Sender getSender() {
-        return sender;
     }
 }
