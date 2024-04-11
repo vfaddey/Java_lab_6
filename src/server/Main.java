@@ -30,7 +30,7 @@ public class Main {
                 new RemoveGreater("remove_greater"),
                 new RemoveLower("remove_lower"));
         RequestHandler requestHandler = new RequestHandler(commandManager);
-        TCPServer server = new TCPServer(commandManager, requestHandler);
+        TCPServer server = new TCPServer(commandManager, requestHandler, new Logger("logs.log"));
         try {
             server.openConnection();
             server.run();

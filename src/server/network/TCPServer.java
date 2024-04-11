@@ -4,6 +4,7 @@ import common.responses.Response;
 import common.network.NetworkApp;
 import common.network.Serializer;
 import server.managers.CommandManager;
+import server.managers.Logger;
 import server.managers.RequestHandler;
 
 import java.io.IOException;
@@ -27,11 +28,13 @@ public class TCPServer implements NetworkApp {
     private Selector selector;
     private CommandManager commandManager;
     private RequestHandler requestHandler;
+    private Logger logger;
 
-    public TCPServer(CommandManager commandManager, RequestHandler requestHandler) {
+    public TCPServer(CommandManager commandManager, RequestHandler requestHandler, Logger logger) {
         this.commandManager = commandManager;
         this.requestHandler = requestHandler;
         this.buffer = ByteBuffer.allocate(BUFFER_SIZE);
+        this.logger = logger;
     }
 
     @Override
@@ -89,6 +92,7 @@ public class TCPServer implements NetworkApp {
         SocketChannel socketChannel = ssc.accept();
         socketChannel.configureBlocking(false);
         System.out.println("Подключенно: " + socketChannel.getRemoteAddress());
+        logger.log("Подключенно: " + socketChannel.getRemoteAddress());
         socketChannel.register(selector, SelectionKey.OP_READ);
     }
 
@@ -112,6 +116,7 @@ public class TCPServer implements NetworkApp {
 
         Response response = requestHandler.handleRequest(buffer);
         System.out.println(response);
+        logger.log("Отправлено: " + response.toString());
 
         socketChannel.register(this.selector, SelectionKey.OP_WRITE, response);
     }
