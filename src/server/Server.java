@@ -7,7 +7,7 @@ import server.network.TCPServer;
 
 import java.io.IOException;
 
-public class Main {
+public class Server {
     public static void main(String[] args) throws IOException {
         FileManager csvHandler = new CSVHandler();
         CollectionManager collectionManager = new CollectionManager(csvHandler, "src/server/collection.csv");
