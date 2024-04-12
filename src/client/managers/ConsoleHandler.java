@@ -248,6 +248,10 @@ public class ConsoleHandler {
             }
         }
 
+        public void clear() {
+            this.commands.clear();
+        }
+
         private void readScript(String filename) throws WrongParameterException {
             try {
                 if (filenames.contains(filename)) {
@@ -350,23 +354,6 @@ public class ConsoleHandler {
         return processed;
     }
 
-//    public void listen() {
-//        while (true) {
-//            try {
-//                print(">>> ");
-//                String request = scanner.nextLine();
-//                if (!request.isEmpty()) {
-//                    receiver.connect();
-//                    receiver.write(request);
-//                    receiver.close();
-//                }
-//            } catch (IOException | InterruptedException e) {
-//                receiver.close();
-//                throw new RuntimeException(e);
-//            }
-//        }
-//    }
-
     public String ask(String message) {
         print(message);
         return next();
@@ -409,6 +396,10 @@ public class ConsoleHandler {
 
     public void printError(String message) {
         System.out.println("Ошибка: " + message);
+        if (this.consoleMode == ConsoleMode.FILE_READER) {
+            this.scriptHandler.clear();
+            System.out.println("Выполнение файла завершено.");
+        }
     }
 
 }
