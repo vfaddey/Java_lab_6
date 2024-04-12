@@ -1,33 +1,6 @@
-апр. 12, 2024 1:51:53 PM server.managers.Logger log
-INFO: Подключенно: /127.0.0.1:3601
-апр. 12, 2024 1:51:57 PM server.managers.Logger log
-INFO: Подключенно: /127.0.0.1:3661
-апр. 12, 2024 1:52:24 PM server.managers.Logger log
-INFO: Отправлено: Все доступные команды:
-remove_by_id                        | <long id> Удаляет элемент коллеции по id
-filter_less_than_annual_turnover    | <long annualTurnover> Выводит все элементы, оборот которых меньше указанного
-info                                | <без параметров> Вывести информацию о коллекции
-shuffle                             | <Без параметров> Перемешивает элементы в коллекции
-filter_contains_name                | <String name> Выводит все элементы, имена которых содержат указанную подстроку
-add                                 | <Без параметров> Добавить новую организацию в коллекцию
-remove_any_by_annual_turnover       | <long annualTurnover> Удаляет элемент по указанному годовому обороту
-remove_lower                        | <Без параметров> Удаляет элементы меньше заданного
-clear                               | <Без параметров> Очистить коллекцию
-update                              | <long id> Обновляет элемент коллекции по id
-exit                                | <Без параметров> Завершает работу без сохранения файла
-remove_greater                      | <Без параметров> Удаляет элементы больше заданного
-save                                | Сохранить коллекцию (в тот же файл)
-help                                | <Без параметров> Информация по всем командам
-show                                | <int количество> Выводит коллекцию
-
-апр. 12, 2024 1:52:38 PM server.managers.Logger log
-INFO: Отправлено: Тип коллекции: java.util.LinkedList
-Хранит объекты типа: common.model.Organization
-Количество элементов коллекции: 16
-Последнее обновление коллекции: 2024-04-12
-апр. 12, 2024 1:53:07 PM server.managers.Logger log
-INFO: Отправлено: Новый элемент добавлен!
-апр. 12, 2024 1:53:11 PM server.managers.Logger log
+апр. 12, 2024 3:42:32 PM server.managers.Logger log
+INFO: Подключенно: /127.0.0.1:12129
+апр. 12, 2024 3:42:36 PM server.managers.Logger log
 INFO: Отправлено: Organization{id=3, name='Ресторан "Прибой"', coordinates=Coordinates{x=25, y=38}, creationDate=2023-10-19, annualTurnover=3000000, employeesCount=15, type=OrganizationType{Публичная}, officialAddress=Address{zipCode='987654', town=Location{x=56.8389, y=60.6057, z=75}}}
 Organization{id=4, name='ООО "СтройКомплект"', coordinates=Coordinates{x=50, y=70}, creationDate=2023-07-03, annualTurnover=5000000, employeesCount=25, type=OrganizationType{ОАО}, officialAddress=Address{zipCode='111222', town=Location{x=54.6896, y=25.2803, z=30}}}
 Organization{id=6, name='Автосервис "АвтоМастер"', coordinates=Coordinates{x=30, y=55}, creationDate=2023-09-08, annualTurnover=2500000, employeesCount=12, type=OrganizationType{Государственная}, officialAddress=Address{zipCode='555666', town=Location{x=50.4501, y=30.5234, z=45}}}
@@ -44,7 +17,7 @@ Organization{id=2302498394493829120, name='bibaboba&co', coordinates=Coordinates
 Organization{id=2610625841895840768, name='jkjk', coordinates=Coordinates{x=4, y=4}, creationDate=2024-03-10, annualTurnover=4435435, employeesCount=544, type=OrganizationType{ООО}, officialAddress=Address{zipCode='dfjvkdj', town=Location{x=4.0, y=4.0, z=4}}}
 Organization{id=7770517286038238208, name='kkjj', coordinates=Coordinates{x=54, y=43}, creationDate=2024-03-05, annualTurnover=543534, employeesCount=54354, type=OrganizationType{Коммерческая}, officialAddress=Address{zipCode='gdfgfdg', town=Location{x=54.0, y=54.0, z=54}}}
 Organization{id=8731992706568813568, name='jklj', coordinates=Coordinates{x=4, y=4}, creationDate=2024-03-10, annualTurnover=54353, employeesCount=54, type=OrganizationType{ООО}, officialAddress=Address{zipCode='jkjk', town=Location{x=54.0, y=54.0, z=54}}}
-Organization{id=1708158899715602432, name='hjhjk', coordinates=Coordinates{x=767, y=67}, creationDate=2024-04-12, annualTurnover=567, employeesCount=67, type=OrganizationType{ООО}, officialAddress=Address{zipCode='ghbhjbh', town=Location{x=67.0, y=67.0, z=67}}}
 
-апр. 12, 2024 1:53:30 PM server.managers.Logger log
-INFO: Отправлено: Элемент коллекции удален!
+апр. 12, 2024 3:42:48 PM server.managers.Logger log
+INFO: Отправлено: Organization{id=1120308163051739136, name='amazon', coordinates=Coordinates{x=34, y=65}, creationDate=2024-02-06, annualTurnover=56348754356, employeesCount=600, type=OrganizationType{Коммерческая}, officialAddress=Address{zipCode='NY', town=Location{x=34.565, y=45.222, z=54}}}
+

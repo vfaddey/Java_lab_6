@@ -8,13 +8,13 @@ import common.model.*;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
  * Class, that manage the collection, makes requests to user
  */
 public class CollectionManager{
-    private final String fileName;
     private LinkedList<Organization> collection;
     private String collectionFilename;
     private String information;
@@ -23,7 +23,6 @@ public class CollectionManager{
 
     public CollectionManager(FileManager fileManager, String fileName) {
         this.fileManager = fileManager;
-        this.fileName = fileName;
         lastUpdateDate = LocalDate.now();
         loadCollectionFromCSV(fileName);
         updateInformation();
@@ -50,9 +49,15 @@ public class CollectionManager{
         lastUpdateDate = LocalDate.now();
     }
 
-    public void removeById(long id) {
+    public void removeById(long id) throws ElementNotFoundException {
+        int len = this.collection.size();
         collection.removeIf(org -> org.getId() == id);
-        lastUpdateDate = LocalDate.now();
+        if (len < this.collection.size()) {
+            lastUpdateDate = LocalDate.now();
+        } else {
+            throw new ElementNotFoundException("Элемент с таким id не найден.");
+        }
+
     }
 
     public LinkedList<Organization> getCollection() {
@@ -73,15 +78,12 @@ public class CollectionManager{
         throw new ElementNotFoundException("Элемента с таким id не существует");
     }
 
-    public Organization[] getElementsByName(String substring) {
-        List<Organization> elements = new ArrayList<>();
-        for (Organization organization : collection) {
-            if (Validator.isSubstring(substring, organization.getName())) {
-                elements.add(organization);
-            }
-        }
-        return elements.toArray(new Organization[0]);
+    public LinkedList<Organization> getElementsByName(String substring) {
+        return collection.stream()
+                .filter(organization -> Validator.isSubstring(substring, organization.getName()))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
+
 
     public Organization[] getElementsLessThanAnnualTurnover(long annualTurnover) {
         List<Organization> elements = new ArrayList<>();
