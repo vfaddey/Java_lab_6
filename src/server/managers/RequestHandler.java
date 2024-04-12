@@ -1,7 +1,6 @@
 package server.managers;
 
 import common.network.Serializer;
-import common.requests.Request;
 import common.requests.RequestDTO;
 import common.responses.Response;
 import server.commands.Command;
@@ -9,7 +8,7 @@ import server.commands.Command;
 import java.nio.ByteBuffer;
 
 public class RequestHandler {
-    private CommandManager commandManager;
+    private final CommandManager commandManager;
 
     public RequestHandler(CommandManager commandManager) {
         this.commandManager = commandManager;

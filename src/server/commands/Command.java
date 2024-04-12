@@ -52,7 +52,7 @@ public abstract class Command {
         return description;
     }
 
-    public void execute() throws IOException {
+    public void execute() {
 
     }
 

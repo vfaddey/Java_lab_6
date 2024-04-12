@@ -6,7 +6,6 @@ import common.responses.Response;
 import common.responses.ShowResponse;
 import common.model.Organization;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class FilterLessThanAnnualTurnover extends Command {
     }
 
     @Override
-    public Response execute(RequestDTO requestDTO) throws IOException {
+    public Response execute(RequestDTO requestDTO) {
         FilterLessThanAnnualTurnoverRequest request = (FilterLessThanAnnualTurnoverRequest) requestDTO.getRequest();
         LinkedList<Organization> elements = new LinkedList<>(List.of(collectionManager.getElementsLessThanAnnualTurnover(request.getAnnualTurnover())));
         ShowResponse response = new ShowResponse(getNameInConsole(), successPhrase);

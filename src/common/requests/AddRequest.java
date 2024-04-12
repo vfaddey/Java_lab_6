@@ -12,16 +12,6 @@ public class AddRequest extends Request {
     private OrganizationType organizationType;
     private Address address;
 
-    public AddRequest(String name, Coordinates coordinates, long annualTurnover, int employeesCount, OrganizationType organizationType, Address address) {
-        super("add");
-        this.name = name;
-        this.coordinates = coordinates;
-        this.annualTurnover = annualTurnover;
-        this.employeesCount = employeesCount;
-        this.organizationType = organizationType;
-        this.address = address;
-    }
-
     public AddRequest(String commandName) {
         super(commandName);
     }

@@ -7,7 +7,6 @@ import common.responses.SuccessResponse;
 import server.interfaces.CommandWithoutParameters;
 import common.model.Organization;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 public class RemoveLower extends Command implements CommandWithoutParameters {
@@ -16,7 +15,7 @@ public class RemoveLower extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public Response execute(RequestDTO requestDTO) throws IOException {
+    public Response execute(RequestDTO requestDTO) {
         AddRequest request = (AddRequest) requestDTO.getRequest();
         Organization comparator = new Organization(
                 (long) (Math.random() * Long.MAX_VALUE),

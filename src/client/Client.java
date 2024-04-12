@@ -6,9 +6,7 @@ import common.requests.*;
 
 import java.io.IOException;
 import java.net.ConnectException;
-import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 
 public class Client {
     private static final String SERVER_ADDRESS = "127.0.0.1";

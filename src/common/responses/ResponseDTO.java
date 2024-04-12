@@ -3,7 +3,7 @@ package common.responses;
 import java.io.Serializable;
 
 public class ResponseDTO implements Serializable {
-    private Response response;
+    private final Response response;
 
     public <T extends Response> ResponseDTO(T response) {
         this.response = response;

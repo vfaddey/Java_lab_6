@@ -20,7 +20,7 @@ public class Sender {
     }
 
 
-    public <T extends Request> Response sendRequest(T request) throws IOException, ClassNotFoundException {
+    public <T extends Request> Response sendRequest(T request) throws IOException {
         if (request instanceof ExitRequest) {
             try {
                 client.close();

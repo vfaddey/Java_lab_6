@@ -3,11 +3,10 @@ package server.managers;
 import client.managers.Validator;
 import server.commands.Command;
 import common.exceptions.*;
-import server.interfaces.CommandWithParameters;
-import server.interfaces.CommandWithoutParameters;
+
 import server.interfaces.FileManager;
 
-import java.io.IOException;
+
 import java.util.HashMap;
 
 
@@ -55,30 +54,6 @@ public class CommandManager {
 //        }
 //    }
 
-    private String[] splitUserRequest(String request) throws NullUserRequestException {
-        if (request.isEmpty()) throw new NullUserRequestException("Введена пустая строка");
-        if (!request.contains(" ")) return new String[]{request};
-        String command = request.split(" ", 2)[0];
-        String[] parameters = request.split(" ", 2)[1].split(" ");
-        if (parameters.length != 0) {
-            for (int i = 0; i < parameters.length; i++) {
-                if (parameters[i].isEmpty()) {
-                    parameters[i] = null;
-                }
-            }
-        }
-
-        String[] processed;
-        if (Validator.isArrayConsistsOfOnlyNull(parameters)) {
-            processed = new String[]{command};
-            return processed;
-        } else {
-            processed = new String[parameters.length + 1];
-            processed[0] = command;
-            System.arraycopy(parameters, 0, processed, 1, parameters.length);
-        }
-        return processed;
-    }
 
     public void addCommands(Command... commands) {
         for (Command command : commands) {

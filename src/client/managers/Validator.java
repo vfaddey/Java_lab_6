@@ -32,13 +32,6 @@ public class Validator {
         return obj == null;
     }
 
-    public static boolean areCorrectCoordinatesParams(String x, String y) {
-        if (!x.isEmpty() && !y.isEmpty()) {
-            return isCorrectNumber(x, Integer.class) && isCorrectNumber(y, Long.class);
-        }
-        return false;
-    }
-
     public static boolean isValidName(String str) {
         return !isNull(str) && !str.isEmpty() && str.matches("^[^\\s].*");
     }

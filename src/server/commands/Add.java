@@ -1,7 +1,6 @@
 package server.commands;
 
 import common.requests.AddRequest;
-import common.requests.Request;
 import common.requests.RequestDTO;
 import common.responses.EmptyResponse;
 import common.responses.Response;
@@ -9,7 +8,6 @@ import common.responses.SuccessResponse;
 import server.interfaces.CommandWithoutParameters;
 import common.model.Organization;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 /**
@@ -21,7 +19,7 @@ public class Add extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public Response execute(RequestDTO requestDTO) throws IOException {
+    public Response execute(RequestDTO requestDTO) {
         AddRequest request = (AddRequest) requestDTO.getRequest();
         if (request != null) {
             Organization organization = new Organization(

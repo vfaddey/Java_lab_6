@@ -11,8 +11,6 @@ import common.model.Coordinates;
 import common.model.Organization;
 import common.model.OrganizationType;
 
-import java.io.IOException;
-
 /**
  * Command, needs to update element of collection by its id. Offers user to write required fields
  */
@@ -22,7 +20,7 @@ public class Update extends Command {
     }
 
     @Override
-    public Response execute(RequestDTO requestDTO) throws IOException {
+    public Response execute(RequestDTO requestDTO) {
         UpdateRequest request = (UpdateRequest) requestDTO.getRequest();
         String name;
         Coordinates coordinates;

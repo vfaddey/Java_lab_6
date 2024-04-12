@@ -19,10 +19,10 @@ import java.util.*;
  */
 public class ConsoleHandler {
     private final Scanner scanner = new Scanner(System.in);
-    private RequestManager requestManager;
-    private Sender sender;
+    private final RequestManager requestManager;
+    private final Sender sender;
     private ConsoleMode consoleMode;
-    private ResponseHandler responseHandler;
+    private final ResponseHandler responseHandler;
     private final Asker asker = new Asker();
     private final ScriptHandler scriptHandler = new ScriptHandler();
 
@@ -319,7 +319,7 @@ public class ConsoleHandler {
 
         } catch (NullUserRequestException | CommandNotExistsException | WrongParameterException e) {
             return new ErrorResponse(e.toString());
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

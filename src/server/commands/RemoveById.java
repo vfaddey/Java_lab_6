@@ -8,15 +8,13 @@ import common.responses.ErrorResponse;
 import common.responses.Response;
 import common.responses.SuccessResponse;
 
-import java.io.IOException;
-
 public class RemoveById extends Command {
     public RemoveById(String consoleName) {
         super(consoleName, "<long id> Удаляет элемент коллеции по id", "Элемент коллекции удален!");
     }
 
     @Override
-    public Response execute(RequestDTO requestDTO) throws IOException {
+    public Response execute(RequestDTO requestDTO) {
         RemoveByIdRequest request = (RemoveByIdRequest) requestDTO.getRequest();
         if (request != null) {
             try {

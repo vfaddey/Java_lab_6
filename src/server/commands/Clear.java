@@ -1,12 +1,9 @@
 package server.commands;
 
-import common.requests.Request;
 import common.requests.RequestDTO;
 import common.responses.Response;
 import common.responses.SuccessResponse;
 import server.interfaces.CommandWithoutParameters;
-
-import java.io.IOException;
 
 public class Clear extends Command implements CommandWithoutParameters {
     public Clear(String consoleName) {
@@ -14,7 +11,7 @@ public class Clear extends Command implements CommandWithoutParameters {
     }
 
     @Override
-    public Response execute(RequestDTO requestDTO) throws IOException {
+    public Response execute(RequestDTO requestDTO) {
         collectionManager.clearCollection();
         return new SuccessResponse(getNameInConsole(), successPhrase);
     }

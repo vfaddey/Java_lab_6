@@ -1,6 +1,5 @@
 package common.network;
 
-import common.requests.Request;
 import common.requests.RequestDTO;
 import common.responses.Response;
 import common.responses.ResponseDTO;
@@ -23,8 +22,7 @@ public class Serializer {
     public static RequestDTO deserializeObject(ByteBuffer buffer) {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(buffer.array());
              ObjectInputStream ois = new ObjectInputStream(bais)) {
-            RequestDTO requestDTO = (RequestDTO) ois.readObject();
-            return requestDTO;
+            return (RequestDTO) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

@@ -6,7 +6,6 @@ import server.interfaces.FileManager;
 import common.model.*;
 
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -15,14 +14,14 @@ import java.util.*;
  * Class, that manage the collection, makes requests to user
  */
 public class CollectionManager{
-    private String fileName;
+    private final String fileName;
     private LinkedList<Organization> collection;
     private String collectionFilename;
     private String information;
     private LocalDate lastUpdateDate;
     private FileManager fileManager;
 
-    public CollectionManager(FileManager fileManager, String fileName) throws IOException {
+    public CollectionManager(FileManager fileManager, String fileName) {
         this.fileManager = fileManager;
         this.fileName = fileName;
         lastUpdateDate = LocalDate.now();
@@ -51,7 +50,7 @@ public class CollectionManager{
         lastUpdateDate = LocalDate.now();
     }
 
-    public void removeById(long id) throws ElementNotFoundException {
+    public void removeById(long id) {
         collection.removeIf(org -> org.getId() == id);
         lastUpdateDate = LocalDate.now();
     }
