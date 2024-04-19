@@ -1,8 +1,1 @@
-add
-faddey
-23 23
-54354
-43
-3
-vologda
-44 3 4
+execute_script C:\Users\Пользователь\IdeaProjects\Lab6\src\client\script2.txt

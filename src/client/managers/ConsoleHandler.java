@@ -399,6 +399,8 @@ public class ConsoleHandler {
         if (this.consoleMode == ConsoleMode.FILE_READER) {
             this.scriptHandler.clear();
             System.out.println("Выполнение файла завершено.");
+            this.consoleMode = ConsoleMode.INTERACTIVE;
+            listen();
         }
     }
 

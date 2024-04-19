@@ -41,7 +41,6 @@ public class TCPServer implements NetworkApp {
     public void openConnection() throws IOException {
         this.serverSocketChannel = ServerSocketChannel.open();
         this.serverSocketChannel.configureBlocking(false);
-//        this.serverSocketChannel.setOption(ExtendedSocketOptions.TCP_KEEPIDLE, 10);
         InetSocketAddress inetSocketAddress = new InetSocketAddress(HOST, PORT);
         this.serverSocketChannel.bind(inetSocketAddress);
         this.selector = initSelector();

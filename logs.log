@@ -1,6 +1,28 @@
-апр. 12, 2024 3:42:32 PM server.managers.Logger log
-INFO: Подключенно: /127.0.0.1:12129
-апр. 12, 2024 3:42:36 PM server.managers.Logger log
+апр. 12, 2024 5:06:11 PM server.managers.Logger log
+INFO: Подключенно: /127.0.0.1:1279
+апр. 12, 2024 5:06:15 PM server.managers.Logger log
+INFO: Подключенно: /127.0.0.1:1283
+апр. 12, 2024 5:06:38 PM server.managers.Logger log
+INFO: Отправлено: Все доступные команды:
+update                              | <long id> Обновляет элемент коллекции по id
+filter_contains_name                | <String name> Выводит все элементы, имена которых содержат указанную подстроку
+add                                 | <Без параметров> Добавить новую организацию в коллекцию
+info                                | <без параметров> Вывести информацию о коллекции
+shuffle                             | <Без параметров> Перемешивает элементы в коллекции
+remove_any_by_annual_turnover       | <long annualTurnover> Удаляет элемент по указанному годовому обороту
+clear                               | <Без параметров> Очистить коллекцию
+help                                | <Без параметров> Информация по всем командам
+save                                | Сохранить коллекцию (в тот же файл)
+remove_greater                      | <Без параметров> Удаляет элементы больше заданного
+filter_less_than_annual_turnover    | <long annualTurnover> Выводит все элементы, оборот которых меньше указанного
+remove_lower                        | <Без параметров> Удаляет элементы меньше заданного
+show                                | <int количество> Выводит коллекцию
+exit                                | <Без параметров> Завершает работу без сохранения файла
+remove_by_id                        | <long id> Удаляет элемент коллеции по id
+
+апр. 12, 2024 5:09:48 PM server.managers.Logger log
+INFO: Отправлено: Новый элемент добавлен!
+апр. 12, 2024 5:09:50 PM server.managers.Logger log
 INFO: Отправлено: Organization{id=3, name='Ресторан "Прибой"', coordinates=Coordinates{x=25, y=38}, creationDate=2023-10-19, annualTurnover=3000000, employeesCount=15, type=OrganizationType{Публичная}, officialAddress=Address{zipCode='987654', town=Location{x=56.8389, y=60.6057, z=75}}}
 Organization{id=4, name='ООО "СтройКомплект"', coordinates=Coordinates{x=50, y=70}, creationDate=2023-07-03, annualTurnover=5000000, employeesCount=25, type=OrganizationType{ОАО}, officialAddress=Address{zipCode='111222', town=Location{x=54.6896, y=25.2803, z=30}}}
 Organization{id=6, name='Автосервис "АвтоМастер"', coordinates=Coordinates{x=30, y=55}, creationDate=2023-09-08, annualTurnover=2500000, employeesCount=12, type=OrganizationType{Государственная}, officialAddress=Address{zipCode='555666', town=Location{x=50.4501, y=30.5234, z=45}}}
@@ -17,7 +39,5 @@ Organization{id=2302498394493829120, name='bibaboba&co', coordinates=Coordinates
 Organization{id=2610625841895840768, name='jkjk', coordinates=Coordinates{x=4, y=4}, creationDate=2024-03-10, annualTurnover=4435435, employeesCount=544, type=OrganizationType{ООО}, officialAddress=Address{zipCode='dfjvkdj', town=Location{x=4.0, y=4.0, z=4}}}
 Organization{id=7770517286038238208, name='kkjj', coordinates=Coordinates{x=54, y=43}, creationDate=2024-03-05, annualTurnover=543534, employeesCount=54354, type=OrganizationType{Коммерческая}, officialAddress=Address{zipCode='gdfgfdg', town=Location{x=54.0, y=54.0, z=54}}}
 Organization{id=8731992706568813568, name='jklj', coordinates=Coordinates{x=4, y=4}, creationDate=2024-03-10, annualTurnover=54353, employeesCount=54, type=OrganizationType{ООО}, officialAddress=Address{zipCode='jkjk', town=Location{x=54.0, y=54.0, z=54}}}
-
-апр. 12, 2024 3:42:48 PM server.managers.Logger log
-INFO: Отправлено: Organization{id=1120308163051739136, name='amazon', coordinates=Coordinates{x=34, y=65}, creationDate=2024-02-06, annualTurnover=56348754356, employeesCount=600, type=OrganizationType{Коммерческая}, officialAddress=Address{zipCode='NY', town=Location{x=34.565, y=45.222, z=54}}}
+Organization{id=4334081585912867840, name='gdghf', coordinates=Coordinates{x=54, y=54}, creationDate=2024-04-12, annualTurnover=566456, employeesCount=65, type=OrganizationType{ООО}, officialAddress=Address{zipCode='gfgf', town=Location{x=54.0, y=54.0, z=54}}}
 

@@ -1,0 +1,1 @@
+execute_script C:\Users\Пользователь\IdeaProjects\Lab6\src\client\script.txt
